@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 17:13:08 by rponsonn          #+#    #+#             */
-/*   Updated: 2021/11/10 17:49:13 by rponsonn         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:21:36 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@
 # include <termios.h>
 
 int	main(void);
-
 #endif
