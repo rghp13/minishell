@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+         #
+#    By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 10:46:39 by dscriabi          #+#    #+#              #
-#    Updated: 2021/11/03 18:45:20 by dscriabi         ###   ########.fr        #
+#    Updated: 2021/11/23 14:36:35 by rponsonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,17 @@ CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
 $(NAME):	${OBJS}
-			ar -rcs ${NAME} ${OBJS}
+			@ar -rcs ${NAME} ${OBJS}
 
 %.o: %.c
-			${CC} -c ${CFLAGS} -o $@ $<
+			@${CC} -c ${CFLAGS} -o $@ $<
 
 all:		${NAME}
 
 clean:
-			${RM} ${OBJS} ${BOBJS}
+			@${RM} ${OBJS} ${BOBJS}
 
 fclean:		clean
-			${RM} libft.a
+			@${RM} libft.a
 
 re:			fclean all

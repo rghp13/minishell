@@ -6,7 +6,7 @@
 #    By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 15:37:19 by dscriabi          #+#    #+#              #
-#    Updated: 2021/11/11 17:29:00 by rponsonn         ###   ########.fr        #
+#    Updated: 2021/11/23 13:23:28 by rponsonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ LIBFT_A					=		libft.a
 								@echo "${GREEN}[ OK ] ${<:.s=.o}${NC}"
 ${NAME}:						${OBJ}
 								@make -C ${PATH_LIB}
-								@${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A}
-								@echo "${GREEN}[ COMPLETE ]${NC}"
+								${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A}
+								@echo "${GREEN}[ COMPLETE ]${NC}\n"
 								@cat "${Motto}"
 all:							${NAME}
 
