@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+         #
+#    By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 15:37:19 by dscriabi          #+#    #+#              #
-#    Updated: 2021/11/23 13:23:28 by rponsonn         ###   ########.fr        #
+#    Updated: 2021/12/06 18:51:32 by dscriabi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,15 @@ CYAN = \033[36m
 PATH_SRC				=		./srcs
 PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
-SRC_NAME				=		main.c
+SRC_NAME				=		main.c \
+								utils.c \
+								function_parsing.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
 CC						=		clang
 RM						=		rm -f
-CFLAG					=		-g #-Wall -Wextra -Werror
+CFLAG					=		-g -Wall -Wextra -Werror
 SRC						=		$(addprefix $(PATH_SRC)/,$(SRC_NAME))
 OBJ						=		$(addprefix $(PATH_SRC)/,$(OBJ_NAME))
 LIBFT_A					=		libft.a

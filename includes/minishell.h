@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 17:13:08 by rponsonn          #+#    #+#             */
-/*   Updated: 2021/11/11 15:21:36 by rponsonn         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:50:50 by dscriabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,15 @@
 # include <dirent.h>
 # include <termios.h>
 
+typedef struct s_command
+{
+	char				*command;
+	int					redirector;
+	char				*file;
+	int					separator;
+	struct s_command	*next;
+}				t_command;
+
 int	main(void);
+int	small_malloc(void **ptr, size_t size);
 #endif
