@@ -27,8 +27,22 @@ typedef struct s_command
 	char				*file;
 	int					separator;
 	struct s_command	*next;
-}				t_command;
+}						t_command;
 
-int	main(void);
-int	small_malloc(void **ptr, size_t size);
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*prev;
+	struct s_env	*next;
+}					t_env;
+
+typedef struct s_cont
+{
+	t_command	cmd;
+	t_env		*env;
+}				t_cont;
+
+int		small_malloc(void **ptr, size_t size);
+void	exec_cmd(char **cmd, char **envp);
 #endif
