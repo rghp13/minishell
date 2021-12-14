@@ -19,7 +19,7 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 	t_cmd	*newcmd;
 
 	current = list;
-	newcmd = create_newcmd(cmd);
+	newcmd = init_cmd(cmd);
 	if (list == NULL)
 		return (newcmd);
 	while (!current->next)
@@ -28,7 +28,7 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 	return (list);
 }
 
-int	parse_command(char *line, t_cmd **list)
+int	parse_command(char *line, t_cmd *list)
 {
 	int		i;
 	char	**str;
@@ -36,6 +36,6 @@ int	parse_command(char *line, t_cmd **list)
 	i = 0;
 	str = ft_split(line, ';');
 	while (str[++i])
-		*list = add_cell(*list, str[i]);
+		list = add_cell(list, str[i]);
 	return (0);
 }
