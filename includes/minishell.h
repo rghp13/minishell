@@ -20,14 +20,13 @@
 # include <dirent.h>
 # include <termios.h>
 
-typedef struct s_command
+typedef struct s_cmd
 {
-	char				*command;
-	int					redirector;
-	char				*file;
-	int					separator;
-	struct s_command	*next;
-}						t_command;
+	char			*cmd;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+	struct s_cmd	*pipechain;
+}						t_cmd;
 
 typedef struct s_env
 {
@@ -39,7 +38,7 @@ typedef struct s_env
 
 typedef struct s_cont
 {
-	t_command	cmd;
+	t_cmd	cmd;
 	t_env		*env;
 }				t_cont;
 
