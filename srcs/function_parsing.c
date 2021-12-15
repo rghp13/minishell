@@ -5,7 +5,7 @@ t_cmd	*init_cmd(char *cmd)
 	t_cmd	*newcmd;
 
 	if (small_malloc(&newcmd, sizeof(t_cmd)))
-		return(NULL);
+		return (NULL);
 	newcmd->next = NULL;
 	newcmd->prev = NULL;
 	newcmd->pipechain = NULL;
@@ -28,7 +28,7 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 	return (list);
 }
 
-int	parse_command(char *line, t_cmd *list)
+int	parse_command(char *line, t_cmd **list)
 {
 	int		i;
 	char	**str;
@@ -36,6 +36,6 @@ int	parse_command(char *line, t_cmd *list)
 	i = 0;
 	str = ft_split(line, ';');
 	while (str[++i])
-		list = add_cell(list, str[i]);
+		*list = add_cmd(*list, str[i]);
 	return (0);
 }

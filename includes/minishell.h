@@ -39,7 +39,7 @@ typedef struct s_env
 typedef struct s_cont
 {
 	t_cmd	cmd;
-	t_env		*env;
+	t_env	*env;
 }				t_cont;
 
 int		small_malloc(void **ptr, size_t size);
