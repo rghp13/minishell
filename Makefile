@@ -22,7 +22,7 @@ CYAN = \033[36m
 PATH_SRC				=		./srcs
 PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
-SRC_NAME				=		main.c exec.c utils.c function_parsing.c
+SRC_NAME				=		main.c exec.c utils.c function_parsing.c parse_utils1.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)

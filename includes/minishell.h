@@ -46,4 +46,7 @@ int		small_malloc(void **ptr, size_t size);
 void	exec_cmd(char **cmd, char **envp);
 int		parse_command(char *line, t_cmd **list);
 void	print_command_list(t_cmd *list);
+int		has_pipe(char *str);
+t_cmd	*init_cmd(char *cmd);
+t_cmd	*add_cmd(t_cmd *list, char *cmd);
 #endif

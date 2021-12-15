@@ -1,47 +1,29 @@
 #include "../includes/minishell.h"
 
-void	print_command_list(t_cmd *list)
+int	break_pipes(t_cmd *list)
 {
-	while (list)
-	{
-		printf("---------------%p---------------\n", list);
-		printf("cmd : %s\n", list->cmd);
-		printf("prev : %p\n", list->prev);
-		printf("next : %p\n", list->next);
-		printf("pipe : %p\n", list->pipechain);
-		printf("--------------------------------------\n");
-		list = list->next;
-	}
-	return ;
-}
-
-t_cmd	*init_cmd(char *cmd)
-{
-	t_cmd	*newcmd;
-
-	if (small_malloc((void *) &newcmd, sizeof(t_cmd)))
-		return (NULL);
-	newcmd->next = NULL;
-	newcmd->prev = NULL;
-	newcmd->pipechain = NULL;
-	newcmd->cmd = cmd;
-	return (newcmd);
-}
-
-t_cmd	*add_cmd(t_cmd *list, char *cmd)
-{
+	int		i;
 	t_cmd	*current;
-	t_cmd	*newcmd;
+	char	**str;
 
 	current = list;
-	newcmd = init_cmd(cmd);
-	if (list == NULL)
-		return (newcmd);
-	while (current->next)
+	while (current)
+	{
+		if (has_pipe(current->cmd))
+		{
+			str = ft_split(current->cmd, '|');
+			free(current->cmd);
+			current->cmd = str[0];
+			i = 1;
+			while (str[i])
+			{
+				current->pipechain = add_cmd(current->pipechain, str[i]);
+				i++;
+			}
+		}
 		current = current->next;
-	current->next = newcmd;
-	current->next->prev = current;
-	return (list);
+	}
+	return (0);
 }
 
 int	parse_command(char *line, t_cmd **list)
@@ -56,5 +38,6 @@ int	parse_command(char *line, t_cmd **list)
 		*list = add_cmd(*list, str[i]);
 		i++;
 	}
+	break_pipes(*list);
 	return (0);
 }
