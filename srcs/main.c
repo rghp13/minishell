@@ -20,6 +20,7 @@ int	main(void)
 	list = NULL;
 	parse_command("echo test; echo test 2 | echo pipe 1 | echo pipe 2; echo last test | echo pipe 3", &list);
 	print_command_list(list);
+	free_parse(list);
 	return (0);
 }
 

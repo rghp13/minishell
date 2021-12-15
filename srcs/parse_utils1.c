@@ -58,3 +58,30 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 	current->next->prev = current;
 	return (list);
 }
+
+int	free_parse(t_cmd *list)
+{
+	t_cmd	*next;
+	t_cmd	*pipe;
+	t_cmd	*temp;	
+
+	while (list)
+	{
+		next = list->next;
+		if (list->pipechain)
+		{
+			pipe = list->pipechain;
+			while (pipe)
+			{
+				temp = pipe->next;
+				free(pipe->cmd);
+				free(pipe);
+				pipe = temp;
+			}
+		}
+		free(list->cmd);
+		free(list);
+		list = next;
+	}
+	return (0);
+}

@@ -20,6 +20,7 @@ int	break_pipes(t_cmd *list)
 				current->pipechain = add_cmd(current->pipechain, str[i]);
 				i++;
 			}
+			free(str);
 		}
 		current = current->next;
 	}
@@ -38,6 +39,7 @@ int	parse_command(char *line, t_cmd **list)
 		*list = add_cmd(*list, str[i]);
 		i++;
 	}
+	free(str);
 	break_pipes(*list);
 	return (0);
 }
