@@ -13,6 +13,16 @@
 **tgoto, tputs
 */
 
+// int	main(void)
+// {
+// 	t_cmd	*list;
+
+// 	list = NULL;
+// 	parse_command("echo test; echo test 2; echo last test", &list);
+// 	print_command_list(list);
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
