@@ -9,6 +9,8 @@ t_cont	*get_env(char **envp)
 
 	i = 0;
 	head = NULL;
+	if (envp == NULL || envp[0] == NULL)
+		return (ft_error(1));
 	while (envp[i])
 	{
 		current = malloc(sizeof(t_env));
@@ -20,6 +22,7 @@ t_cont	*get_env(char **envp)
 		split_free(split);
 		add_last(head, current);
 	}
+	return (head);
 }
 
 void	split_free(char **str)

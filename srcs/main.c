@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 **readline, rl_clear_history, rl_on_new_line,
@@ -11,6 +11,7 @@
 **isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
 **tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
 **tgoto, tputs
+**Start by moving all envp to a linked list
 */
 
 // int	main(void)
@@ -25,26 +26,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*buffer;
-	char	**cmd;
+	int		error;
 	t_cont	cont;
+	char	*ptr;
+	//cont.env = ft_setup_env(envp);
+	//if (cont.env == NULL)
+	//	return (ft_error(1, NULL));
+	//return (mini_shell(cont));
+	ptr = readline("Hello> ");
+	printf("%s\n", ptr);
 
-	write(1, "$> ", 3);
-	while (1)
-	{
-		buffer = get_next_line(1);
-		if (buffer == NULL)
-		{
-			perror("Malloc Error\n");
-			return (0);
-		}
-		printf("cmd = %s\n", buffer);
-		cmd = ft_split(buffer, ' ');
-		get_abs_path(cmd);
-		exec_cmd(cmd, envp);
-		free(buffer);
-		write(1, "$> ", 3);
-	}
-	printf("BYE!\n");
-	free(buffer);
+	return (0);
 }

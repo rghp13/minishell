@@ -19,6 +19,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# define ER1 "ERROR: SHELL MISSING ENV VARIABLES"
 
 typedef struct s_cmd
 {
@@ -42,8 +43,28 @@ typedef struct s_cont
 	t_env	*env;
 }				t_cont;
 
+/*
+**UTILS.C
+*/
 int		small_malloc(void **ptr, size_t size);
+int		ft_error(int erno);
+/*
+**FUNCTION_PARSING.C
+*/
 void	exec_cmd(char **cmd, char **envp);
 int		parse_command(char *line, t_cmd **list);
 void	print_command_list(t_cmd *list);
+t_cmd	*init_cmd(char *cmd);
+t_cmd	*add_cmd(t_cmd *list, char *cmd);
+/*
+**EXEC.C
+*/
+void	exec_cmd(char **cmd, char **envp);
+void	get_abs_path(char **cmd);
+/*
+**ENV.C
+*/
+t_cont	*get_env(char **envp);
+void	split_free(char **str);
+
 #endif
