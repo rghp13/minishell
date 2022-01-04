@@ -14,27 +14,39 @@
 **Start by moving all envp to a linked list
 */
 
-// int	main(void)
-// {
-// 	t_cmd	*list;
-
-// 	list = NULL;
-// 	parse_command("echo test; echo test 2; echo last test", &list);
-// 	print_command_list(list);
-// 	return (0);
-// }
-
-int	main(int argc, char **argv, char **envp)
+int	main(void)
 {
-	int		error;
-	t_cont	cont;
-	char	*ptr;
-	//cont.env = ft_setup_env(envp);
-	//if (cont.env == NULL)
-	//	return (ft_error(1, NULL));
-	//return (mini_shell(cont));
-	ptr = readline("Hello> ");
-	printf("%s\n", ptr);
+	t_cmd	*list;
 
+	list = NULL;
+	parse_command("echo test; echo test 2 | echo pipe 1 | echo pipe 2; echo last test | echo pipe 3", &list);
+	print_command_list(list);
+	free_parse(list);
 	return (0);
 }
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char	*buffer;
+// 	char	**cmd;
+// 	t_cont	cont;
+
+// 	write(1, "$> ", 3);
+// 	while (1)
+// 	{
+// 		buffer = get_next_line(1);
+// 		if (buffer == NULL)
+// 		{
+// 			perror("Malloc Error\n");
+// 			return (0);
+// 		}
+// 		printf("cmd = %s\n", buffer);
+// 		cmd = ft_split(buffer, ' ');
+// 		get_abs_path(cmd);
+// 		exec_cmd(cmd, envp);
+// 		free(buffer);
+// 		write(1, "$> ", 3);
+// 	}
+// 	printf("BYE!\n");
+// 	free(buffer);
+// }
