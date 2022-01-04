@@ -22,13 +22,18 @@ CYAN = \033[36m
 PATH_SRC				=		./srcs
 PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
-SRC_NAME				=		main.c exec.c utils.c function_parsing.c parse_utils1.c
+SRC_NAME				=		env.c \
+								exec.c \
+								free.c \
+								function_parsing.c \
+								main.c \
+								utils.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
 CC						=		clang
 RM						=		rm -f
-CFLAG					=		-g #-Wall -Wextra -Werror
+CFLAG					=		-g#-Wall -Wextra -Werror
 SRC						=		$(addprefix $(PATH_SRC)/,$(SRC_NAME))
 OBJ						=		$(addprefix $(PATH_SRC)/,$(OBJ_NAME))
 LIBFT_A					=		libft.a
@@ -37,7 +42,7 @@ LIBFT_A					=		libft.a
 								@echo "${GREEN}[ OK ] ${<:.s=.o}${NC}"
 ${NAME}:						${OBJ}
 								@make -C ${PATH_LIB}
-								${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A}
+								@${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A} -lreadline
 								@echo "${GREEN}[ COMPLETE ]${NC}\n"
 								@echo "$$HEADER"
 all:							${NAME}

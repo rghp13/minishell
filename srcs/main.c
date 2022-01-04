@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 **readline, rl_clear_history, rl_on_new_line,
@@ -11,6 +11,7 @@
 **isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
 **tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
 **tgoto, tputs
+**Start by moving all envp to a linked list
 */
 
 int	main(void)

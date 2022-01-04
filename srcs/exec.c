@@ -17,8 +17,8 @@ void	exec_cmd(char **cmd, char **envp)
 	}
 	else
 	{
-		if (execve(cmd[0], cmd, "/usr/local/bin/$cmd") == -1)
-			perror("Shell");
+		//if (execve(cmd[0], cmd, "/usr/local/bin/$cmd") == -1)
+		//	perror("Shell");
 		exit(EXIT_FAILURE);
 	}
 }
