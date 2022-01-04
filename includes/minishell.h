@@ -51,11 +51,12 @@ int		ft_error(int erno);
 /*
 **FUNCTION_PARSING.C
 */
-void	exec_cmd(char **cmd, char **envp);
 int		parse_command(char *line, t_cmd **list);
 void	print_command_list(t_cmd *list);
 t_cmd	*init_cmd(char *cmd);
 t_cmd	*add_cmd(t_cmd *list, char *cmd);
+int		free_parse(t_cmd *list);
+int		has_pipe(char *str);
 /*
 **EXEC.C
 */
