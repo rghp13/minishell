@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-// t_cont	*get_env(char **envp)
-// {
-// 	int		i;
-// 	t_env	*head;
-// 	t_env	*current;
-// 	char	**split;
+t_cont	*get_env(char **envp)
+{
+	int		i;
+	t_env	*head;
+	t_env	*current;
+ 	char	**split;
 
 	i = 0;
 	head = NULL;
@@ -25,15 +25,15 @@
 	return (head);
 }
 
-// void	split_free(char **str)
-// {
-// 	int i;
+void	split_free(char **str)
+{
+	int i;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		free(str[i++]);
-// 	}
-// 	free(str);
-// 	return ;
-// }
+	i = 0;
+	while (str[i])
+	{
+		free(str[i++]);
+	}
+	free(str);
+	return ;
+}
