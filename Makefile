@@ -28,7 +28,8 @@ SRC_NAME				=		env.c \
 								function_parsing.c \
 								main.c \
 								utils.c \
-								parse_utils1.c
+								parse_utils1.c \
+								variable_substitution.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
