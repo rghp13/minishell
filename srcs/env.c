@@ -20,7 +20,7 @@ t_cont	*get_env(char **envp)
 		current->key = split[0];
 		current->value = split[1];
 		split_free(split);
-		add_last(head, current);
+		//add_last(head, current);
 	}
 	return (head);
 }
