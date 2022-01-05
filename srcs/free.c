@@ -1,7 +1,34 @@
 #include "minishell.h"
 
-void	main_free(void)
+//void	main_free(void)
+//{
+//	call function to free your struct in a safe way here
+//	free_env_strct() etc...
+//}
+
+int	free_envp(t_env *current, t_env *head)
 {
-	//call function to free your struct in a safe way here
-	//free_env_strct() etc...
+	t_env *ptr;
+
+	if (current != NULL)
+	{
+		if (current->key != NULL)
+			free(current->key);
+		if (current->value != NULL)
+			free(current->value);
+		free(current);
+	}
+	current = NULL;
+	while (head != NULL)
+	{
+		ptr = head->next;
+		if (head->key != NULL)
+			free(head->key);
+		if (head->value != NULL)
+			free(head->value);
+		free(head);
+		head = ptr;
+	}
+	head = NULL;
+	return (1);
 }
