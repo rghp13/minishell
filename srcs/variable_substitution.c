@@ -23,15 +23,18 @@ int	substitute_variables(t_cont *cont)
 int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 {
 	int	i;
+	int	bracket;
 
 	i = 0;
+	bracket = 0;
 	while (cmd->cmd[i])
 	{
-		if (cmd->cmd[i] == '$')
+		if (cmd->cmd[i] == '\'')
+			bracket = !bracket;
+		if (cmd->cmd[i] == '$' && bracket == 0)
 			//find the name of the environment variable
 			//find it's value in the array
-			//substitute
-			//free old char pointers
+			substituestr(cmd->cmd, /*variable name*/, /*value*/, i);
 		i++;
 	}
 }
@@ -77,5 +80,6 @@ char *substituestr(char *text, char *word, char *replacement, int start)
 	while (text[k])
 		retstr[i++] = text[k++];
 	retstr[i] = '\0';
+	free(text);
 	return (retstr);
 }
