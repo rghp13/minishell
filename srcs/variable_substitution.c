@@ -5,14 +5,14 @@ int	substitute_variables(t_cont *cont)
 	t_cmd *current;
 	t_cmd *pipe;
 
-	current = cont->cmd;
+	current = &cont->cmd;
 	while (current)
 	{
 		parse_line_variable(current, cont->env);
 		pipe = current->pipechain;
 		while (pipe)
 		{
-			parse_line_variable(pipe, cont->env)
+			parse_line_variable(pipe, cont->env);
 			pipe = pipe->next;
 		}
 		current = current->next;
