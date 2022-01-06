@@ -35,7 +35,7 @@ t_env	*get_env(char **envp)
 
 void	add_last(t_env *head, t_env *current)
 {
-	t_env *next;
+	t_env	*next;
 
 	if (head == NULL || current == NULL)
 		return ;
@@ -51,7 +51,7 @@ void	add_last(t_env *head, t_env *current)
 
 int	assign_env_to_struct(t_env *current, char *envp)
 {
-	char *ptr;
+	char	*ptr;
 
 	ptr = ft_strchr(envp, '=');
 	if (ptr == NULL)
@@ -70,8 +70,8 @@ int	assign_env_to_struct(t_env *current, char *envp)
 
 char	*get_key_val(const char *key, t_env *env)
 {
-	const char *ret;
-	t_env *key_struct;
+	const char	*ret;
+	t_env		*key_struct;
 
 	if (key[0] != '$')
 		return (ft_calloc(1, sizeof(char)));

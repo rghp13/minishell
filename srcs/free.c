@@ -6,9 +6,16 @@
 //	free_env_strct() etc...
 //}
 
-int	free_envp(t_env *current, t_env *head)
+/*
+**if you only want to clear an unattached link in the env chain put it in current
+**and leave head NULL
+**if you want to clear the whole env chain put the head in head.
+**
+*/
+
+void	free_envp(t_env *current, t_env *head)
 {
-	t_env *ptr;
+	t_env	*ptr;
 
 	if (current != NULL)
 	{

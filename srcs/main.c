@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
 		ptr = ptr->next;
 	}
-	str = get_key_val("$LSCOLORS", cont.env);
+	str = get_key_val("$LS_COLORS", cont.env);
 	printf("%s\n", str);
 	free(str);
 	free_envp(NULL, cont.env);
