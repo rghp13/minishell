@@ -20,10 +20,33 @@ int	substitute_variables(t_cont *cont)
 	return (0);
 }
 
+char *get_var_name(char *var_start)
+{
+	int		i;
+	int		j;
+	char	*retstr;
+
+	i = 0;
+	j = 1;
+	while (var_start[j] != '$' && var_start[j] != ' ' && var_start)
+		j++;
+	if (small_malloc(&retstr, sizeof(char) * ((i - j) + 1)));
+		return (NULL);
+	while (i < j)
+	{
+		retstr[i] = var_start[i];
+		i++;
+	}
+	retstr[i] = '\0';
+	return (retstr);
+}
+
 int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 {
-	int	i;
-	int	bracket;
+	int		i;
+	int		bracket;
+	char	*var_name;
+	char	*var_val;
 
 	i = 0;
 	bracket = 0;
@@ -32,9 +55,13 @@ int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 		if (cmd->cmd[i] == '\'')
 			bracket = !bracket;
 		if (cmd->cmd[i] == '$' && bracket == 0)
-			//find the name of the environment variable
-			//find it's value in the array
-			substituestr(cmd->cmd, /*variable name*/, /*value*/, i);
+		{
+			var_name = get_var_name(&cmd->cmd[i]);
+			var_val = get_key_val(var_name, envstart);
+			substituestr(cmd->cmd, var_name, var_name, i);
+			free(var_name);
+			free(var_val);
+		}
 		i++;
 	}
 }
