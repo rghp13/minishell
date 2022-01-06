@@ -1,39 +1,104 @@
 #include "minishell.h"
 
-t_cont	*get_env(char **envp)
+t_env	*get_env(char **envp)
 {
 	int		i;
 	t_env	*head;
 	t_env	*current;
- 	char	**split;
 
 	i = 0;
 	head = NULL;
 	if (envp == NULL || envp[0] == NULL)
-		return (ft_error(1));
+	{
+		return (NULL);
+	}
 	while (envp[i])
 	{
-		current = malloc(sizeof(t_env));
-		split = ft_split(envp[i], '=');
-		if (split == NULL)
-			perror("Malloc Error");
-		current->key = split[0];
-		current->value = split[1];
-		split_free(split);
-		//add_last(head, current);
+		current = ft_calloc(1, sizeof(t_env));
+		if (current == NULL || assign_env_to_struct(current, envp[i]) == 1)
+		{
+			free_envp(current, head);
+			return (NULL);
+		}
+		if (head == NULL)
+			head = current;
+		else
+			add_last(head, current);
+		i++;
 	}
 	return (head);
 }
 
-void	split_free(char **str)
-{
-	int	i;
+/*
+**doesn't add last if head empty (no thoughts)
+*/
 
-	i = 0;
-	while (str[i])
+void	add_last(t_env *head, t_env *current)
+{
+	t_env	*next;
+
+	if (head == NULL || current == NULL)
+		return ;
+	else
 	{
-		free(str[i++]);
+		next = head;
+		while (next->next != NULL)
+			next = next->next;
+		next->next = current;
+		current->prev = next;
 	}
-	free(str);
-	return ;
+}
+
+int	assign_env_to_struct(t_env *current, char *envp)
+{
+	char	*ptr;
+
+	ptr = ft_strchr(envp, '=');
+	if (ptr == NULL)
+		return (1);
+	current->key = ft_calloc(((ptr - envp) + 1), sizeof(char));
+	if (current->key == NULL)
+		return (1);
+	ft_memcpy(current->key, envp, ptr - envp);
+	if (ft_strlen(ptr) < 2)
+		return (1);
+	current->value = ft_strdup(ptr + 1);
+	if (current->value == NULL)
+		return (1);
+	return (0);
+}
+
+char	*get_key_val(const char *key, t_env *env)
+{
+	const char	*ret;
+	t_env		*key_struct;
+
+	if (key[0] != '$')
+		return (ft_calloc(1, sizeof(char)));
+	ret = key + 1;
+	key_struct = find_env(ret, env);
+	if (key_struct == NULL)
+		return (ft_calloc(1, sizeof(char)));
+	return (ft_strdup(key_struct->value));
+}
+
+t_env	*find_env(const char *key, t_env *head)
+{
+	t_env	*ptr;
+	int		len;
+
+	ptr = head;
+	if (key == NULL || head == NULL)
+		return (NULL);
+	len = ft_strlen(key);
+	while (ptr)
+	{
+		if (len == ft_strlen(ptr->key))
+		{
+			if (ft_strncmp(key, ptr->key, len) == 0)
+				return (ptr);
+		}
+		ptr = ptr->next;
+	}
+	return (NULL);
 }

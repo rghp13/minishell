@@ -14,14 +14,26 @@
 **Start by moving all envp to a linked list
 */
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	t_cmd	*list;
-
-	list = NULL;
-	parse_command("echo test; echo test 2 | echo pipe 1 | echo pipe 2; echo last test | echo pipe 3;", &list);
-	print_command_list(list);
-	free_parse(list);
+	t_cont	cont;
+	t_env	*ptr;
+	char	*str;
+	(void)argc;
+	(void)argv;
+	cont.env = get_env(envp);
+	if (cont.env == NULL)
+		return (printf("ERROR\n"));
+	ptr = cont.env;
+	while (ptr)
+	{
+		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
+		ptr = ptr->next;
+	}
+	str = get_key_val("$LS_COLORS", cont.env);
+	printf("%s\n", str);
+	free(str);
+	free_envp(NULL, cont.env);
 	return (0);
 }
 

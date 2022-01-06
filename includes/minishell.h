@@ -65,7 +65,15 @@ void	get_abs_path(char **cmd);
 /*
 **ENV.C
 */
-t_cont	*get_env(char **envp);
-void	split_free(char **str);
+t_env	*get_env(char **envp);
+void	add_last(t_env *head, t_env *current);
+int		assign_env_to_struct(t_env *current, char *envp);
+char	*get_key_val(const char *key, t_env *env);
+t_env	*find_env(const char *key, t_env *head);
+
+/*
+**FREE.C
+*/
+void	free_envp(t_env *current, t_env *head);
 
 #endif
