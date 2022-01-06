@@ -74,6 +74,6 @@ t_env	*find_env(const char *key, t_env *head);
 /*
 **FREE.C
 */
-int		free_envp(t_env *current, t_env *head);
+void	free_envp(t_env *current, t_env *head);
 
 #endif
