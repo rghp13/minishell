@@ -1,33 +1,21 @@
 #include "minishell.h"
 
-void	exec_cmd(char **cmd, char **envp)
-{
-	pid_t	pid;
-	int		status;
+//main function that will run one command at a time in the list
+//start by taking the first command, figuring out which is the correct path
+//figure out if it needs to redirect and how to redirect
 
-	pid = 0;
-	status = 0;
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
-	else
-	{
-		//if (execve(cmd[0], cmd, "/usr/local/bin/$cmd") == -1)
-		//	perror("Shell");
-		exit(EXIT_FAILURE);
-	}
+void	exec_cmd(t_env *env, t_cmd *cmd)
+{
+	return ;
 }
 
-void	get_abs_path(char **cmd)
+void	get_abs_path(const char *src, t_env *env)
 {
-	char	*path;
 	char	*bin;
+	char	**split;
+	int		i;
 
-	path = strdup(getenv("PATH"));
+	split = ft_split(get_key_val("PATH", env), ':');
+	
 	return ;
 }
