@@ -14,28 +14,29 @@
 **Start by moving all envp to a linked list
 */
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_cont	cont;
-	t_env	*ptr;
-	char	*str;
-	(void)argc;
-	(void)argv;
-	cont.env = get_env(envp);
-	if (cont.env == NULL)
-		return (printf("ERROR\n"));
-	ptr = cont.env;
-	while (ptr)
-	{
-		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
-		ptr = ptr->next;
-	}
-	str = get_key_val("$LS_COLORS", cont.env);
-	printf("%s\n", str);
-	free(str);
-	free_envp(NULL, cont.env);
-	return (0);
-}
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_cont	cont;
+// 	t_env	*ptr;
+// 	char	*str;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	cont.env = get_env(envp);
+// 	if (cont.env == NULL)
+// 		return (printf("ERROR\n"));
+// 	ptr = cont.env;
+// 	while (ptr)
+// 	{
+// 		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
+// 		ptr = ptr->next;
+// 	}
+// 	str = get_key_val("$LS_COLORS", cont.env);
+// 	printf("%s\n", str);
+// 	free(str);
+// 	free_envp(NULL, cont.env);
+// 	return (0);
+// }
 
 // int	main(int argc, char **argv, char **envp)
 // {
@@ -62,3 +63,19 @@ int	main(int argc, char **argv, char **envp)
 // 	printf("BYE!\n");
 // 	free(buffer);
 // }
+
+int	main(int argc, char const *argv[], char **envp)
+{
+	t_cmd	*cmd;
+	t_env	*env;
+	t_cont	*cont;
+
+	cmd = NULL;
+	env = get_env(envp);
+	parse_command("echo test | echo $LESS | echo pipe 2; echo test2", &cmd);
+	cont->cmd = cmd;
+	cont->env = env;
+	substitute_variables(cont);
+	print_command_list(cont->cmd);
+	return (0);
+}

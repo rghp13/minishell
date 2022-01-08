@@ -37,5 +37,5 @@ void	free_envp(t_env *current, t_env *head)
 		head = ptr;
 	}
 	head = NULL;
-	return (1);
+	// return (1);
 }
