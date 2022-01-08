@@ -66,16 +66,16 @@
 
 int	main(int argc, char const *argv[], char **envp)
 {
-	t_cmd	*cmd;
-	t_env	*env;
 	t_cont	*cont;
+	t_cont	test;
 
-	cmd = NULL;
-	env = get_env(envp);
-	parse_command("echo test | echo $LESS | echo pipe 2; echo test2", &cmd);
-	cont->cmd = cmd;
-	cont->env = env;
+	cont = &test;
+	cont->cmd = NULL;
+	cont->env = get_env(envp);
+	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
 	substitute_variables(cont);
 	print_command_list(cont->cmd);
+	free_parse(cont->cmd);
+	free_envp(NULL, cont->env);
 	return (0);
 }

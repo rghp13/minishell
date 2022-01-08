@@ -53,7 +53,9 @@ char	*get_var_name(char *var_start)
 
 	i = 0;
 	j = 1;
-	while (var_start[j] != '$' && var_start[j] != ' ' && var_start)
+	if (!var_start)
+		return (NULL);
+	while (var_start[j] != '$' && var_start[j] != ' ' && var_start[j])
 		j++;
 	if (small_malloc((void **)&retstr, sizeof(char) * ((j - i) + 1)))
 		return (NULL);
@@ -84,8 +86,11 @@ int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 			var_name = get_var_name(&cmd->cmd[i]);
 			var_val = get_key_val(var_name, envstart);
 			cmd->cmd = substituestr(cmd->cmd, var_name, var_val, i);
+			i += ft_strlen(var_val) - 1;
 			free(var_name);
 			free(var_val);
+			if (!cmd->cmd)
+				return (-1);
 		}
 		i++;
 	}
@@ -100,11 +105,13 @@ int	substitute_variables(t_cont *cont)
 	current = cont->cmd;
 	while (current)
 	{
-		parse_line_variable(current, cont->env);
+		if (parse_line_variable(current, cont->env))
+			return (-1);
 		pipe = current->pipechain;
 		while (pipe)
 		{
-			parse_line_variable(pipe, cont->env);
+			if (parse_line_variable(pipe, cont->env))
+				return (-1);
 			pipe = pipe->next;
 		}
 		current = current->next;
