@@ -39,7 +39,7 @@ typedef struct s_env
 
 typedef struct s_cont
 {
-	t_cmd	cmd;
+	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
 
@@ -75,5 +75,7 @@ t_env	*find_env(const char *key, t_env *head);
 **FREE.C
 */
 void	free_envp(t_env *current, t_env *head);
+
+int		substitute_variables(t_cont *cont);
 
 #endif

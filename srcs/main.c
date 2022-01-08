@@ -14,28 +14,29 @@
 **Start by moving all envp to a linked list
 */
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_cont	cont;
-	t_env	*ptr;
-	char	*str;
-	(void)argc;
-	(void)argv;
-	cont.env = get_env(envp);
-	if (cont.env == NULL)
-		return (printf("ERROR\n"));
-	ptr = cont.env;
-	while (ptr)
-	{
-		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
-		ptr = ptr->next;
-	}
-	str = get_key_val("$LS_COLORS", cont.env);
-	printf("%s\n", str);
-	free(str);
-	free_envp(NULL, cont.env);
-	return (0);
-}
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_cont	cont;
+// 	t_env	*ptr;
+// 	char	*str;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	cont.env = get_env(envp);
+// 	if (cont.env == NULL)
+// 		return (printf("ERROR\n"));
+// 	ptr = cont.env;
+// 	while (ptr)
+// 	{
+// 		printf("Key = %s\nValue = %s\n\n", ptr->key, ptr->value);
+// 		ptr = ptr->next;
+// 	}
+// 	str = get_key_val("$LS_COLORS", cont.env);
+// 	printf("%s\n", str);
+// 	free(str);
+// 	free_envp(NULL, cont.env);
+// 	return (0);
+// }
 
 // int	main(int argc, char **argv, char **envp)
 // {
@@ -62,3 +63,19 @@ int	main(int argc, char **argv, char **envp)
 // 	printf("BYE!\n");
 // 	free(buffer);
 // }
+
+int	main(int argc, char const *argv[], char **envp)
+{
+	t_cont	*cont;
+	t_cont	test;
+
+	cont = &test;
+	cont->cmd = NULL;
+	cont->env = get_env(envp);
+	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
+	substitute_variables(cont);
+	print_command_list(cont->cmd);
+	free_parse(cont->cmd);
+	free_envp(NULL, cont->env);
+	return (0);
+}
