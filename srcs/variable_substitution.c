@@ -51,8 +51,6 @@ int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 {
 	int		i;
 	int		bracket;
-	char	*var_name;
-	char	*var_val;
 
 	i = 0;
 	bracket = 0;
@@ -62,13 +60,7 @@ int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 			bracket = !bracket;
 		if (cmd->cmd[i] == '$' && bracket == 0 && is_var_char(cmd->cmd[i + 1]))
 		{
-			var_name = get_var_name(&cmd->cmd[i]);
-			var_val = get_key_val(var_name, envstart);
-			cmd->cmd = substituestr(cmd->cmd, var_name, var_val, i);
-			i += ft_strlen(var_val) - 1;
-			free(var_name);
-			free(var_val);
-			if (!cmd->cmd)
+			if (replace_var(&cmd->cmd, &i, envstart))
 				return (-1);
 		}
 		i++;

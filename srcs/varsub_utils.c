@@ -51,3 +51,26 @@ char	*substituestr(char *text, char *word, char *replacement, int start)
 	free(text);
 	return (retstr);
 }
+
+int	replace_var(char **cmd, int *i, t_env *envstart)
+{
+	char	*var_name;
+	char	*var_val;
+
+	var_name = get_var_name(&cmd[0][*i]);
+	if (!var_name)
+		return (-1);
+	var_val = get_key_val(var_name, envstart);
+	if (!var_val)
+	{
+		free (var_name);
+		return (-1);
+	}
+	*cmd = substituestr(*cmd, var_name, var_val, *i);
+	i += ft_strlen(var_val) - 1;
+	free(var_name);
+	free(var_val);
+	if (!*cmd)
+		return (-1);
+	return (0);
+}

@@ -80,5 +80,7 @@ int		substitute_variables(t_cont *cont);
 int		is_word_to_replace(char *currentletter, char *word);
 char	*substituestr(char *text, char *word, char *replacement, int start);
 int		is_var_char(char c);
+int		replace_var(char **cmd, int *i, t_env *envstart);
+char	*get_var_name(char *var_start);
 
 #endif
