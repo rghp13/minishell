@@ -72,10 +72,7 @@ int	main(int argc, char const *argv[], char **envp)
 	cont = &test;
 	cont->cmd = NULL;
 	cont->env = get_env(envp);
-	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
-	substitute_variables(cont);
-	print_command_list(cont->cmd);
-	free_parse(cont->cmd);
-	free_envp(NULL, cont->env);
+	cont->sig = get_signal()
+	minishell(cont);
 	return (0);
 }

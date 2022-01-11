@@ -48,6 +48,8 @@ typedef struct s_cont
 */
 int		small_malloc(void **ptr, size_t size);
 int		ft_error(int erno);
+int		ft_free_all_split(char **split);
+
 /*
 **FUNCTION_PARSING.C
 */
