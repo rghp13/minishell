@@ -14,3 +14,19 @@ int	ft_error(int erno)
 		write(STDERR_FILENO, ER1, ft_strlen(ER1));
 	return (1);
 }
+
+int	ft_free_all_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	if (split == NULL)
+		return (0);
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	return (0);
+}
