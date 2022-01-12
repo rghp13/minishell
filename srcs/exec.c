@@ -6,6 +6,20 @@
 
 void	exec_cmd(t_env *env, t_cmd *cmd)
 {
+	t_cmd	*hold;
+
+	hold = cmd;
+	while (hold)
+	{
+		hold->abspath = get_abs_path(hold->cmd, env);
+		hold = hold->next;
+	}
+	hold = cmd;
+	while (hold)
+	{
+		execve(hold->abspath, NULL, env->envstr);
+		hold = hold->next;
+	}
 	return ;
 }
 
@@ -17,23 +31,40 @@ char	*get_abs_path(const char *src, t_env *env)
 	int		i;
 
 	bin = get_key_val("PATH", env);
-	i = 0;
+	i = -1;
 	if (bin == NULL)
 		return (NULL);
 	split = ft_split(bin, ':');
 	free(bin);
 	if (split == NULL)
 		return (NULL);
-	while (split[i])
+	while (split[++i])
 	{
-		split[i] = ft_strjoin(split[i], "/");
-		if (hold == NULL)
+		if (merge_path_name(&split[i], src) != 0)
+			return ((void*)(uintptr_t)ft_free_all_split(split));
+		if (access(split[i], F_OK))
 		{
+			bin = ft_strdup(split[i]);
 			ft_free_all_split(split);
-			return (NULL);
+			return (bin);
 		}
-		split[i] = ft_strjoin(split[i], src);
-
 	}
-	return (bin);
+	return (NULL);
+}
+
+int	merge_path_name(char **path, const char *name)
+{
+	char *hold;
+	char *hold2;
+
+	hold = ft_strjoin(*path, "/");
+	if (hold == NULL)
+		return (1);
+	hold2 = ft_strjoin(hold, name);
+	free(hold);
+	if (hold2 == NULL)
+		return (1);
+	free(*path);
+	*path = hold2;
+	return (0);
 }

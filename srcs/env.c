@@ -9,9 +9,7 @@ t_env	*get_env(char **envp)
 	i = 0;
 	head = NULL;
 	if (envp == NULL || envp[0] == NULL)
-	{
 		return (NULL);
-	}
 	while (envp[i])
 	{
 		current = ft_calloc(1, sizeof(t_env));
@@ -20,6 +18,7 @@ t_env	*get_env(char **envp)
 			free_envp(current, head);
 			return (NULL);
 		}
+		current->envstr = envp;
 		if (head == NULL)
 			head = current;
 		else
