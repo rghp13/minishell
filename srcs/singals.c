@@ -33,7 +33,11 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 		//cont->status = 1;
 	}
 	else if (signal == SIGQUIT && !cont->child_pid)
-		return (0);
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		//write(1, "  \b\b", 4);
+	}
 	else if (signal == SIGINT || signal == SIGQUIT)
 		kill(ptr->child_pid, signal);
 	return (0);
