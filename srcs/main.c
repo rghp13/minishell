@@ -77,16 +77,20 @@ int	main_loop(t_cont *cont)
 {
 	char	*parsed_line;
 
-	while (!cont->status)
+	while (1)
 	{
 		parsed_line = readline("$> ");
 		if (!parsed_line)
-			return (-1);
-		parse_command(parsed_line, &cont->cmd);
-		substitute_variables(cont);
-		print_command_list(cont->cmd);
-		free_parse(cont->cmd);
-		cont->cmd = NULL;
+			break ;
+		if (!cont->status)
+		{
+			parse_command(parsed_line, &cont->cmd);
+			substitute_variables(cont);
+			print_command_list(cont->cmd);
+			free_parse(cont->cmd);
+			cont->cmd = NULL;
+		}
+		cont->status = 0;
 	}
 	return (0);
 }
@@ -96,6 +100,8 @@ int	main(int argc, char const *argv[], char **envp)
 	t_cont	test;
 
 	signal_redirector(&test, 0, 1);
+	signal(SIGINT, &signal_handler);
+	signal(SIGQUIT, &signal_handler);
 	initialize_main_struct(&test, envp);
 	main_loop(&test);
 	free_envp(NULL, test.env);

@@ -25,12 +25,16 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 	if (mode)
 		cont = ptr;
 	if (signal == SIGINT && !cont->child_pid)
-		/*sigint function w/o PID*/
+	{
+		//printf("\n");
+	 	// rl_on_new_line();
+	 	// rl_replace_line("", 0); // Clear the previous text
+		// rl_redisplay();
+		cont->status = 1;
+	}
 	else if (signal == SIGQUIT && !cont->child_pid)
-		/*sigquit function w/o PID*/
-	else if (signal == SIGINT)
-		/*sigint function for child PID*/
-	else if (signal == SIGQUIT)
-		/*sigquit function for child PID*/
+		return (0);
+	else if (signal == SIGINT || signal == SIGQUIT)
+		kill(ptr->child_pid, signal);
 	return (0);
 }
