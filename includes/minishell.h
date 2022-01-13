@@ -26,11 +26,14 @@
 typedef struct s_cmd
 {
 	char			*cmd;
+	char			**arg;
 	char			*abspath;
+	char			*redirect;
+	int				redirect_type;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct s_cmd	*pipechain;
-}						t_cmd;
+}					t_cmd;
 
 typedef struct s_env
 {
@@ -66,7 +69,7 @@ int		has_pipe(char *str);
 /*
 **EXEC.C
 */
-void	exec_cmd(t_env *env, t_cmd *cmd);
+void	exec_cmd(t_cont *cont);
 char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
 /*
