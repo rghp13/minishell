@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 **readline, rl_clear_history, rl_on_new_line,
@@ -73,15 +73,31 @@ int	initialize_main_struct(t_cont *cont, char **envp)
 	return (0);
 }
 
+int	main_loop(t_cont *cont)
+{
+	char	*parsed_line;
+
+	while (!cont->status)
+	{
+		parsed_line = readline("$> ");
+		if (!parsed_line)
+			return (-1);
+		parse_command(parsed_line, &cont->cmd);
+		substitute_variables(cont);
+		print_command_list(cont->cmd);
+		free_parse(cont->cmd);
+		cont->cmd = NULL;
+	}
+	return (0);
+}
+
 int	main(int argc, char const *argv[], char **envp)
 {
 	t_cont	test;
 
+	signal_redirector(&test, 0, 1);
 	initialize_main_struct(&test, envp);
-	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &test.cmd);
-	substitute_variables(&test);
-	print_command_list(test.cmd);
-	free_parse(test.cmd);
+	main_loop(&test);
 	free_envp(NULL, test.env);
 	return (0);
 }

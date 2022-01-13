@@ -85,4 +85,7 @@ int		is_var_char(char c);
 int		replace_var(char **cmd, int *i, t_env *envstart);
 char	*get_var_name(char *var_start);
 
+void	signal_handler(int signal);
+int		signal_redirector(t_cont *ptr, int signal, int mode);
+
 #endif
