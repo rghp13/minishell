@@ -39,6 +39,8 @@ typedef struct s_env
 
 typedef struct s_cont
 {
+	int		status;
+	int		child_pid;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;

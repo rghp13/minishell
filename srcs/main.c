@@ -64,18 +64,24 @@
 // 	free(buffer);
 // }
 
-int	main(int argc, char const *argv[], char **envp)
+int	initialize_main_struct(t_cont *cont, char **envp)
 {
-	t_cont	*cont;
-	t_cont	test;
-
-	cont = &test;
+	cont->child_pid = 0;
+	cont->status = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp);
-	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
-	substitute_variables(cont);
-	print_command_list(cont->cmd);
-	free_parse(cont->cmd);
-	free_envp(NULL, cont->env);
+	return (0);
+}
+
+int	main(int argc, char const *argv[], char **envp)
+{
+	t_cont	test;
+
+	initialize_main_struct(&test, envp);
+	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &test.cmd);
+	substitute_variables(&test);
+	print_command_list(test.cmd);
+	free_parse(test.cmd);
+	free_envp(NULL, test.env);
 	return (0);
 }
