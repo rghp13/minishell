@@ -26,11 +26,11 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 		cont = ptr;
 	if (signal == SIGINT && !cont->child_pid)
 	{
-		//printf("\n");
-	 	// rl_on_new_line();
-	 	// rl_replace_line("", 0); // Clear the previous text
-		// rl_redisplay();
-		cont->status = 1;
+		printf("\n");
+	 	rl_on_new_line();
+	 	rl_replace_line("", 0);
+		rl_redisplay();
+		//cont->status = 1;
 	}
 	else if (signal == SIGQUIT && !cont->child_pid)
 		return (0);
