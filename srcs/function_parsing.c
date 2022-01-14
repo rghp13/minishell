@@ -40,6 +40,7 @@ int	parse_command(char *line, t_cmd **list)
 		i++;
 	}
 	free(str);
+	free(line);
 	break_pipes(*list);
 	return (0);
 }

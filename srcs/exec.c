@@ -17,7 +17,8 @@ int		list_get_path(t_cmd *cmd, t_env *env)
 	hold = cmd;
 	while (hold)
 	{
-		hold->abspath = get_abs_path(hold->arg[0])
+		hold->abspath = get_abs_path(hold->arg[0], env);
+		
 	}
 }
 

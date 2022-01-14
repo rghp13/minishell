@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 **readline, rl_clear_history, rl_on_new_line,
@@ -57,6 +57,7 @@ int    main(int argc, char const *argv[], char **envp)
 // 	free(buffer);
 // }
 
+<<<<<<< HEAD
 // int	main(int argc, char const *argv[], char **envp)
 // {
 // 	t_cont	*cont;
@@ -69,3 +70,58 @@ int    main(int argc, char const *argv[], char **envp)
 // 	minishell(cont);
 // 	return (0);
 // }
+=======
+int	initialize_main_struct(t_cont *cont, char **envp, struct termios original)
+{
+	struct termios	t;
+
+	tcgetattr(0, &original);
+	t = original;
+	t.c_lflag &= ~(ICANON | 512);
+	tcsetattr(0, TCSANOW, &t);
+	signal_redirector(cont, 0, 1);
+	signal(SIGINT, &signal_handler);
+	signal(SIGQUIT, &signal_handler);
+	cont->child_pid = 0;
+	cont->status = 0;
+	cont->cmd = NULL;
+	cont->env = get_env(envp);
+	return (0);
+}
+
+int	cleanup(t_cont cont, struct termios original)
+{
+	free_envp(NULL, cont.env);
+	tcsetattr(0, TCSANOW, &original);
+	return (0);
+}
+
+int	main_loop(t_cont *cont)
+{
+	char	*parsed_line;
+
+	while (1)
+	{
+		parsed_line = readline("$> ");
+		if (!parsed_line)
+			break ;
+		parse_command(parsed_line, &cont->cmd);
+		substitute_variables(cont);
+		print_command_list(cont->cmd); // you should replace this with your execution :)
+		free_parse(cont->cmd);
+		cont->cmd = NULL;
+	}
+	return (0);
+}
+
+int	main(int argc, char const *argv[], char **envp)
+{
+	struct termios	original;
+	t_cont			cont;
+
+	initialize_main_struct(&cont, envp, original);
+	main_loop(&cont);
+	cleanup(cont, original);
+	return (0);
+}
+>>>>>>> origin
