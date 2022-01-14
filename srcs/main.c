@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 **readline, rl_clear_history, rl_on_new_line,
@@ -64,18 +64,46 @@
 // 	free(buffer);
 // }
 
-int	main(int argc, char const *argv[], char **envp)
+int	initialize_main_struct(t_cont *cont, char **envp)
 {
-	t_cont	*cont;
-	t_cont	test;
-
-	cont = &test;
+	cont->child_pid = 0;
+	cont->status = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp);
-	parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
-	substitute_variables(cont);
-	print_command_list(cont->cmd);
-	free_parse(cont->cmd);
-	free_envp(NULL, cont->env);
+	return (0);
+}
+
+int	main_loop(t_cont *cont)
+{
+	char	*parsed_line;
+
+	while (1)
+	{
+		parsed_line = readline("$> ");
+		if (!parsed_line)
+			break ;
+		parse_command(parsed_line, &cont->cmd);
+		substitute_variables(cont);
+		print_command_list(cont->cmd); // you should replace this with your execution :)
+		free_parse(cont->cmd);
+		cont->cmd = NULL;
+	}
+	return (0);
+}
+
+int	main(int argc, char const *argv[], char **envp)
+{
+	struct termios	t;
+	t_cont			test;
+
+	tcgetattr(0, &t);
+	signal_redirector(&test, 0, 1);
+	t.c_lflag &= ~(ICANON | 512);
+	tcsetattr(0, TCSANOW, &t);
+	signal(SIGINT, &signal_handler);
+	signal(SIGQUIT, &signal_handler);
+	initialize_main_struct(&test, envp);
+	main_loop(&test);
+	free_envp(NULL, test.env);
 	return (0);
 }
