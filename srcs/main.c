@@ -97,9 +97,13 @@ int	main_loop(t_cont *cont)
 
 int	main(int argc, char const *argv[], char **envp)
 {
-	t_cont	test;
+	struct termios	t;
+	t_cont			test;
 
+	tcgetattr(0, &t);
 	signal_redirector(&test, 0, 1);
+	t.c_lflag &= ~(ICANON | 512);
+	tcsetattr(0, TCSANOW, &t);
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, &signal_handler);
 	initialize_main_struct(&test, envp);
