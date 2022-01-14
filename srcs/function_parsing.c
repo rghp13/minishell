@@ -11,7 +11,7 @@ int	break_pipes(t_cmd *list)
 	{
 		if (has_pipe(current->cmd))
 		{
-			str = ft_split(current->cmd, '|');
+			str = ft_special_split(current->cmd, '|');
 			free(current->cmd);
 			current->cmd = str[0];
 			i = 1;
@@ -33,7 +33,7 @@ int	parse_command(char *line, t_cmd **list)
 	char	**str;
 
 	i = 0;
-	str = ft_split(line, ';');
+	str = ft_special_split(line, ';');
 	while (str[i])
 	{
 		*list = add_cmd(*list, str[i]);

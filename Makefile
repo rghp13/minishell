@@ -29,9 +29,11 @@ SRC_NAME				=		env.c \
 								main.c \
 								utils.c \
 								parse_utils1.c \
+								parse_utils2.c \
 								variable_substitution.c \
 								varsub_utils.c \
-								singals.c
+								singals.c \
+								bracket_split.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
