@@ -82,15 +82,11 @@ int	main_loop(t_cont *cont)
 		parsed_line = readline("$> ");
 		if (!parsed_line)
 			break ;
-		if (!cont->status)
-		{
-			parse_command(parsed_line, &cont->cmd);
-			substitute_variables(cont);
-			print_command_list(cont->cmd);
-			free_parse(cont->cmd);
-			cont->cmd = NULL;
-		}
-		cont->status = 0;
+		parse_command(parsed_line, &cont->cmd);
+		substitute_variables(cont);
+		print_command_list(cont->cmd); // you should replace this with your execution :)
+		free_parse(cont->cmd);
+		cont->cmd = NULL;
 	}
 	return (0);
 }
