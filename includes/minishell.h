@@ -71,7 +71,9 @@ int		has_pipe(char *str);
 /*
 **EXEC.C
 */
-void	exec_cmd(t_cont *cont);
+void	exec_main(t_cont *cont);
+int		exec_cmd(t_cmd *cmd, t_env *env);
+int		list_get_path(t_cmd *cmd, t_env *env);
 char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
 /*

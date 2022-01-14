@@ -4,11 +4,18 @@
 //start by taking the first command, figuring out which is the correct path
 //figure out if it needs to redirect and how to redirect
 
-void	exec_cmd(t_cont *cont)
+void	exec_main(t_cont *cont)
 {
 	list_get_path(cont->cmd, cont->env);
-
+	exec_cmd(cont->cmd, cont->env);
 }
+
+int	exec_cmd(t_cmd *cmd, t_env *env)
+{
+	execve(cmd->abspath, cmd->arg, env->envstr);
+	return (0);
+}
+
 
 int		list_get_path(t_cmd *cmd, t_env *env)
 {
@@ -18,8 +25,9 @@ int		list_get_path(t_cmd *cmd, t_env *env)
 	while (hold)
 	{
 		hold->abspath = get_abs_path(hold->arg[0], env);
-		
+		hold = hold->next;
 	}
+	return (0);
 }
 
 char	*get_abs_path(const char *src, t_env *env)
@@ -56,6 +64,8 @@ int	merge_path_name(char **path, const char *name)
 	char *hold;
 	char *hold2;
 
+	if (*path == NULL)
+		return (1);
 	hold = ft_strjoin(*path, "/");
 	if (hold == NULL)
 		return (1);
