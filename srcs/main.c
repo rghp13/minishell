@@ -57,20 +57,6 @@ int    main(int argc, char const *argv[], char **envp)
 // 	free(buffer);
 // }
 
-<<<<<<< HEAD
-// int	main(int argc, char const *argv[], char **envp)
-// {
-// 	t_cont	*cont;
-// 	t_cont	test;
-
-// 	cont = &test;
-// 	cont->cmd = NULL;
-// 	cont->env = get_env(envp);
-// 	cont->sig = get_signal()
-// 	minishell(cont);
-// 	return (0);
-// }
-=======
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios original)
 {
 	struct termios	t;
@@ -124,4 +110,3 @@ int	main(int argc, char const *argv[], char **envp)
 	cleanup(cont, original);
 	return (0);
 }
->>>>>>> origin
