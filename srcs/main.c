@@ -93,17 +93,20 @@ int	main_loop(t_cont *cont)
 
 int	main(int argc, char const *argv[], char **envp)
 {
+	struct termios	original;
 	struct termios	t;
 	t_cont			test;
 
-	tcgetattr(0, &t);
-	signal_redirector(&test, 0, 1);
+	tcgetattr(0, &original);
+	t = original;
 	t.c_lflag &= ~(ICANON | 512);
 	tcsetattr(0, TCSANOW, &t);
+	signal_redirector(&test, 0, 1);
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, &signal_handler);
 	initialize_main_struct(&test, envp);
 	main_loop(&test);
 	free_envp(NULL, test.env);
+	tcsetattr(0, TCSANOW, &original);
 	return (0);
 }
