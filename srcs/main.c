@@ -14,22 +14,22 @@
 **Start by moving all envp to a linked list
 */
 
-int    main(int argc, char const *argv[], char **envp)
-{
-    t_cont	*cont;
-    t_cont	test;
-	char	*ptr;
+// int    main(int argc, char const *argv[], char **envp)
+// {
+//     t_cont	*cont;
+//     t_cont	test;
+// 	char	*ptr;
 
-    cont = &test;
-    cont->cmd = NULL;
-    cont->env = get_env(envp);
-    parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
-    substitute_variables(cont);
-    /* run your code here */
-    free_parse(cont->cmd);
-    free_envp(NULL, cont->env);
-    return (0);
-}
+//     cont = &test;
+//     cont->cmd = NULL;
+//     cont->env = get_env(envp);
+//     parse_command("echo $TERM | echo $LESS $SHELL | echo $PAGER$COLORTERM; echo $TEST", &cont->cmd);
+//     substitute_variables(cont);
+//     /* run your code here */
+//     free_parse(cont->cmd);
+//     free_envp(NULL, cont->env);
+//     return (0);
+// }
 
 // int	main(int argc, char **argv, char **envp)
 // {
@@ -57,20 +57,6 @@ int    main(int argc, char const *argv[], char **envp)
 // 	free(buffer);
 // }
 
-<<<<<<< HEAD
-// int	main(int argc, char const *argv[], char **envp)
-// {
-// 	t_cont	*cont;
-// 	t_cont	test;
-
-// 	cont = &test;
-// 	cont->cmd = NULL;
-// 	cont->env = get_env(envp);
-// 	cont->sig = get_signal()
-// 	minishell(cont);
-// 	return (0);
-// }
-=======
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios original)
 {
 	struct termios	t;
@@ -124,4 +110,3 @@ int	main(int argc, char const *argv[], char **envp)
 	cleanup(cont, original);
 	return (0);
 }
->>>>>>> origin
