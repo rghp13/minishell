@@ -98,4 +98,7 @@ char	*get_var_name(char *var_start);
 void	signal_handler(int signal);
 int		signal_redirector(t_cont *ptr, int signal, int mode);
 
+int		update_bracket_status(int bracket, char c);
+char	**ft_special_split(char	const *s, char c);
+
 #endif
