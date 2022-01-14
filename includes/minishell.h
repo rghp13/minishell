@@ -19,20 +19,27 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# include <stdint.h>//added for int to void* conversion in exec.c
 # define ER1 "ERROR: SHELL MISSING ENV VARIABLES"
+# define ERMEM "ERROR: MALLOC FAILED"
 
 typedef struct s_cmd
 {
 	char			*cmd;
+	char			**arg;
+	char			*abspath;
+	char			*redirect;
+	int				redirect_type;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct s_cmd	*pipechain;
-}						t_cmd;
+}					t_cmd;
 
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	char			**envstr;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
@@ -50,6 +57,8 @@ typedef struct s_cont
 */
 int		small_malloc(void **ptr, size_t size);
 int		ft_error(int erno);
+int		ft_free_all_split(char **split);
+
 /*
 **FUNCTION_PARSING.C
 */
@@ -62,8 +71,9 @@ int		has_pipe(char *str);
 /*
 **EXEC.C
 */
-void	exec_cmd(char **cmd, char **envp);
-void	get_abs_path(char **cmd);
+void	exec_cmd(t_cont *cont);
+char	*get_abs_path(const char *src, t_env *env);
+int		merge_path_name(char **path, const char *name);
 /*
 **ENV.C
 */
