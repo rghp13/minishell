@@ -25,16 +25,16 @@
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	char			**arg;
-	char			*abspath;
-	char			*input;
-	int				input_type;
-	char			*output;
-	int				output_type;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-	struct s_cmd	*pipechain;
+	char			*cmd; /*The original unedited text that was inputed by the user*/
+	char			**arg; /*The split command in the form of argv (doesn't contain redirecors)*/
+	char			*abspath; /*You're using that*/
+	char			*input; /*name of input file if there is one*/
+	int				input_type; /*input mode, -1 if none, 0 if < and 1 if <<*/
+	char			*output; /*name of output file if there is one*/
+	int				output_type; /*output mode, -1 if none, 0 if > and 1 if >>*/
+	struct s_cmd	*next; /*next function in the list that was separated with a ;*/
+	struct s_cmd	*prev; /*previous function in the list that was separated with a ;*/
+	struct s_cmd	*pipechain; /*function to pipe output too if there is one*/
 }					t_cmd;
 
 typedef struct s_env
