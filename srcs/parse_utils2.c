@@ -24,6 +24,7 @@ int	has_redirector(char *str)
 
 	i = 0;
 	bracket = 0;
+	result = 0;
 	while (str[i])
 	{
 		bracket = update_bracket_status(bracket, str[i]);
@@ -43,23 +44,23 @@ int	has_redirector(char *str)
 	return (result);
 }
 
-int	argv_parse(t_cmd *list)
+int	argv_loop(t_cont *cont)
 {
+	t_cmd	*current;
 	t_cmd	*pipe;
 
-	while (list)
+	current = cont->cmd;
+	pipe = NULL;
+	while (current)
 	{
-		if (list->pipechain)
+		pipe = current->pipechain;
+		while (pipe)
 		{
-			pipe = list->pipechain;
-			while (pipe)
-			{
-				create_argv(pipe);
-				pipe = pipe->next;
-			}
+			create_argv(pipe);
+			pipe = pipe->next;
 		}
-		create_argv(list);
-		list = list->next;
+		create_argv(current);
+		current = current->next;
 	}
 	return (0);
 }

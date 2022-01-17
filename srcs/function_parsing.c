@@ -98,8 +98,7 @@ int	create_argv(t_cmd *cmd)
 		return (0);
 	ft_strlcpy(cmd_no_red, cmd->cmd, size_arg + 1);
 	cmd->arg = ft_special_split(cmd_no_red, ' ');
-	if (cmd_no_red != cmd->cmd)
-		free (cmd_no_red);
+	free (cmd_no_red);
 	return (0);
 }
 
@@ -118,6 +117,5 @@ int	parse_command(char *line, t_cmd **list)
 	free(str);
 	free(line);
 	break_pipes(*list);
-	argv_parse(*list);
 	return (0);
 }
