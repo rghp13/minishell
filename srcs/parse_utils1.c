@@ -16,10 +16,24 @@ int	has_pipe(char *str)
 
 void	print_command_list(t_cmd *list)
 {
+	int	i;
+
+	i = 0;
 	while (list)
 	{
 		printf("---------------%p---------------\n", list);
 		printf("cmd : %s\n", list->cmd);
+		printf("argv : [");
+		while (list->arg[i])
+		{
+			printf("%s, ", list->arg[i]);
+			i++;
+		}
+		printf("]\n");
+		printf("input : %s\n", list->input);
+		printf("input type : %d\n", list->input_type);
+		printf("output : %s\n", list->output);
+		printf("output type : %d\n", list->output_type);
 		printf("prev : %p\n", list->prev);
 		printf("next : %p\n", list->next);
 		printf("pipe : %p\n", list->pipechain);
@@ -39,6 +53,10 @@ t_cmd	*init_cmd(char *cmd)
 	newcmd->next = NULL;
 	newcmd->prev = NULL;
 	newcmd->pipechain = NULL;
+	newcmd->input = NULL;
+	newcmd->output = NULL;
+	newcmd->input_type = -1;
+	newcmd->output_type = -1;
 	newcmd->cmd = cmd;
 	return (newcmd);
 }

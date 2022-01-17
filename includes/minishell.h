@@ -25,14 +25,16 @@
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	char			**arg;
-	char			*abspath;
-	char			*redirect;
-	int				redirect_type;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-	struct s_cmd	*pipechain;
+	char			*cmd; /*The original unedited text that was inputed by the user*/
+	char			**arg; /*The split command in the form of argv (doesn't contain redirecors)*/
+	char			*abspath; /*You're using that*/
+	char			*input; /*name of input file if there is one*/
+	int				input_type; /*input mode, -1 if none, 0 if < and 1 if <<*/
+	char			*output; /*name of output file if there is one*/
+	int				output_type; /*output mode, -1 if none, 0 if > and 1 if >>*/
+	struct s_cmd	*next; /*next function in the list that was separated with a ;*/
+	struct s_cmd	*prev; /*previous function in the list that was separated with a ;*/
+	struct s_cmd	*pipechain; /*function to pipe output too if there is one*/
 }					t_cmd;
 
 typedef struct s_env
@@ -89,13 +91,19 @@ t_env	*find_env(const char *key, t_env *head);
 void	free_envp(t_env *current, t_env *head);
 
 int		substitute_variables(t_cont *cont);
+int		create_argv(t_cmd *cmd);
 int		is_word_to_replace(char *currentletter, char *word);
 char	*substituestr(char *text, char *word, char *replacement, int start);
 int		is_var_char(char c);
 int		replace_var(char **cmd, int *i, t_env *envstart);
 char	*get_var_name(char *var_start);
+int		has_redirector(char *str);
+int		argv_parse(t_cmd *list);
 
 void	signal_handler(int signal);
 int		signal_redirector(t_cont *ptr, int signal, int mode);
+
+int		update_bracket_status(int bracket, char c);
+char	**ft_special_split(char	const *s, char c);
 
 #endif
