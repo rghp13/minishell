@@ -18,9 +18,9 @@ void	print_command_list(t_cmd *list)
 {
 	int	i;
 
-	i = 0;
 	while (list)
 	{
+		i = 0;
 		printf("---------------%p---------------\n", list);
 		printf("cmd : %s\n", list->cmd);
 		printf("argv : [");
