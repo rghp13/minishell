@@ -30,3 +30,22 @@ int	ft_free_all_split(char **split)
 	free(split);
 	return (0);
 }
+/*
+**doesn't add last if head empty (no thoughts)
+*/
+
+void	add_last(t_env *head, t_env *current)
+{
+	t_env	*next;
+
+	if (head == NULL || current == NULL)
+		return ;
+	else
+	{
+		next = head;
+		while (next->next != NULL)
+			next = next->next;
+		next->next = current;
+		current->prev = next;
+	}
+}

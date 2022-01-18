@@ -60,6 +60,7 @@ typedef struct s_cont
 int		small_malloc(void **ptr, size_t size);
 int		ft_error(int erno);
 int		ft_free_all_split(char **split);
+void	add_last(t_env *head, t_env *current);
 
 /*
 **FUNCTION_PARSING.C
@@ -80,11 +81,16 @@ int		merge_path_name(char **path, const char *name);
 **ENV.C
 */
 t_env	*get_env(char **envp);
-void	add_last(t_env *head, t_env *current);
 int		assign_env_to_struct(t_env *current, char *envp);
 char	*get_key_val(const char *key, t_env *env);
 t_env	*find_env(const char *key, t_env *head);
-
+/*
+**ENV2.C
+*/
+char	**output_env_array(t_env *head);
+int		calculate_env_split(t_env *head);
+int		remove_env(t_env *head, const char *key);
+char	*env_str(t_env *env);
 /*
 **FREE.C
 */

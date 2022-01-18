@@ -28,26 +28,6 @@ t_env	*get_env(char **envp)
 	return (head);
 }
 
-/*
-**doesn't add last if head empty (no thoughts)
-*/
-
-void	add_last(t_env *head, t_env *current)
-{
-	t_env	*next;
-
-	if (head == NULL || current == NULL)
-		return ;
-	else
-	{
-		next = head;
-		while (next->next != NULL)
-			next = next->next;
-		next->next = current;
-		current->prev = next;
-	}
-}
-
 int	assign_env_to_struct(t_env *current, char *envp)
 {
 	char	*ptr;

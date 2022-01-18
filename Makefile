@@ -23,6 +23,7 @@ PATH_SRC				=		./srcs
 PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
+								env2.c \
 								exec.c \
 								free.c \
 								function_parsing.c \
