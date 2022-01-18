@@ -33,7 +33,7 @@ int	extract_input(t_cmd *cmd, int redirectors, int size)
 	int		j;
 	char	*result;
 
-	i = 0;
+	i = 1;
 	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '<' || cmd->cmd[i] == '<'))
 		i++;
 	j = i;
@@ -59,7 +59,7 @@ int	extract_outputs(t_cmd *cmd, int redirectors, int size)
 	int		j;
 	char	*result;
 
-	i = 0;
+	i = 1;
 	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '>' || cmd->cmd[i] == '>'))
 		i++;
 	j = i;
