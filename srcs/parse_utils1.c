@@ -5,7 +5,7 @@ int	has_pipe(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '|')
 			return (1);
@@ -55,6 +55,8 @@ t_cmd	*init_cmd(char *cmd)
 	newcmd->pipechain = NULL;
 	newcmd->input = NULL;
 	newcmd->output = NULL;
+	newcmd->abspath = NULL;
+	newcmd->arg = NULL;
 	newcmd->input_type = -1;
 	newcmd->output_type = -1;
 	newcmd->cmd = cmd;
@@ -92,13 +94,11 @@ int	free_parse(t_cmd *list)
 			while (pipe)
 			{
 				temp = pipe->next;
-				free(pipe->cmd);
-				free(pipe);
+				free_cmd(pipe);
 				pipe = temp;
 			}
 		}
-		free(list->cmd);
-		free(list);
+		free_cmd(list);
 		list = next;
 	}
 	return (0);
