@@ -48,8 +48,14 @@ typedef struct s_env
 
 typedef struct s_cont
 {
-	int		status;
+	int		fd_in_perm;
+	int		fd_out_perm;
+	int		fd_in;
+	int		fd_out;
+	int		pipe_in;
+	int		pipe_out;
 	int		child_pid;
+	int		prev_ret;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
@@ -112,5 +118,10 @@ int		signal_redirector(t_cont *ptr, int signal, int mode);
 
 int		update_bracket_status(int bracket, char c);
 char	**ft_special_split(char	const *s, char c);
+
+void	fd_inits(t_cont *cont);
+void	fd_zero(t_cont *cont);
+void	fd_close(t_cont *cont);
+void	fd_reset(t_cont *cont);
 
 #endif

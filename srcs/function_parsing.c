@@ -107,6 +107,9 @@ int	parse_command(char *line, t_cmd **list)
 	int		i;
 	char	**str;
 
+	i = ft_strlen(line);
+	if (i >= 1 && line[i - 1] == '\n')
+		line[i - 1] = '\0';
 	i = 0;
 	str = ft_special_split(line, ';');
 	while (str[i])
