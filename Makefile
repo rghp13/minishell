@@ -34,7 +34,8 @@ SRC_NAME				=		env.c \
 								variable_substitution.c \
 								varsub_utils.c \
 								singals.c \
-								bracket_split.c
+								bracket_split.c \
+								fd_ops.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
