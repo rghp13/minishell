@@ -41,7 +41,6 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	char			**envstr;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
@@ -50,6 +49,7 @@ typedef struct s_cont
 {
 	int		status;
 	int		child_pid;
+	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
