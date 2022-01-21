@@ -22,14 +22,12 @@ int	builtin_export(char **argv, t_cont *cont)
 	{
 		if (check_valid_export(argv[i], cont, &flag) == 0)
 			continue ;
-		printf("Valid export\n");
 		new_env = ft_calloc(1, sizeof(t_env));
 		if (new_env == NULL || assign_env_to_struct(new_env, argv[i]))//test this
 		{
 			free_envp(new_env, NULL);
 			return (1);
 		}
-		printf("Adding last\n");
 		add_last(cont->env, new_env);
 	}
 	split = output_env_array(cont->env);
@@ -37,18 +35,19 @@ int	builtin_export(char **argv, t_cont *cont)
 		return (1);
 	ft_free_all_split(cont->envstr);
 	cont->envstr = split;
-	printf("generating new envstr\n");
 	return (flag);
 }
 
-int	check_valid_export(const char *str, t_cont *cont, int *flag)
+int	check_valid_export(const char *str, t_cont *cont, int *flag)//0 means skip
 {
 	int		i;
 	int		c;
 	char	*ptr;
+
 	ptr = ft_strchr(str, '=');
+	i = 0;
 	if (ptr == NULL)
-		return (1);
+		return (0);
 	if (ptr == str)
 	{
 		*flag = 1;
@@ -64,15 +63,15 @@ int	check_valid_export(const char *str, t_cont *cont, int *flag)
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	export_error(const char *str)
 {
 	write(STDOUT_FILENO, "bash: export: `", 16);
 	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "': not a valid identifier", 26);
-	return (1);
+	write(STDOUT_FILENO, "': not a valid identifier\n", 27);
+	return (0);
 }
 
 int	ft_isasymbol(const char str)
