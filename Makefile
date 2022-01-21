@@ -25,6 +25,7 @@ PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
 								env2.c \
 								exec.c \
+								export.c \
 								free.c \
 								function_parsing.c \
 								main.c \

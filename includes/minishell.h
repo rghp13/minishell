@@ -41,7 +41,6 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	char			**envstr;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
@@ -56,6 +55,7 @@ typedef struct s_cont
 	int		pipe_out;
 	int		child_pid;
 	int		prev_ret;
+	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
@@ -97,6 +97,13 @@ char	**output_env_array(t_env *head);
 int		calculate_env_split(t_env *head);
 int		remove_env(t_env *head, const char *key);
 char	*env_str(t_env *env);
+/*
+**EXPORT.C
+*/
+int	builtin_export(char **argv, t_cont *cont);
+int	check_valid_export(const char *str, t_cont *cont, int *flag);
+int	export_error(const char *str);
+int	ft_isasymbol(const char str);
 /*
 **FREE.C
 */

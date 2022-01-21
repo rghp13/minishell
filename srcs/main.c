@@ -29,6 +29,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp);
+	cont->envstr = output_env_array(cont->env);
 	return (0);
 }
 
