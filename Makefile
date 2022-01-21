@@ -23,15 +23,20 @@ PATH_SRC				=		./srcs
 PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
+								env2.c \
 								exec.c \
+								export.c \
 								free.c \
 								function_parsing.c \
 								main.c \
 								utils.c \
 								parse_utils1.c \
+								parse_utils2.c \
 								variable_substitution.c \
 								varsub_utils.c \
-								singals.c
+								singals.c \
+								bracket_split.c \
+								fd_ops.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
