@@ -101,7 +101,7 @@ char	*env_str(t_env *env);
 **EXPORT.C
 */
 int	builtin_export(char **argv, t_cont *cont);
-int	check_valid_export(const char *str, t_cont *cont);
+int	check_valid_export(const char *str, t_cont *cont, int *flag);
 int	export_error(const char *str);
 int	ft_isasymbol(const char str);
 /*

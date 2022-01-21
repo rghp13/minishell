@@ -20,14 +20,16 @@ int	builtin_export(char **argv, t_cont *cont)
 	flag = 0;
 	while (argv[++i])
 	{
-		if (check_valid_export(argv[i], cont) == 0)
+		if (check_valid_export(argv[i], cont, &flag) == 0)
 			continue ;
+		printf("Valid export\n");
 		new_env = ft_calloc(1, sizeof(t_env));
 		if (new_env == NULL || assign_env_to_struct(new_env, argv[i]))//test this
 		{
 			free_envp(new_env, NULL);
 			return (1);
 		}
+		printf("Adding last\n");
 		add_last(cont->env, new_env);
 	}
 	split = output_env_array(cont->env);
@@ -35,10 +37,11 @@ int	builtin_export(char **argv, t_cont *cont)
 		return (1);
 	ft_free_all_split(cont->envstr);
 	cont->envstr = split;
+	printf("generating new envstr\n");
 	return (flag);
 }
 
-int	check_valid_export(const char *str, t_cont *cont)
+int	check_valid_export(const char *str, t_cont *cont, int *flag)
 {
 	int		i;
 	int		c;
@@ -47,12 +50,18 @@ int	check_valid_export(const char *str, t_cont *cont)
 	if (ptr == NULL)
 		return (1);
 	if (ptr == str)
+	{
+		*flag = 1;
 		return (export_error(str));
+	}
 	c = ptr - str;
 	while (i < c)
 	{
 		if (ft_isasymbol(str[i]) == 1)
+		{
+			*flag = 1;
 			return (export_error(str));
+		}
 		i++;
 	}
 	return (0);
