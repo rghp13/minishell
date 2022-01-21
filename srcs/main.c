@@ -55,7 +55,7 @@ int	main_loop(t_cont *cont)
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
 		argv_loop(cont);
-		print_command_list(cont->cmd); // you should replace this with your execution :)
+		//print_command_list(cont->cmd); // you should replace this with your execution :)
 		exec_main(cont);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;
