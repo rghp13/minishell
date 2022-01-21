@@ -120,6 +120,7 @@ int		has_redirector(char *str);
 int		argv_loop(t_cont *cont);
 int		free_cmd(t_cmd *cmd);
 
+void	init_singals(void);
 void	signal_handler(int signal);
 int		signal_redirector(t_cont *ptr, int signal, int mode);
 

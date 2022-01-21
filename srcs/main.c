@@ -23,8 +23,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	t.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &t);
 	signal_redirector(cont, 0, 1);
-	signal(SIGINT, &signal_handler);
-	signal(SIGQUIT, &signal_handler);
+	init_singals();
 	fd_inits(cont);
 	cont->child_pid = 0;
 	cont->cmd = NULL;
