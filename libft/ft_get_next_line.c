@@ -6,7 +6,7 @@
 /*   By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:15:49 by dscriabi          #+#    #+#             */
-/*   Updated: 2021/11/10 16:58:02 by dscriabi         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:58:34 by dscriabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ char	*get_next_line(int fd)
 		chars_read = read(fd, buffer, GNL_BUFFER_SIZE);
 		if (chars_read == -1)
 		{
-			free(buffer);
-			return (NULL);
+			// free(buffer);
+			// return (NULL);
+			printf("returned -1 \n");
+			continue ;
 		}
 		buffer[chars_read] = '\0';
 		prev_chars = ft_gnl_strjoin(prev_chars, buffer);

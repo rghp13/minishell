@@ -20,7 +20,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 
 	tcgetattr(0, original);
 	t = *original;
-	t.c_lflag &= ~ECHOCTL;
+	t.c_lflag &= (ICANON & ~ECHOCTL); //& NOFLSH
 	tcsetattr(0, TCSANOW, &t);
 	signal_redirector(cont, 0, 1);
 	init_singals();
@@ -46,7 +46,6 @@ int	main_loop(t_cont *cont)
 
 	while (1)
 	{
-		//parsed_line = readline("$> ");
 		ft_putstr_fd("$> ", 2);
 		parsed_line = get_next_line(0);
 		if (!parsed_line)
