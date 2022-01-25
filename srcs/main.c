@@ -26,9 +26,10 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, &signal_handler);
 	fd_inits(cont);
+	cont->exit_status = 0;
 	cont->child_pid = 0;
 	cont->cmd = NULL;
-	cont->env = get_env(envp);
+	cont->env = get_env(envp, cont);
 	cont->envstr = output_env_array(cont->env);
 	return (0);
 }

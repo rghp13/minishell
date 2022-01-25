@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_env	*get_env(char **envp)
+t_env	*get_env(char **envp, t_cont *cont)
 {
 	int		i;
 	t_env	*head;
@@ -18,6 +18,7 @@ t_env	*get_env(char **envp)
 			free_envp(current, head);
 			return (NULL);
 		}
+		current->cont = cont;
 		if (head == NULL)
 			head = current;
 		else
@@ -54,6 +55,8 @@ char	*get_key_val(const char *key, t_env *env)
 	if (key[0] != '$')
 		return (ft_calloc(1, sizeof(char)));
 	ret = key + 1;
+	if (ft_stringcomp(key, "$?") == 0)
+		return (ft_itoa(env->cont->exit_status));
 	key_struct = find_env(ret, env);
 	if (key_struct == NULL)
 		return (ft_calloc(1, sizeof(char)));

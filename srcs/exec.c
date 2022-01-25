@@ -12,7 +12,7 @@ void	exec_main(t_cont *cont)
 	list_get_path(cont->cmd, cont->env);
 	while (hold)
 	{
-		if (check_builting(hold->arg[0]) == 1)
+		if (check_builtin(hold->arg[0]) == 1)
 			run_builtin(hold, cont);
 		else
 			exec_cmd(hold, cont->envstr);
@@ -24,9 +24,11 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 {
 	pid_t	pid;
 	int		status;
+	int		ret;
 
 	pid = 0;
 	status = 0;
+	ret = 0;
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -37,7 +39,8 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 	}
 	else
 	{
-		if (execve(cmd->abspath, cmd->arg, envp) == -1)
+		ret = execve(cmd->abspath, cmd->arg, envp);
+		if (ret == -1)
 		{
 			perror("shell");
 			exit(EXIT_FAILURE);
@@ -46,8 +49,7 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 	}
 }
 
-
-int		list_get_path(t_cmd *cmd, t_env *env)
+int	list_get_path(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*hold;
 
@@ -77,7 +79,7 @@ char	*get_abs_path(const char *src, t_env *env)
 	while (split[++i])
 	{
 		if (merge_path_name(&split[i], src) != 0)
-			return ((void*)(uintptr_t)ft_free_all_split(split));
+			return ((void *)(uintptr_t)ft_free_all_split(split));
 		if (access(split[i], F_OK) != -1)
 		{
 			bin = ft_strdup(split[i]);
@@ -91,8 +93,8 @@ char	*get_abs_path(const char *src, t_env *env)
 
 int	merge_path_name(char **path, const char *name)
 {
-	char *hold;
-	char *hold2;
+	char	*hold;
+	char	*hold2;
 
 	if (*path == NULL)
 		return (1);

@@ -43,6 +43,7 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
+	struct s_cont	*cont;
 }					t_env;
 
 typedef struct s_cont
@@ -55,10 +56,17 @@ typedef struct s_cont
 	int		pipe_out;
 	int		child_pid;
 	int		prev_ret;
+	int		exit_status;
 	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
+
+/*
+**BUILTIN.C
+*/
+int		check_builtin(const char *cmd);
+void	run_builtin(t_cmd *cmd, t_cont *cont);
 
 /*
 **UTILS.C
@@ -88,7 +96,7 @@ int		merge_path_name(char **path, const char *name);
 /*
 **ENV.C
 */
-t_env	*get_env(char **envp);
+t_env	*get_env(char **envp, t_cont *cont);
 int		assign_env_to_struct(t_env *current, char *envp);
 char	*get_key_val(const char *key, t_env *env);
 t_env	*find_env(const char *key, t_env *head);
@@ -102,10 +110,10 @@ char	*env_str(t_env *env);
 /*
 **EXPORT.C
 */
-int	builtin_export(char **argv, t_cont *cont);
-int	check_valid_export(const char *str, t_cont *cont, int *flag);
-int	export_error(const char *str);
-int	ft_isasymbol(const char str);
+int		builtin_export(char **argv, t_cont *cont);
+int		check_valid_export(const char *str, t_cont *cont, int *flag);
+int		export_error(const char *str);
+int		ft_isasymbol(const char str);
 /*
 **FREE.C
 */
