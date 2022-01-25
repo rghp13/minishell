@@ -15,12 +15,12 @@ void	exec_main(t_cont *cont)
 		if (check_builtin(hold->arg[0]) == 1)
 			run_builtin(hold, cont);
 		else
-			exec_cmd(hold, cont->envstr);
+			exec_cmd(hold, cont);
 		hold = hold->next;
 	}
 }
 
-void	exec_cmd(t_cmd *cmd, char **envp)
+void	exec_cmd(t_cmd *cmd, t_cont *cont)
 {
 	pid_t	pid;
 	int		status;
@@ -33,11 +33,11 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 	{
 		wait(&status);
 		kill(pid, SIGTERM);
-		printf("%d\n", status);
+		cont->exit_status = status;
 	}
 	else
 	{
-		if (execve(cmd->abspath, cmd->arg, envp) == -1)
+		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
 		{
 			perror("shell");
 			exit(EXIT_FAILURE);
