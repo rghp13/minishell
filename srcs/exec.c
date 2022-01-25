@@ -24,23 +24,20 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 {
 	pid_t	pid;
 	int		status;
-	int		ret;
 
-	pid = 0;
 	status = 0;
-	ret = 0;
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
+		wait(&status);
 		kill(pid, SIGTERM);
+		printf("%d\n", status);
 	}
 	else
 	{
-		ret = execve(cmd->abspath, cmd->arg, envp);
-		if (ret == -1)
+		if (execve(cmd->abspath, cmd->arg, envp) == -1)
 		{
 			perror("shell");
 			exit(EXIT_FAILURE);
