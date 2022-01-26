@@ -20,7 +20,8 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 
 	tcgetattr(0, original);
 	t = *original;
-	t.c_lflag &= (ICANON & ~ECHOCTL); //& NOFLSH
+	t.c_lflag &= (ICANON | ~ECHOCTL); // | NOFLSH | ~ECHOK
+	t.c_cc[VQUIT] = 0;
 	tcsetattr(0, TCSANOW, &t);
 	signal_redirector(cont, 0, 1);
 	init_singals();

@@ -7,8 +7,8 @@ int	is_word_to_replace(char *currentletter, char *word)
 	i = 0;
 	while (currentletter[i])
 	{
-		if (!word[i] && (currentletter[i] == ' ' || \
-		currentletter[i] == '$' || currentletter[i] == '\0'))
+		if (!word[i] && ((!ft_isalnum(currentletter[i]) && \
+		currentletter[i] != '_') || currentletter[i] == '\0'))
 			return (1);
 		if (currentletter[i] != word[i])
 			return (0);

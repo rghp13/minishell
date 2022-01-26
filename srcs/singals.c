@@ -6,7 +6,7 @@ void	init_singals(void)
 	struct sigaction	sb;
 
 	sa.sa_handler = &signal_handler;
-	sa.sa_flags = ~SA_RESTART;
+	sa.sa_flags = SA_RESTART;
 	sb.sa_handler = &signal_handler;
 	sb.sa_flags = 0;
 	sigaction(SIGQUIT, &sa, NULL);
