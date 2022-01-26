@@ -75,6 +75,8 @@ typedef struct s_export
 */
 int		check_builtin(const char *cmd);
 void	run_builtin(t_cmd *cmd, t_cont *cont);
+void	fork_builtin(t_cmd *cmd, t_cont *cont, int \
+(*builtin_func)(char **, t_cont *));
 /*
 **SYNTAX.C
 */
@@ -140,6 +142,10 @@ int		builtin_env(char **argv, t_cont *cont);
 **BUILTIN_PWD.C
 */
 int		builtin_pwd(char **argv, t_cont *cont);
+/*
+**UNSET.C
+*/
+int		builtin_unset(char **argv, t_cont *cont);
 /*
 **FREE.C
 */
