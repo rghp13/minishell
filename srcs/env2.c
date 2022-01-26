@@ -59,7 +59,10 @@ int	calculate_env_split(t_env *head)
 	}
 	return (i);
 }
-//make function that removes an env| won't remove but will set first byte of str to NULL
+
+/*make function that removes an env| won't remove but will set
+**first byte of str to NULL
+*/
 int	remove_env(t_env *head, const char *key)
 {
 	t_env	*find;
