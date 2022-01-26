@@ -68,7 +68,10 @@ typedef struct s_cont
 */
 int		check_builtin(const char *cmd);
 void	run_builtin(t_cmd *cmd, t_cont *cont);
-
+/*
+**SYNTAX.C
+*/
+int		syntax_check(char *cmd);
 /*
 **UTILS.C
 */
