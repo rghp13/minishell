@@ -74,6 +74,10 @@ int	export_error(const char *str)
 	return (0);
 }
 
+/*
+**returns 1 if symbol
+**except _
+*/
 int	ft_isasymbol(const char str)
 {
 	if (str == '_')
