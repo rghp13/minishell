@@ -16,15 +16,15 @@
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 {
-	// struct termios	t;
+	struct termios	t;
 
-	// tcgetattr(0, original);
-	// t = *original;
-	// t.c_lflag &= ~(ICANON | 512);
-	// tcsetattr(0, TCSANOW, &t);
+	tcgetattr(0, original);
+	t = *original;
+	t.c_lflag &= (ICANON | ~ECHOCTL); // | NOFLSH | ~ECHOK
+	t.c_cc[VQUIT] = 0;
+	tcsetattr(0, TCSANOW, &t);
 	signal_redirector(cont, 0, 1);
-	signal(SIGINT, &signal_handler);
-	signal(SIGQUIT, &signal_handler);
+	init_singals();
 	fd_inits(cont);
 	cont->child_pid = 0;
 	cont->cmd = NULL;
@@ -37,7 +37,7 @@ int	cleanup(t_cont cont, struct termios original)
 {
 	free_envp(NULL, cont.env);
 	fd_close(&cont);
-	// tcsetattr(0, TCSANOW, &original);
+	tcsetattr(0, TCSANOW, &original);
 	return (0);
 }
 
@@ -47,7 +47,6 @@ int	main_loop(t_cont *cont)
 
 	while (1)
 	{
-		//parsed_line = readline("$> ");
 		ft_putstr_fd("$> ", 2);
 		parsed_line = get_next_line(0);
 		if (!parsed_line)
