@@ -26,9 +26,10 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	signal_redirector(cont, 0, 1);
 	init_singals();
 	fd_inits(cont);
+	cont->exit_status = 0;
 	cont->child_pid = 0;
 	cont->cmd = NULL;
-	cont->env = get_env(envp);
+	cont->env = get_env(envp, cont);
 	cont->envstr = output_env_array(cont->env);
 	return (0);
 }
@@ -54,7 +55,8 @@ int	main_loop(t_cont *cont)
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
 		argv_loop(cont);
-		print_command_list(cont->cmd); // you should replace this with your execution :)
+		//print_command_list(cont->cmd); // you should replace this with your execution :)
+		exec_main(cont);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;
 	}

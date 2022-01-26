@@ -44,6 +44,7 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
+	struct s_cont	*cont;
 }					t_env;
 
 typedef struct s_cont
@@ -56,10 +57,17 @@ typedef struct s_cont
 	int		pipe_out;
 	int		child_pid;
 	int		prev_ret;
+	int		exit_status;
 	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
 }				t_cont;
+
+/*
+**BUILTIN.C
+*/
+int		check_builtin(const char *cmd);
+void	run_builtin(t_cmd *cmd, t_cont *cont);
 
 /*
 **UTILS.C
@@ -81,13 +89,15 @@ int		has_pipe(char *str);
 /*
 **EXEC.C
 */
-void	exec_cmd(t_cont *cont);
+void	exec_main(t_cont *cont);
+void	exec_cmd(t_cmd *cmd, t_cont *cont);
+int		list_get_path(t_cmd *cmd, t_env *env);
 char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
 /*
 **ENV.C
 */
-t_env	*get_env(char **envp);
+t_env	*get_env(char **envp, t_cont *cont);
 int		assign_env_to_struct(t_env *current, char *envp);
 char	*get_key_val(const char *key, t_env *env);
 t_env	*find_env(const char *key, t_env *head);
@@ -132,5 +142,4 @@ void	fd_inits(t_cont *cont);
 void	fd_zero(t_cont *cont);
 void	fd_close(t_cont *cont);
 void	fd_reset(t_cont *cont);
-
 #endif
