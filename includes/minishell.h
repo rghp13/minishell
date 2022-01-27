@@ -63,6 +63,13 @@ typedef struct s_cont
 	t_env	*env;
 }				t_cont;
 
+typedef struct s_export
+{
+	int		i;
+	t_env	*new_env;
+	int		flag;
+	char	**split;
+}				t_export;
 /*
 **BUILTIN.C
 */
@@ -114,16 +121,22 @@ int		calculate_env_split(t_env *head);
 int		remove_env(t_env *head, const char *key);
 char	*env_str(t_env *env);
 /*
-**EXPORT.C
+**BUILTIN_EXPORT.C
 */
 int		builtin_export(char **argv, t_cont *cont);
 int		check_valid_export(const char *str, t_cont *cont, int *flag);
 int		export_error(const char *str);
 int		ft_isasymbol(const char str);
+void	create_new_env(char *argv, t_cont *cont);
+
 /*
-**UNSET.C
+**BUILTIN_UNSET.C
 */
 int		builtin_unset(char **argv, t_cont *cont);
+/*
+**BUILTIN_ENV.C
+*/
+int		builtin_env(char **argv, t_cont *cont);
 /*
 **FREE.C
 */

@@ -15,9 +15,6 @@ int	check_builtin(const char *cmd)
 
 void	run_builtin(t_cmd *cmd, t_cont *cont)
 {
-	int	(*builtin_func)(char**, t_cont*);
-
-	builtin_func = NULL;
 	if (ft_stringcomp(cmd->arg[0], "echo") == 0)
 		printf("entered echo\n");
 	else if (ft_stringcomp(cmd->arg[0], "cd") == 0)
@@ -25,41 +22,12 @@ void	run_builtin(t_cmd *cmd, t_cont *cont)
 	else if (ft_stringcomp(cmd->arg[0], "pwd") == 0)
 		printf("entered pwd\n");
 	else if (ft_stringcomp(cmd->arg[0], "export") == 0)
-		builtin_func = &builtin_export;
+		cont->exit_status = builtin_export(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "unset") == 0)
-		builtin_func = &builtin_unset;
+		cont->exit_status = builtin_unset(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "env") == 0)
-		printf("entered env\n");
+		cont->exit_status = builtin_env(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "exit") == 0)
 		printf("entered exit\n");
-	else
-		return ;
-	fork_builtin(cmd, cont, builtin_func);
-}
-
-void	fork_builtin(t_cmd *cmd, t_cont *cont, int \
-(*builtin_func)(char **, t_cont *))
-{
-	int		status;
-	pid_t	pid;
-
-	status = 0;
-	if (builtin_func == NULL)
-	{
-		printf("NULL FUNC POINTER\n");
-		return ;
-	}
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid > 0)
-	{
-		wait(&status);
-		kill(pid, SIGTERM);
-		cont->exit_status = status;
-		printf("Success\n");
-	}
-	else
-		exit(builtin_func(cmd->arg, cont));
 	return ;
 }
