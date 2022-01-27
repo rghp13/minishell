@@ -68,6 +68,8 @@ typedef struct s_cont
 */
 int		check_builtin(const char *cmd);
 void	run_builtin(t_cmd *cmd, t_cont *cont);
+void	fork_builtin(t_cmd *cmd, t_cont *cont, int \
+(*builtin_func)(char **, t_cont *));
 /*
 **SYNTAX.C
 */
@@ -118,6 +120,10 @@ int		builtin_export(char **argv, t_cont *cont);
 int		check_valid_export(const char *str, t_cont *cont, int *flag);
 int		export_error(const char *str);
 int		ft_isasymbol(const char str);
+/*
+**UNSET.C
+*/
+int		builtin_unset(char **argv, t_cont *cont);
 /*
 **FREE.C
 */

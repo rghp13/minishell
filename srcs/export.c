@@ -16,7 +16,7 @@ int	builtin_export(char **argv, t_cont *cont)
 	int		flag;
 	char	**split;
 
-	i = -1;
+	i = 0;
 	flag = 0;
 	while (argv[++i])
 	{
