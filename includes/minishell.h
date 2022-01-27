@@ -75,8 +75,6 @@ typedef struct s_export
 */
 int		check_builtin(const char *cmd);
 void	run_builtin(t_cmd *cmd, t_cont *cont);
-void	fork_builtin(t_cmd *cmd, t_cont *cont, int \
-(*builtin_func)(char **, t_cont *));
 /*
 **SYNTAX.C
 */
