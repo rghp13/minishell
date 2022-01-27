@@ -136,6 +136,10 @@ int		builtin_unset(char **argv, t_cont *cont);
 */
 int		builtin_env(char **argv, t_cont *cont);
 /*
+**BUILTIN_PWD.C
+*/
+int		builtin_pwd(char **argv, t_cont *cont);
+/*
 **FREE.C
 */
 void	free_envp(t_env *current, t_env *head);
