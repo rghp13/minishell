@@ -15,7 +15,7 @@ char	**output_env_array(t_env *head)
 	split[i] = NULL;
 	while (head)
 	{
-		if (head->value[0] != '\0')
+		if (head->value && head->value[0] != '\0')
 		{
 			split[k] = env_str(head);
 			if (split[k++] == NULL)

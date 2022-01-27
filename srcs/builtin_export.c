@@ -7,38 +7,57 @@
 ** # is taken as a comment so anything after it is ignored
 ** & - cause errors
 ** _ is accepted do not return error
+**NEW EXPORTS NEED TO THINK ABOUT ALREADY EXISTING ENV_VARS
 */
 
 int	builtin_export(char **argv, t_cont *cont)
 {
-	int		i;
-	t_env	*new_env;
-	int		flag;
-	char	**split;
+	t_export	export;
 
-	i = 0;
-	flag = 0;
-	while (argv[++i])
+	export.i = 0;
+	export.flag = 0;
+	while (argv[++export.i])
 	{
-		if (check_valid_export(argv[i], cont, &flag) == 0)
+		if (check_valid_export(argv[export.i], cont, &export.flag) == 0)
 			continue ;
-		new_env = ft_calloc(1, sizeof(t_env));
-		if (new_env == NULL || assign_env_to_struct(new_env, argv[i]))//test this
+		export.new_env = find_env(argv[export.i], cont->env);
+		if (export.new_env == NULL)
+			create_new_env(argv[export.i], cont);
+		else
 		{
-			free_envp(new_env, NULL);
-			return (1);
+			if (export.new_env->value)
+				free(export.new_env->value);
+			export.new_env->value = ft_strdup(ft_strchr(argv[export.i], '='));
 		}
-		add_last(cont->env, new_env);
 	}
-	split = output_env_array(cont->env);
-	if (split == NULL)
+	export.split = output_env_array(cont->env);
+	if (export.split == NULL)
 		return (1);
 	ft_free_all_split(cont->envstr);
-	cont->envstr = split;
-	return (flag);
+	cont->envstr = export.split;
+	return (export.flag);
 }
 
-int	check_valid_export(const char *str, t_cont *cont, int *flag)//0 means skip
+void	create_new_env(char *argv, t_cont *cont)
+{
+	t_env	*new_env;
+
+	if (argv == NULL || cont == NULL)
+		return ;
+	new_env = ft_calloc(1, sizeof(t_env));
+	if (new_env == NULL || assign_env_to_struct(new_env, argv))
+	{
+		free_envp(new_env, NULL);
+		return ;
+	}
+	new_env->cont = cont;
+	add_last(cont->env, new_env);
+}
+
+/*
+**0 means skip
+*/
+int	check_valid_export(const char *str, t_cont *cont, int *flag)
 {
 	int		i;
 	int		c;

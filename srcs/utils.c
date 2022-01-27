@@ -48,4 +48,5 @@ void	add_last(t_env *head, t_env *current)
 		next->next = current;
 		current->prev = next;
 	}
+	printf("addlast complete\n");
 }
