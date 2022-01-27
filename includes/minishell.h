@@ -130,6 +130,7 @@ int		export_error(const char *str);
 int		ft_isasymbol(const char str);
 void	create_new_env(char *argv, t_cont *cont);
 
+<<<<<<< HEAD
 /*
 **BUILTIN_UNSET.C
 */
@@ -142,10 +143,16 @@ int		builtin_env(char **argv, t_cont *cont);
 **BUILTIN_PWD.C
 */
 int		builtin_pwd(char **argv, t_cont *cont);
+=======
+>>>>>>> 1da7fef (removed forking for builtin, renamed export and unset file, fixed export to take into consideration if key already existed)
 /*
-**UNSET.C
+**BUILTIN_UNSET.C
 */
 int		builtin_unset(char **argv, t_cont *cont);
+/*
+**BUILTIN_ENV.C
+*/
+int		builtin_env(char **argv, t_cont *cont);
 /*
 **FREE.C
 */
