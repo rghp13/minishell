@@ -25,7 +25,7 @@ PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
 								env2.c \
 								exec.c \
-								export.c \
+								builtin_export.c \
 								free.c \
 								function_parsing.c \
 								main.c \
@@ -39,7 +39,8 @@ SRC_NAME				=		env.c \
 								fd_ops.c \
 								builtin.c \
 								syntax.c \
-								unset.c
+								builtin_unset.c \
+								builtin_env.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
