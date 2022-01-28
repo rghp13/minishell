@@ -67,19 +67,44 @@ t_env	*find_env(const char *key, t_env *head)
 {
 	t_env	*ptr;
 	int		len;
+	char	*str;
 
+	str = strip_value(key);
 	ptr = head;
-	if (key == NULL || head == NULL)
+	if (str == NULL || head == NULL)
 		return (NULL);
-	len = ft_strlen(key);
 	while (ptr)
 	{
-		if (len == ft_strlen(ptr->key))
+		if (ft_stringcomp(str, ptr->key) == 0)
 		{
-			if (ft_strncmp(key, ptr->key, len) == 0)
-				return (ptr);
+			free(str);
+			return (ptr);
 		}
 		ptr = ptr->next;
 	}
+	free(str);
 	return (NULL);
+}
+
+char	*strip_value(const char *key)
+{
+	char	*hold;
+	int		i;
+
+	i = 0;
+	if (key == NULL)
+		return (NULL);
+	hold = ft_strdup(key);
+	if (hold == NULL)
+		return (NULL);
+	while (hold[i])
+	{
+		if (hold[i] == '=')
+		{
+			hold[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+	return (hold);
 }
