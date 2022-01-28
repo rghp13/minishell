@@ -7,35 +7,35 @@
 ** # is taken as a comment so anything after it is ignored
 ** & - cause errors
 ** _ is accepted do not return error
-**NEW EXPORTS NEED TO THINK ABOUT ALREADY EXISTING ENV_VARS
+**export PWD=$HOME becomes PWDHOME
 */
 
 int	builtin_export(char **argv, t_cont *cont)
 {
-	t_export	export;
+	t_export	exp;
 
-	export.i = 0;
-	export.flag = 0;
-	while (argv[++export.i])
+	exp.i = 0;
+	exp.flag = 0;
+	while (argv[++exp.i])
 	{
-		if (check_valid_export(argv[export.i], cont, &export.flag) == 0)
+		if (check_valid_export(argv[exp.i], cont, &exp.flag) == 0)
 			continue ;
-		export.new_env = find_env(argv[export.i], cont->env);
-		if (export.new_env == NULL)
-			create_new_env(argv[export.i], cont);
+		exp.new_env = find_env(argv[exp.i], cont->env);
+		if (exp.new_env == NULL)
+			create_new_env(argv[exp.i], cont);
 		else
 		{
-			if (export.new_env->value)
-				free(export.new_env->value);
-			export.new_env->value = ft_strdup(ft_strchr(argv[export.i], '='));
+			if (exp.new_env->value)
+				free(exp.new_env->value);
+			exp.new_env->value = ft_strdup(ft_strchr(argv[exp.i], '=') + 1);
 		}
 	}
-	export.split = output_env_array(cont->env);
-	if (export.split == NULL)
+	exp.split = output_env_array(cont->env);
+	if (exp.split == NULL)
 		return (1);
 	ft_free_all_split(cont->envstr);
-	cont->envstr = export.split;
-	return (export.flag);
+	cont->envstr = exp.split;
+	return (exp.flag);
 }
 
 void	create_new_env(char *argv, t_cont *cont)

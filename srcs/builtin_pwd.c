@@ -2,19 +2,14 @@
 
 int	builtin_pwd(char **argv, t_cont *cont)
 {
-	char	*val;
+	char	val[PATH_MAX];
 
 	(void)argv;
-	val = getcwd(NULL, 0);
-	if (val == NULL)
+	(void)cont;
+	if (getcwd(val, PATH_MAX))
 	{
-		val = get_key_val("$PWD", cont->env);
-		if (val == NULL)
-		{
-			ft_printf("Unable to find current directory\n");
-			return (1);
-		}
+		ft_printf("%s\n", val);
+		return (0);
 	}
-	ft_printf("%s\n", val);
-	return (0);
+	return (1);
 }
