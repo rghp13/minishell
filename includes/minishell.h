@@ -111,6 +111,7 @@ t_env	*get_env(char **envp, t_cont *cont);
 int		assign_env_to_struct(t_env *current, char *envp);
 char	*get_key_val(const char *key, t_env *env);
 t_env	*find_env(const char *key, t_env *head);
+char	*strip_value(const char *key);
 /*
 **ENV2.C
 */
