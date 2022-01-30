@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:57:28 by dscriabi          #+#    #+#             */
-/*   Updated: 2022/01/24 16:44:46 by romain           ###   ########.fr       */
+/*   Updated: 2022/01/30 17:57:35 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int n);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putendl_fd(char *s, int fd);
-void			ft_putstr_fd(char *s, int fd);
+void			ft_putstr_fd(const char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
 void			*ft_calloc(int nitems, int size);
 void			ft_bzero(void *s, int n);

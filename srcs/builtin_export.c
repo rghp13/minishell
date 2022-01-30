@@ -87,9 +87,9 @@ int	check_valid_export(const char *str, t_cont *cont, int *flag)
 
 int	export_error(const char *str)
 {
-	write(STDOUT_FILENO, "bash: export: `", 16);
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "': not a valid identifier\n", 27);
+	write(STDERR_FILENO, "bash: export: `", 16);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, "': not a valid identifier\n", 27);
 	return (0);
 }
 
