@@ -49,3 +49,18 @@ void	add_last(t_env *head, t_env *current)
 		current->prev = next;
 	}
 }
+
+int	update_envstr(t_cont *cont)
+{
+	t_env	*env;
+	char	**arr;
+
+	arr = output_env_array(cont->env);
+	if (arr)
+	{
+		ft_free_all_split(cont->envstr);
+		cont->envstr = arr;
+		return (0);
+	}
+	return (1);
+}

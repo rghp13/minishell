@@ -18,7 +18,7 @@ void	run_builtin(t_cmd *cmd, t_cont *cont)
 	if (ft_stringcomp(cmd->arg[0], "echo") == 0)
 		printf("entered echo\n");
 	else if (ft_stringcomp(cmd->arg[0], "cd") == 0)
-		printf("entered cd\n");
+		cont->exit_status = builtin_cd(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "pwd") == 0)
 		cont->exit_status = builtin_pwd(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "export") == 0)
