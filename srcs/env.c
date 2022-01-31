@@ -86,7 +86,7 @@ t_env	*find_env(const char *key, t_env *head)
 	return (NULL);
 }
 /*
-**takes a "$KEY=$VALUE" string, dups it
+**takes a "KEY=VALUE" string, dups it
 **removes the value so only the key remains
 */
 

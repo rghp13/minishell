@@ -24,6 +24,7 @@ PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
 								env2.c \
+								env3.c \
 								exec.c \
 								builtin_export.c \
 								free.c \
