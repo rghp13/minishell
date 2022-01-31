@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:57:28 by dscriabi          #+#    #+#             */
-/*   Updated: 2022/01/30 17:57:35 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/01/31 20:51:49 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char			*ft_gnl_strjoin(char const *s1, char const *s2);
 size_t			ft_gnl_strlen(char *s);
 void			*ft_free_split(char **split_str, int word_count);
 int				ft_stringcomp(const char *str1, const char *str2);
+int				ft_strisnum(const char *str);
 
 #endif
