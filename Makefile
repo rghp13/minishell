@@ -42,7 +42,8 @@ SRC_NAME				=		env.c \
 								builtin_unset.c \
 								builtin_env.c \
 								builtin_pwd.c \
-								builtin_cd.c
+								builtin_cd.c \
+								builtin_exit.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)

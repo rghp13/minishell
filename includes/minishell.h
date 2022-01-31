@@ -57,7 +57,8 @@ typedef struct s_cont
 	int		pipe_out;
 	int		child_pid;
 	int		prev_ret;
-	int		exit_status;
+	uint8_t	exit_status;
+	int		exit_flag;
 	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
@@ -148,6 +149,10 @@ int		builtin_cd(char **argv, t_cont *cont);
 int		go_home(t_cont *cont);
 int		cd_error_print(const char *str);
 void	update_pwd_env(t_cont *cont, char *ptr);
+/*
+**BUILTIN_EXIT.C
+*/
+int		builtin_exit(char **argv, t_cont *cont);
 /*
 **FREE.C
 */

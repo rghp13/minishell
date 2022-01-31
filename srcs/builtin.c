@@ -28,6 +28,6 @@ void	run_builtin(t_cmd *cmd, t_cont *cont)
 	else if (ft_stringcomp(cmd->arg[0], "env") == 0)
 		cont->exit_status = builtin_env(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "exit") == 0)
-		printf("entered exit\n");
+		cont->exit_status = builtin_exit(cmd->arg, cont);
 	return ;
 }
