@@ -122,6 +122,10 @@ int		remove_env(t_env *head, const char *key);
 char	*env_str(t_env *env);
 t_env	*add_env(const char *key, const char *value, t_cont *cont);
 /*
+**ENV3.C
+*/
+void	shell_lvl(t_cont *cont);
+/*
 **BUILTIN_EXPORT.C
 */
 int		builtin_export(char **argv, t_cont *cont);

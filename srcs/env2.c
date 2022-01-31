@@ -95,6 +95,7 @@ int	remove_env(t_env *head, const char *key)
 
 /*
 **IF YOU USE THIS FUNCTION PLEASE UPDATE THE ENVSTR WHEN DONE
+**and addlast
 */
 
 t_env	*add_env(const char *key, const char *value, t_cont *cont)
