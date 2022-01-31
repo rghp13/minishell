@@ -11,7 +11,9 @@
 **isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
 **tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
 **tgoto, tputs
-**Start by moving all envp to a linked list
+**ERRORS NEED TO GO TO STDERR, TRACK SHELL LVL, IMPLEMENT HISTORY, 
+**check that a env value string set to null doesn't break anything
+**typing a command then pressing CTRL+D twice executes it (shouldn't happen)
 */
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)

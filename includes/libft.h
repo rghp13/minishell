@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:57:28 by dscriabi          #+#    #+#             */
-/*   Updated: 2022/01/25 19:22:27 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:57:59 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int n);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putendl_fd(char *s, int fd);
-void			ft_putstr_fd(char *s, int fd);
+void			ft_putstr_fd(const char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
 void			*ft_calloc(int nitems, int size);
 void			ft_bzero(void *s, int n);
