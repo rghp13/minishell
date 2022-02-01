@@ -158,6 +158,10 @@ void	update_pwd_env(t_cont *cont, char *ptr);
 */
 int		builtin_exit(char **argv, t_cont *cont);
 /*
+**BUILTIN_ECHO.c
+*/
+int		builtin_echo(char **argv, t_cont *cont);
+/*
 **FREE.C
 */
 void	free_envp(t_env *current, t_env *head);

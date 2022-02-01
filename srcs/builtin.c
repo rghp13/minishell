@@ -16,7 +16,7 @@ int	check_builtin(const char *cmd)
 void	run_builtin(t_cmd *cmd, t_cont *cont)
 {
 	if (ft_stringcomp(cmd->arg[0], "echo") == 0)
-		printf("entered echo\n");
+		cont->exit_status = builtin_echo(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "cd") == 0)
 		cont->exit_status = builtin_cd(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "pwd") == 0)
