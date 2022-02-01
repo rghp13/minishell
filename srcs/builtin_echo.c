@@ -11,7 +11,11 @@ int	builtin_echo(char **argv, t_cont *cont)
 	flag = 0;
 	(void)cont;
 	if (argv[1] && ft_stringcomp("-n", argv[1]) == 0)
+	{
 		n = 1;
+		if (argv[2] == NULL)
+			return (0);
+	}
 	while (argv[i])
 	{
 		if (flag == 0)
