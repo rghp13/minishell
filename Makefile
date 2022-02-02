@@ -38,6 +38,7 @@ SRC_NAME				=		env.c \
 								singals.c \
 								bracket_split.c \
 								fd_ops.c \
+								redirection.c \
 								builtin.c \
 								syntax.c \
 								builtin_unset.c \

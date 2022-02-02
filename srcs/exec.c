@@ -12,10 +12,20 @@ void	exec_main(t_cont *cont)
 	list_get_path(cont->cmd, cont->env);
 	while (hold)
 	{
-		if (check_builtin(hold->arg[0]) == 1)
-			run_builtin(hold, cont);
+		if (hold->pipechain)
+			return ;
+		else if (hold->input_type > -1 || hold->output_type > -1)
+		{
+			if (prepare_redirection(hold, cont))
+				printf("error");
+		}
 		else
-			exec_cmd(hold, cont);
+		{
+			if (check_builtin(hold->arg[0]) == 1)
+				run_builtin(hold, cont);
+			else
+				exec_cmd(hold, cont);
+		}
 		hold = hold->next;
 	}
 }
