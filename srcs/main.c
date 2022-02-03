@@ -15,6 +15,7 @@
 **'' not disappearing in echo, -n flag being printed
 **bash should say "home not set"
 **$SHELL might need to say minishell
+**shell should error out if no environment
 **typing a command then pressing CTRL+D twice executes it (shouldn't happen)
 */
 
@@ -35,6 +36,11 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp, cont);
+	if (cont->env == NULL || cont->envstr == NULL)
+	{
+		ft_putstr_fd("Error: Missing ENV\n", STDERR_FILENO);
+		return (1);
+	}
 	cont->envstr = output_env_array(cont->env);
 	shell_lvl(cont);
 	return (0);
@@ -73,7 +79,11 @@ int	main(int argc, char const *argv[], char **envp)
 	struct termios	original;
 	t_cont			cont;
 
-	initialize_main_struct(&cont, envp, &original);
+	if (initialize_main_struct(&cont, envp, &original))
+	{
+		cleanup(cont, original);
+		return (1);
+	}
 	main_loop(&cont);
 	cleanup(cont, original);
 	return (0);

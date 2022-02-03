@@ -49,11 +49,16 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*hold;
+	int		len;
 
 	hold = cmd;
 	while (hold)
 	{
-		hold->abspath = get_abs_path(hold->arg[0], env);
+		len = ft_strlen(hold->arg[0]);
+		if (len >= 2 && hold->arg[0][0] == '.' && hold->arg[0][1] == '/')
+			hold->abspath = ft_strdup(hold->arg[0]);
+		else
+			hold->abspath = get_abs_path(hold->arg[0], env);
 		hold = hold->next;
 	}
 	return (0);
