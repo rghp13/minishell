@@ -17,6 +17,8 @@
 **$SHELL might need to say minishell
 **shell should error out if no environment
 **typing a command then pressing CTRL+D twice executes it (shouldn't happen)
+**implement ~/ execution
+**"hi.txt" ctrl+d
 */
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
@@ -36,11 +38,6 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp, cont);
-	if (cont->env == NULL || cont->envstr == NULL)
-	{
-		ft_putstr_fd("Error: Missing ENV\n", STDERR_FILENO);
-		return (1);
-	}
 	cont->envstr = output_env_array(cont->env);
 	shell_lvl(cont);
 	return (0);
@@ -79,11 +76,7 @@ int	main(int argc, char const *argv[], char **envp)
 	struct termios	original;
 	t_cont			cont;
 
-	if (initialize_main_struct(&cont, envp, &original))
-	{
-		cleanup(cont, original);
-		return (1);
-	}
+	initialize_main_struct(&cont, envp, &original);
 	main_loop(&cont);
 	cleanup(cont, original);
 	return (0);
