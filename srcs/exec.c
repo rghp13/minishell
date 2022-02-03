@@ -13,7 +13,7 @@ void	exec_main(t_cont *cont)
 	while (hold)
 	{
 		if (hold->pipechain)
-			return ;
+			pipe_execution(hold, hold->pipechain, cont);
 		else if (hold->input_type > -1 || hold->output_type > -1)
 		{
 			if (prepare_redirection(hold, cont))
@@ -59,11 +59,18 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*hold;
+	t_cmd	*pipe;
 
 	hold = cmd;
 	while (hold)
 	{
 		hold->abspath = get_abs_path(hold->arg[0], env);
+		pipe = hold->pipechain;
+		while (pipe)
+		{
+			pipe->abspath = get_abs_path(pipe->arg[0], env);
+			pipe = pipe->next;
+		}
 		hold = hold->next;
 	}
 	return (0);

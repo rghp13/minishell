@@ -209,4 +209,5 @@ void	fd_close(t_cont *cont);
 void	fd_reset(t_cont *cont);
 
 int		prepare_redirection(t_cmd *cmd, t_cont *cont);
+int		pipe_execution(t_cmd *cmd, t_cmd *cmd2, t_cont *cont);
 #endif

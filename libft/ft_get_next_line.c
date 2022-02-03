@@ -96,10 +96,8 @@ char	*get_next_line(int fd)
 		chars_read = read(fd, buffer, GNL_BUFFER_SIZE);
 		if (chars_read == -1)
 		{
-			// free(buffer);
-			// return (NULL);
-			printf("returned -1 \n");
-			continue ;
+			free(buffer);
+			return (NULL);
 		}
 		buffer[chars_read] = '\0';
 		prev_chars = ft_gnl_strjoin(prev_chars, buffer);

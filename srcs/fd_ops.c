@@ -3,7 +3,7 @@
 void	fd_reset(t_cont *cont)
 {
 	dup2(cont->fd_in_perm, 0);
-	dup2(cont->fd_in_perm, 1);
+	dup2(cont->fd_out_perm, 1);
 }
 
 void	fd_close(t_cont *cont)
