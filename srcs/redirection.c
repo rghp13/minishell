@@ -24,10 +24,7 @@ int	prepare_redirection(t_cmd *cmd, t_cont *cont)
 		dup2(cont->fd_out, 1);
 		close(cont->fd_out);
 	}
-	if (check_builtin(cmd->arg[0]) == 1)
-		run_builtin(cmd, cont);
-	else
-		exec_cmd(cmd, cont);
+	exec_bultin_bin_bridge(cmd, cont);
 	fd_close(cont);
 	fd_reset(cont);
 	return (0);

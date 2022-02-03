@@ -12,18 +12,18 @@ void	fd_close(t_cont *cont)
 		close(cont->fd_in > 0);
 	if (cont->fd_out)
 		close(cont->fd_out);
-	if (cont->pipe_in > 0)
-		close(cont->pipe_in);
-	if (cont->pipe_out > 0)
-		close(cont->pipe_out);
+	if (cont->pipefd[0] > 0)
+		close(cont->pipefd[0]);
+	if (cont->pipefd[1] > 0)
+		close(cont->pipefd[1]);
 }
 
 void	fd_zero(t_cont *cont)
 {
 	cont->fd_in = -1;
 	cont->fd_out = -1;
-	cont->pipe_in = -1;
-	cont->pipe_out = -1;
+	cont->pipefd[0] = -1;
+	cont->pipefd[1] = -1;
 }
 
 void	fd_inits(t_cont *cont)

@@ -13,19 +13,14 @@ void	exec_main(t_cont *cont)
 	while (hold)
 	{
 		if (hold->pipechain)
-			pipe_execution(hold, hold->pipechain, cont);
+			pipe_execution(hold, cont);
 		else if (hold->input_type > -1 || hold->output_type > -1)
 		{
 			if (prepare_redirection(hold, cont))
 				printf("error");
 		}
 		else
-		{
-			if (check_builtin(hold->arg[0]) == 1)
-				run_builtin(hold, cont);
-			else
-				exec_cmd(hold, cont);
-		}
+			exec_bultin_bin_bridge(hold, cont);
 		hold = hold->next;
 	}
 }
