@@ -26,6 +26,7 @@ SRC_NAME				=		env.c \
 								env2.c \
 								env3.c \
 								exec.c \
+								exec2.c \
 								builtin_export.c \
 								free.c \
 								function_parsing.c \

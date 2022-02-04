@@ -38,6 +38,11 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp, cont);
+	if (cont->env == NULL)
+	{
+		cont->exit_flag = 1;
+		return (1);
+	}
 	cont->envstr = output_env_array(cont->env);
 	shell_lvl(cont);
 	return (0);
