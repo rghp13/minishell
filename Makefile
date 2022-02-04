@@ -24,7 +24,9 @@ PATH_HEAD				=		./includes
 PATH_LIB				=		./libft
 SRC_NAME				=		env.c \
 								env2.c \
+								env3.c \
 								exec.c \
+								executils.c \
 								builtin_export.c \
 								free.c \
 								function_parsing.c \
@@ -37,11 +39,16 @@ SRC_NAME				=		env.c \
 								singals.c \
 								bracket_split.c \
 								fd_ops.c \
+								pipe.c \
+								redirection.c \
 								builtin.c \
 								syntax.c \
 								builtin_unset.c \
 								builtin_env.c \
-								builtin_pwd.c
+								builtin_pwd.c \
+								builtin_cd.c \
+								builtin_exit.c \
+								builtin_echo.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)

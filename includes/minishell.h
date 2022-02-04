@@ -53,11 +53,11 @@ typedef struct s_cont
 	int		fd_out_perm;
 	int		fd_in;
 	int		fd_out;
-	int		pipe_in;
-	int		pipe_out;
+	int		pipefd[2];
 	int		child_pid;
 	int		prev_ret;
-	int		exit_status;
+	uint8_t	exit_status;
+	int		exit_flag;
 	char	**envstr;
 	t_cmd	*cmd;
 	t_env	*env;
@@ -86,7 +86,7 @@ int		small_malloc(void **ptr, size_t size);
 int		ft_error(int erno);
 int		ft_free_all_split(char **split);
 void	add_last(t_env *head, t_env *current);
-
+int		update_envstr(t_cont *cont);
 /*
 **FUNCTION_PARSING.C
 */
@@ -104,6 +104,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont);
 int		list_get_path(t_cmd *cmd, t_env *env);
 char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
+int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 /*
 **ENV.C
 */
@@ -119,6 +120,11 @@ char	**output_env_array(t_env *head);
 int		calculate_env_split(t_env *head);
 int		remove_env(t_env *head, const char *key);
 char	*env_str(t_env *env);
+t_env	*add_env(const char *key, const char *value, t_cont *cont);
+/*
+**ENV3.C
+*/
+void	shell_lvl(t_cont *cont);
 /*
 **BUILTIN_EXPORT.C
 */
@@ -140,6 +146,40 @@ int		builtin_env(char **argv, t_cont *cont);
 **BUILTIN_PWD.C
 */
 int		builtin_pwd(char **argv, t_cont *cont);
+/*
+**BUILTIN_UNSET.C
+*/
+int		builtin_unset(char **argv, t_cont *cont);
+/*
+**BUILTIN_ENV.C
+*/
+int		builtin_env(char **argv, t_cont *cont);
+/*
+**BUILTIN_PWD.C
+*/
+int		builtin_pwd(char **argv, t_cont *cont);
+/*
+**BUILTIN_CD.C
+*/
+int		builtin_cd(char **argv, t_cont *cont);
+int		go_home(t_cont *cont);
+int		cd_error_print(const char *str);
+void	update_pwd_env(t_cont *cont, char *ptr);
+/*
+**BUILTIN_CD.C
+*/
+int		builtin_cd(char **argv, t_cont *cont);
+int		go_home(t_cont *cont);
+int		cd_error_print(const char *str);
+void	update_pwd_env(t_cont *cont, char *ptr);
+/*
+**BUILTIN_EXIT.C
+*/
+int		builtin_exit(char **argv, t_cont *cont);
+/*
+**BUILTIN_ECHO.c
+*/
+int		builtin_echo(char **argv, t_cont *cont);
 /*
 **FREE.C
 */
@@ -167,4 +207,7 @@ void	fd_inits(t_cont *cont);
 void	fd_zero(t_cont *cont);
 void	fd_close(t_cont *cont);
 void	fd_reset(t_cont *cont);
+
+int		prepare_redirection(t_cmd *cmd, t_cont *cont);
+int		pipe_execution(t_cmd *cmd, t_cont *cont);
 #endif

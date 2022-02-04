@@ -11,7 +11,11 @@
 **isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
 **tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
 **tgoto, tputs
-**Start by moving all envp to a linked list
+**ERRORS NEED TO GO TO STDERR, TRACK SHELL LVL, IMPLEMENT HISTORY, 
+**'' not disappearing in echo, -n flag being printed
+**bash should say "home not set"
+**$SHELL might need to say minishell
+**typing a command then pressing CTRL+D twice executes it (shouldn't happen)
 */
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
@@ -27,10 +31,12 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	init_singals();
 	fd_inits(cont);
 	cont->exit_status = 0;
+	cont->exit_flag = 0;
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp, cont);
 	cont->envstr = output_env_array(cont->env);
+	shell_lvl(cont);
 	return (0);
 }
 
@@ -46,7 +52,7 @@ int	main_loop(t_cont *cont)
 {
 	char	*parsed_line;
 
-	while (1)
+	while (1 && cont->exit_flag == 0)
 	{
 		ft_putstr_fd("$> ", 2);
 		parsed_line = get_next_line(0);
@@ -55,7 +61,6 @@ int	main_loop(t_cont *cont)
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
 		argv_loop(cont);
-		//print_command_list(cont->cmd); // you should replace this with your execution :)
 		exec_main(cont);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;

@@ -16,9 +16,9 @@ int	check_builtin(const char *cmd)
 void	run_builtin(t_cmd *cmd, t_cont *cont)
 {
 	if (ft_stringcomp(cmd->arg[0], "echo") == 0)
-		printf("entered echo\n");
+		cont->exit_status = builtin_echo(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "cd") == 0)
-		printf("entered cd\n");
+		cont->exit_status = builtin_cd(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "pwd") == 0)
 		cont->exit_status = builtin_pwd(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "export") == 0)
@@ -28,6 +28,6 @@ void	run_builtin(t_cmd *cmd, t_cont *cont)
 	else if (ft_stringcomp(cmd->arg[0], "env") == 0)
 		cont->exit_status = builtin_env(cmd->arg, cont);
 	else if (ft_stringcomp(cmd->arg[0], "exit") == 0)
-		printf("entered exit\n");
+		cont->exit_status = builtin_exit(cmd->arg, cont);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:57:28 by dscriabi          #+#    #+#             */
-/*   Updated: 2022/01/25 19:22:27 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/01/31 20:52:03 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int n);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putendl_fd(char *s, int fd);
-void			ft_putstr_fd(char *s, int fd);
+void			ft_putstr_fd(const char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
 void			*ft_calloc(int nitems, int size);
 void			ft_bzero(void *s, int n);
@@ -106,4 +106,5 @@ char			*ft_gnl_strjoin(char const *s1, char const *s2);
 size_t			ft_gnl_strlen(char *s);
 void			*ft_free_split(char **split_str, int word_count);
 int				ft_stringcomp(const char *str1, const char *str2);
+int				ft_strisnum(const char *str);
 #endif
