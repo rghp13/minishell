@@ -1,8 +1,10 @@
 #include "minishell.h"
 
-//main function that will run one command at a time in the list
-//start by taking the first command, figuring out which is the correct path
-//figure out if it needs to redirect and how to redirect
+/*
+**main function that will run one command at a time in the list
+**start by taking the first command, figuring out which is the correct path
+**figure out if it needs to redirect and how to redirect
+*/
 
 void	exec_main(t_cont *cont)
 {
@@ -54,18 +56,18 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*hold;
-	t_cmd	*pipe;
+	int		len;
 
 	hold = cmd;
 	while (hold)
 	{
-		hold->abspath = get_abs_path(hold->arg[0], env);
-		pipe = hold->pipechain;
-		while (pipe)
-		{
-			pipe->abspath = get_abs_path(pipe->arg[0], env);
-			pipe = pipe->next;
-		}
+		len = ft_strlen(hold->arg[0]);
+		if (len >= 2 && hold->arg[0][0] == '.' && hold->arg[0][1] == '/')
+			hold->abspath = ft_strdup(hold->arg[0]);
+		else if (len >= 2 && hold->arg[0][0] == '~' && hold->arg[0][1] == '/')
+			hold->abspath = get_home_path(hold->arg[0], env->cont);
+		else
+			hold->abspath = get_abs_path(hold->arg[0], env);
 		hold = hold->next;
 	}
 	return (0);
