@@ -7,7 +7,6 @@
 void	shell_lvl(t_cont *cont)
 {
 	t_env	*hold;
-	int		lvl;
 	char	*ptr;
 
 	hold = find_env("SHLVL", cont->env);
@@ -29,5 +28,7 @@ void	shell_lvl(t_cont *cont)
 	{
 		hold = add_env("SHLVL", "0", cont);
 		add_last(cont->env, hold);
+		if (cont->env == NULL)
+			hold = hold->cont->env;
 	}
 }

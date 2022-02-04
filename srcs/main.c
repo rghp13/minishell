@@ -1,21 +1,15 @@
 #include "../includes/minishell.h"
 
 /*
-**readline, rl_clear_history, rl_on_new_line,
-**rl_replace_line, rl_redisplay, add_history,
-**printf, malloc, free, write, access, open, read,
-**close, fork, wait, waitpid, wait3, wait4, signal,
-**sigaction, kill, exit, getcwd, chdir, stat,
-**lstat, fstat, unlink, execve, dup, dup2, pipe,
-**opendir, readdir, closedir, strerror, perror,
-**isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
-**tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
-**tgoto, tputs
 **ERRORS NEED TO GO TO STDERR, TRACK SHELL LVL, IMPLEMENT HISTORY, 
 **'' not disappearing in echo, -n flag being printed
 **bash should say "home not set"
 **$SHELL might need to say minishell
+**shell should error out if no environment
 **typing a command then pressing CTRL+D twice executes it (shouldn't happen)
+**implement ~/ execution
+**test what happens with ~/ if it's after a pipe
+**"hi.txt" ctrl+d
 */
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
@@ -35,6 +29,11 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	cont->child_pid = 0;
 	cont->cmd = NULL;
 	cont->env = get_env(envp, cont);
+	if (cont->env == NULL)
+	{
+		cont->exit_flag = 1;
+		return (1);
+	}
 	cont->envstr = output_env_array(cont->env);
 	shell_lvl(cont);
 	return (0);

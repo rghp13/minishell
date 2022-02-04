@@ -106,6 +106,10 @@ char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
 int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 /*
+**EXEC2.C
+*/
+char	*get_home_path(const char *str, t_cont *cont);
+/*
 **ENV.C
 */
 t_env	*get_env(char **envp, t_cont *cont);
