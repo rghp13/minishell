@@ -26,6 +26,7 @@ SRC_NAME				=		env.c \
 								env2.c \
 								env3.c \
 								exec.c \
+								executils.c \
 								builtin_export.c \
 								free.c \
 								function_parsing.c \
@@ -38,6 +39,8 @@ SRC_NAME				=		env.c \
 								singals.c \
 								bracket_split.c \
 								fd_ops.c \
+								pipe.c \
+								redirection.c \
 								builtin.c \
 								syntax.c \
 								builtin_unset.c \
