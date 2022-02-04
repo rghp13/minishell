@@ -109,6 +109,7 @@ int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 **EXEC2.C
 */
 char	*get_home_path(const char *str, t_cont *cont);
+int		relative_path_bridge(t_cmd *cmd, t_env *env);
 /*
 **ENV.C
 */
