@@ -10,10 +10,10 @@ int	builtin_echo(char **argv, t_cont *cont)
 	n = 0;
 	flag = 0;
 	(void)cont;
-	if (argv[1] && ft_stringcomp("-n", argv[1]) == 0)
+	if (argv[i] && ft_stringcomp("-n", argv[i]) == 0)
 	{
 		n = 1;
-		if (argv[2] == NULL)
+		if (argv[++i] == NULL)
 			return (0);
 	}
 	while (argv[i])

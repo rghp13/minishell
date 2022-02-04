@@ -12,7 +12,9 @@
 **tcgetattr, tgetent, tgetflag, tgetnum, tgetstr,
 **tgoto, tputs
 **ERRORS NEED TO GO TO STDERR, TRACK SHELL LVL, IMPLEMENT HISTORY, 
-**check that a env value string set to null doesn't break anything
+**'' not disappearing in echo, -n flag being printed
+**bash should say "home not set"
+**$SHELL might need to say minishell
 **typing a command then pressing CTRL+D twice executes it (shouldn't happen)
 */
 

@@ -26,18 +26,18 @@ int	builtin_cd(char **argv, t_cont *cont)
 
 int	go_home(t_cont *cont)
 {
-	char	*ptr;
+	t_env	*ptr;
 	int		ret;
 
-	ptr = get_key_val("$HOME", cont->env);
+	ptr = find_env("HOME", cont->env);
 	if (!ptr)
 	{
 		ft_putstr_fd("bash: cd: HOME not set\n", STDERR_FILENO);
 		return (1);
 	}
-	ret = chdir(ptr);
+	ret = chdir(ptr->value);
 	if (ret)
-		return (cd_error_print(ptr));
+		return (cd_error_print(ptr->value));
 	update_pwd_env(cont, NULL);
 	return (0);
 }
