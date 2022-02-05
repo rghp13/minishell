@@ -38,6 +38,12 @@ typedef struct s_cmd
 	struct s_cmd	*pipechain; /*function to pipe output too if there is one*/
 }					t_cmd;
 
+typedef struct s_history
+{
+	char				*value;
+	struct s_history	*older;
+	struct s_history	*newer;
+}						t_history;
 typedef struct s_env
 {
 	char			*key;
@@ -49,18 +55,20 @@ typedef struct s_env
 
 typedef struct s_cont
 {
-	int		fd_in_perm;
-	int		fd_out_perm;
-	int		fd_in;
-	int		fd_out;
-	int		pipefd[2];
-	int		child_pid;
-	int		prev_ret;
-	uint8_t	exit_status;
-	int		exit_flag;
-	char	**envstr;
-	t_cmd	*cmd;
-	t_env	*env;
+	int			fd_in_perm;
+	int			fd_out_perm;
+	int			fd_in;
+	int			fd_out;
+	int			pipefd[2];
+	int			child_pid;
+	int			prev_ret;
+	uint8_t		exit_status;
+	int			exit_flag;
+	char		**envstr;
+	t_cmd		*cmd;
+	t_env		*env;
+	t_history	*history;
+	t_history	*current;
 }				t_cont;
 
 typedef struct s_export
@@ -104,10 +112,10 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont);
 int		list_get_path(t_cmd *cmd, t_env *env);
 char	*get_abs_path(const char *src, t_env *env);
 int		merge_path_name(char **path, const char *name);
-int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 /*
-**EXEC2.C
+**EXECUTILS.C
 */
+int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 char	*get_home_path(const char *str, t_cont *cont);
 int		relative_path_bridge(t_cmd *cmd, t_env *env);
 /*
@@ -189,6 +197,11 @@ int		builtin_echo(char **argv, t_cont *cont);
 **FREE.C
 */
 void	free_envp(t_env *current, t_env *head);
+void	free_history(t_cont *cont);
+/**
+**HISTORY.C
+*/
+int		ft_add_history(const char *str, t_cont *cont);
 
 int		substitute_variables(t_cont *cont);
 int		create_argv(t_cmd *cmd);
