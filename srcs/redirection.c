@@ -24,8 +24,5 @@ int	prepare_redirection(t_cmd *cmd, t_cont *cont)
 		dup2(cont->fd_out, 1);
 		close(cont->fd_out);
 	}
-	exec_bultin_bin_bridge(cmd, cont);
-	fd_close(cont);
-	fd_reset(cont);
 	return (0);
 }

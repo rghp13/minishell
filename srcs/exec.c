@@ -15,11 +15,16 @@ void	exec_main(t_cont *cont)
 	while (hold)
 	{
 		if (hold->pipechain)
+		{
 			pipe_execution(hold, cont);
+			fd_reset(cont);
+		}
 		else if (hold->input_type > -1 || hold->output_type > -1)
 		{
-			if (prepare_redirection(hold, cont))
-				printf("error");
+			prepare_redirection(hold, cont);
+			exec_bultin_bin_bridge(hold, cont);
+			fd_close(cont);
+			fd_reset(cont);
 		}
 		else
 			exec_bultin_bin_bridge(hold, cont);
@@ -56,18 +61,19 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
 	t_cmd	*hold;
+	t_cmd	*pipe;
 	int		len;
 
 	hold = cmd;
 	while (hold)
 	{
-		len = ft_strlen(hold->arg[0]);
-		if (len >= 2 && hold->arg[0][0] == '.' && hold->arg[0][1] == '/')
-			hold->abspath = ft_strdup(hold->arg[0]);
-		else if (len >= 2 && hold->arg[0][0] == '~' && hold->arg[0][1] == '/')
-			hold->abspath = get_home_path(hold->arg[0], env->cont);
-		else
-			hold->abspath = get_abs_path(hold->arg[0], env);
+		relative_path_bridge(hold, env);
+		pipe = hold->pipechain;
+		while (pipe)
+		{
+			relative_path_bridge(pipe, env);
+			pipe = pipe->next;
+		}
 		hold = hold->next;
 	}
 	return (0);
