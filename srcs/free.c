@@ -37,5 +37,24 @@ void	free_envp(t_env *current, t_env *head)
 		head = ptr;
 	}
 	head = NULL;
-	// return (1);
+}
+
+/*
+**Will clear entire history
+*/
+
+void	free_history(t_cont *cont)
+{
+	t_history	*current;
+	t_history	*temp;
+
+	current = cont->history;
+	while (current)
+	{
+		temp = current->older;
+		if (current->value)
+			free(current->value);
+		free(current);
+		current = temp;
+	}
 }
