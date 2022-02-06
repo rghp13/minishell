@@ -51,12 +51,15 @@ int	main_loop(t_cont *cont)
 {
 	char	*parsed_line;
 
-	while (1 && cont->exit_flag == 0)
+	while (cont->exit_flag == 0)
 	{
 		ft_putstr_fd("$> ", 2);
 		parsed_line = get_next_line(0);
 		if (!parsed_line)
+		{
+			ft_putstr_fd("exit", 3);
 			break ;
+		}
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
 		argv_loop(cont);
