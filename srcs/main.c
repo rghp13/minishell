@@ -34,8 +34,8 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 		cont->exit_flag = 1;
 		return (1);
 	}
-	cont->envstr = output_env_array(cont->env);
 	shell_lvl(cont);
+	cont->envstr = output_env_array(cont->env);
 	return (0);
 }
 
