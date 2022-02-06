@@ -79,3 +79,28 @@ int	free_cmd(t_cmd *cmd)
 	free(cmd);
 	return (0);
 }
+
+int	sanitize_argv(char **argv)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i][0] == '"' || argv[i][0] == '\'')
+		{
+			j = ft_strlen(argv[i]);
+			k = 0;
+			while (argv[i][k + 1])
+			{
+				argv[i][k] = argv[i][k + 1];
+				k++;
+			}
+			argv[i][k - 1] = '\0';
+		}
+		i++;
+	}
+	return (0);
+}

@@ -16,8 +16,6 @@ void	init_singals(void)
 
 void	signal_handler(int signal)
 {
-	if (signal == SIGQUIT)
-		return ;
 	signal_redirector(NULL, signal, 0);
 	return ;
 }
@@ -36,6 +34,6 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 	else if (signal == SIGQUIT && !cont->child_pid)
 		return (0);
 	else if (signal == SIGINT || signal == SIGQUIT)
-		kill(ptr->child_pid, signal);
+		kill(cont->child_pid, signal);
 	return (0);
 }

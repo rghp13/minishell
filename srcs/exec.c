@@ -43,8 +43,10 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		perror("fork");
 	else if (pid > 0)
 	{
+		cont->child_pid = pid;
 		wait(&status);
 		kill(pid, SIGTERM);
+		cont->child_pid = 0;
 		cont->exit_status = status;
 	}
 	else

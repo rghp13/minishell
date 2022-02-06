@@ -31,25 +31,26 @@ int	extract_input(t_cmd *cmd, int redirectors, int size)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*result;
 
 	i = 1;
 	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '<' || cmd->cmd[i] == '<'))
 		i++;
+	k = i;
+	while (cmd->cmd[i] == ' ')
+		i++;
 	j = i;
-	while (cmd->cmd[j] && cmd->cmd[j] != '<' && cmd->cmd[j] != '>')
+	while (cmd->cmd[j] && cmd->cmd[j] != '<' && cmd->cmd[j] != '>' && cmd->cmd[j] != ' ')
 		j++;
-	if (!cmd->cmd[i])
-		return (0);
+	// if (!cmd->cmd[i])
+	// 	return (0);
 	if (small_malloc((void **)&cmd->input, sizeof(char) * ((j - i) + 1)))
 		return (0);
 	ft_strlcpy(cmd->input, &cmd->cmd[i], (j - i) + 1);
-	if ((redirectors >> 0) & 1U)
-		cmd->input_type = 0;
-	else
-		cmd->input_type = 1;
-	if (i < size)
-		return (i - (1 + cmd->input_type));
+	cmd->input_type = !((redirectors >> 0) & 1U);
+	if (k < size)
+		return (k - (1 + cmd->input_type));
 	return (size);
 }
 
@@ -57,25 +58,26 @@ int	extract_outputs(t_cmd *cmd, int redirectors, int size)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*result;
 
 	i = 1;
 	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '>' || cmd->cmd[i] == '>'))
 		i++;
+	k = i;
+	while (cmd->cmd[i] == ' ')
+		i++;
 	j = i;
-	while (cmd->cmd[j] && cmd->cmd[j] != '>' && cmd->cmd[j] != '<')
+	while (cmd->cmd[j] && cmd->cmd[j] != '>' && cmd->cmd[j] != '<' && cmd->cmd[j] != ' ')
 		j++;
-	if (!cmd->cmd[i])
-		return (0);
+	// if (!cmd->cmd[i])
+	// 	return (0);
 	if (small_malloc((void **)&cmd->output, sizeof(char) * ((j - i) + 1)))
 		return (0);
 	ft_strlcpy(cmd->output, &cmd->cmd[i], (j - i) + 1);
-	if ((redirectors >> 2) & 1U)
-		cmd->output_type = 0;
-	else
-		cmd->output_type = 1;
-	if (i < size)
-		return (i - (1 + cmd->output_type));
+	cmd->output_type = !((redirectors >> 2) & 1U);
+	if (k < size)
+		return (k - (1 + cmd->output_type));
 	return (size);
 }
 
@@ -99,6 +101,7 @@ int	create_argv(t_cmd *cmd)
 	ft_strlcpy(cmd_no_red, cmd->cmd, size_arg + 1);
 	cmd->arg = ft_special_split(cmd_no_red, ' ');
 	free (cmd_no_red);
+	sanitize_argv(cmd->arg);
 	return (0);
 }
 
