@@ -40,7 +40,7 @@ int	assign_env_to_struct(t_env *current, char *envp)
 		return (1);
 	ft_memcpy(current->key, envp, ptr - envp);
 	if (ft_strlen(ptr) < 2)
-		return (1);
+		current->value = ft_calloc(1, sizeof(char));
 	current->value = ft_strdup(ptr + 1);
 	if (current->value == NULL)
 		return (1);

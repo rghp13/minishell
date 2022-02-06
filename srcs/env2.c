@@ -15,14 +15,11 @@ char	**output_env_array(t_env *head)
 	split[i] = NULL;
 	while (head)
 	{
-		if (head->value && head->value[0] != '\0')
+		split[k] = env_str(head);
+		if (split[k++] == NULL)
 		{
-			split[k] = env_str(head);
-			if (split[k++] == NULL)
-			{
-				ft_free_all_split(split);
-				return (NULL);
-			}
+			ft_free_all_split(split);
+			return (NULL);
 		}
 		head = head->next;
 	}
@@ -58,8 +55,7 @@ int	calculate_env_split(t_env *head)
 	temp = head;
 	while (temp)
 	{
-		if (temp->value)
-			i++;
+		i++;
 		temp = temp->next;
 	}
 	return (i);
