@@ -2,10 +2,18 @@
 
 int	exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont)
 {
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 034;
+	tcsetattr(0, TCSANOW, &t);
 	if (check_builtin(cmd->arg[0]) == 1)
 		run_builtin(cmd, cont);
 	else
 		exec_cmd(cmd, cont);
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 0;
+	tcsetattr(0, TCSANOW, &t);
 	return (0);
 }
 
@@ -38,4 +46,5 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 		cmd->abspath = get_home_path(cmd->arg[0], env->cont);
 	else
 		cmd->abspath = get_abs_path(cmd->arg[0], env);
+	return (0);
 }
