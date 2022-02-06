@@ -99,6 +99,7 @@ int	create_argv(t_cmd *cmd)
 	ft_strlcpy(cmd_no_red, cmd->cmd, size_arg + 1);
 	cmd->arg = ft_special_split(cmd_no_red, ' ');
 	free (cmd_no_red);
+	sanitize_argv(cmd->arg);
 	return (0);
 }
 

@@ -104,6 +104,7 @@ t_cmd	*init_cmd(char *cmd);
 t_cmd	*add_cmd(t_cmd *list, char *cmd);
 int		free_parse(t_cmd *list);
 int		has_pipe(char *str);
+int		sanitize_argv(char **argv);
 /*
 **EXEC.C
 */
