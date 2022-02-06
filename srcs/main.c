@@ -58,7 +58,7 @@ int	main_loop(t_cont *cont)
 		parsed_line = get_next_line(0);
 		if (!parsed_line)
 		{
-			ft_putstr_fd("exit", 3);
+			ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
 		}
 		parse_command(parsed_line, &cont->cmd);
