@@ -9,10 +9,9 @@ char	**output_env_array(t_env *head)
 
 	i = calculate_env_split(head);
 	k = 0;
-	split = malloc(sizeof(char *) * i + 1);
+	split = ft_calloc(i + 1, sizeof(char*));
 	if (split == NULL)
 		return (NULL);
-	split[i] = NULL;
 	while (head)
 	{
 		split[k] = env_str(head);

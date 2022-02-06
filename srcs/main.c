@@ -42,6 +42,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 int	cleanup(t_cont cont, struct termios original)
 {
 	free_envp(NULL, cont.env);
+	ft_free_all_split(cont.envstr);
 	fd_close(&cont);
 	tcsetattr(0, TCSANOW, &original);
 	return (0);
