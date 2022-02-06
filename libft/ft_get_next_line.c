@@ -94,7 +94,7 @@ char	*get_next_line(int fd)
 	while (!has_slash_n(prev_chars) && chars_read)
 	{
 		chars_read = read(fd, buffer, GNL_BUFFER_SIZE);
-		if (chars_read == -1)
+		if (chars_read == -1 || (!has_slash_n(buffer) && chars_read < GNL_BUFFER_SIZE))
 		{
 			free(buffer);
 			return (NULL);
