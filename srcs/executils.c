@@ -48,3 +48,9 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 		cmd->abspath = get_abs_path(cmd->arg[0], env);
 	return (0);
 }
+
+int	err_ret_value(int erno, t_cont *cont)
+{
+	printf("%d\n", erno);
+	return (0);
+}
