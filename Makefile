@@ -36,6 +36,7 @@ SRC_NAME				=		env.c \
 								parse_utils2.c \
 								variable_substitution.c \
 								varsub_utils.c \
+								sanitize_argv.c \
 								singals.c \
 								bracket_split.c \
 								fd_ops.c \
