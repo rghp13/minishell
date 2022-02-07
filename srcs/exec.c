@@ -21,8 +21,10 @@ void	exec_main(t_cont *cont)
 		}
 		else if (hold->input_type > -1 || hold->output_type > -1)
 		{
-			prepare_redirection(hold, cont);
-			exec_bultin_bin_bridge(hold, cont);
+			if (prepare_redirection(hold, cont))
+				exec_bultin_bin_bridge(hold, cont);
+			else
+				ft_putstr_fd("File error :(", 2);
 			fd_close(cont);
 			fd_reset(cont);
 		}
