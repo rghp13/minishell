@@ -17,7 +17,7 @@ int	builtin_exit(char **argv, t_cont *cont)
 		{
 			ft_putstr_fd("bash: exit: ", STDERR_FILENO);
 			ft_putstr_fd(argv[1], STDERR_FILENO);
-			ft_putstr_fd(": numeric argument required", STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			ret = 2;
 		}
 		else
