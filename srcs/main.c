@@ -79,5 +79,5 @@ int	main(int argc, char const *argv[], char **envp)
 	initialize_main_struct(&cont, envp, &original);
 	main_loop(&cont);
 	cleanup(cont, original);
-	return (0);
+	return (cont.exit_status);
 }

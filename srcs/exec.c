@@ -49,10 +49,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		wait(&status);
 		kill(pid, SIGTERM);
 		if (WIFEXITED(status))
-		{
 			cont->exit_status = WEXITSTATUS(status);
-			printf("took that path\n");
-		}
 		else if (WIFSIGNALED(status))
 			cont->exit_status = (128 + WTERMSIG(status));
 		cont->child_pid = 0;
@@ -62,7 +59,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
 		{
 			perror("shell");
-			exit(err_ret_value(errno, cont));
+			exit(err_ret_value(errno, cont, cmd));
 		}
 		exit(EXIT_SUCCESS);
 	}
