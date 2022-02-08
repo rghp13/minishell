@@ -49,15 +49,18 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		cont->child_pid = pid;
 		wait(&status);
 		kill(pid, SIGTERM);
+		if (WIFEXITED(status))
+			cont->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			cont->exit_status = (128 + WTERMSIG(status));
 		cont->child_pid = 0;
-		cont->exit_status = status;
 	}
 	else
 	{
 		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
 		{
 			perror("shell");
-			exit(EXIT_FAILURE);
+			exit(err_ret_value(errno, cont, cmd));
 		}
 		exit(EXIT_SUCCESS);
 	}

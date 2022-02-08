@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# include <errno.h>
 # include <stdint.h>//added for int to void* conversion in exec.c
 # define ER1 "ERROR: SHELL MISSING ENV VARIABLES"
 # define ERMEM "ERROR: MALLOC FAILED"
@@ -119,6 +120,7 @@ int		merge_path_name(char **path, const char *name);
 int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 char	*get_home_path(const char *str, t_cont *cont);
 int		relative_path_bridge(t_cmd *cmd, t_env *env);
+int		err_ret_value(int erno, t_cont *cont, t_cmd *cmd);
 /*
 **ENV.C
 */

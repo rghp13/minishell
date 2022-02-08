@@ -57,3 +57,5 @@ dkms.conf
 .project
 .settings
 minishell
+*.txt
+*.sh

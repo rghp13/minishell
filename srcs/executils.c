@@ -45,6 +45,24 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 	else if (len >= 2 && cmd->arg[0][0] == '~' && cmd->arg[0][1] == '/')
 		cmd->abspath = get_home_path(cmd->arg[0], env->cont);
 	else
+	{
 		cmd->abspath = get_abs_path(cmd->arg[0], env);
+	}
 	return (0);
+}
+
+int	err_ret_value(int erno, t_cont *cont, t_cmd *cmd)
+{
+	ft_putnbr_fd(erno, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	if (cmd->abspath == NULL && access(cmd->arg[0], F_OK) == 0)//exists but not on path
+	{
+		if (access(cmd->arg[0], X_OK))//no exec permission
+			return (126);
+	}
+	if (cmd->abspath == NULL)//cmd not found
+		return (127);
+	if (erno == 13)
+		return (126);
+	return (1);
 }
