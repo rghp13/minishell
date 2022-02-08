@@ -16,15 +16,16 @@ void	exec_main(t_cont *cont)
 	{
 		if (hold->pipechain)
 		{
-			pipe_execution(hold, cont);
+			if (pipe_execution(hold, cont))
+				ft_putstr_fd("File error :(\n", 2);
 			fd_reset(cont);
 		}
 		else if (hold->input_type > -1 || hold->output_type > -1)
 		{
-			if (prepare_redirection(hold, cont))
+			if (!prepare_redirection(hold, cont))
 				exec_bultin_bin_bridge(hold, cont);
 			else
-				ft_putstr_fd("File error :(", 2);
+				ft_putstr_fd("File error :(\n", 2);
 			fd_close(cont);
 			fd_reset(cont);
 		}
