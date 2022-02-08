@@ -177,8 +177,8 @@ int		builtin_pwd(char **argv, t_cont *cont);
 */
 int		builtin_cd(char **argv, t_cont *cont);
 int		go_home(t_cont *cont);
-int		cd_error_print(const char *str);
 void	update_pwd_env(t_cont *cont, char *ptr);
+int		dir_swap(t_cont *cont);
 /*
 **BUILTIN_CD.C
 */

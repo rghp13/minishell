@@ -63,6 +63,10 @@ char	*get_key_val(const char *key, t_env *env)
 	return (ft_strdup(key_struct->value));
 }
 
+/*
+**expects at least key with no $
+*/
+
 t_env	*find_env(const char *key, t_env *head)
 {
 	t_env	*ptr;
