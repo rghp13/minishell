@@ -35,6 +35,7 @@ int	builtin_export(char **argv, t_cont *cont)
 		return (1);
 	ft_free_all_split(cont->envstr);
 	cont->envstr = exp.split;
+	export_p(exp.i, cont);
 	return (exp.flag);
 }
 
@@ -87,9 +88,9 @@ int	check_valid_export(const char *str, t_cont *cont, int *flag)
 
 int	export_error(const char *str)
 {
-	write(STDERR_FILENO, "bash: export: `", 16);
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, "': not a valid identifier\n", 27);
+	ft_putstr_fd("bash: export: `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	return (0);
 }
 
