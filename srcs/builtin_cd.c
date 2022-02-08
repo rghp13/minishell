@@ -14,20 +14,44 @@ int	builtin_cd(char **argv, t_cont *cont)
 		ft_putstr_fd("bash: cd: too many arguments\n", STDERR_FILENO);
 		ret = 1;
 	}
+	else if (ft_stringcomp("-", argv[1]) == 0)
+		ret = dir_swap(cont);
 	else
 	{
 		ret = chdir(argv[1]);
 		if (ret)
-			return (cd_error_print(argv[1]));
+		{
+			perror("cd");
+			return (1);
+		}
 		update_pwd_env(cont, NULL);
 	}
 	return (ret);
 }
 
+int	dir_swap(t_cont *cont)
+{
+	t_env	*old;
+	int		ret;
+	old = find_env("OLDPWD", cont->env);
+	if (!old || !old->value)
+	{
+		ft_putstr_fd("bash: cd: OLDPWD not set\n", STDERR_FILENO);
+		return (1);
+	}
+	if (chdir(old->value) == -1)
+	{
+		perror("cd");
+		return (1);
+	}
+	ft_printf("%s\n", old->value);
+	update_pwd_env(cont, NULL);
+	return (0);
+}
+
 int	go_home(t_cont *cont)
 {
 	t_env	*ptr;
-	int		ret;
 
 	ptr = find_env("HOME", cont->env);
 	if (!ptr)
@@ -35,19 +59,13 @@ int	go_home(t_cont *cont)
 		ft_putstr_fd("bash: cd: HOME not set\n", STDERR_FILENO);
 		return (1);
 	}
-	ret = chdir(ptr->value);
-	if (ret)
-		return (cd_error_print(ptr->value));
+	if (chdir(ptr->value) == -1)
+	{
+		perror("cd");
+		return (1);
+	}
 	update_pwd_env(cont, NULL);
 	return (0);
-}
-
-int	cd_error_print(const char *str)
-{
-	ft_putstr_fd("bash: cd: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	return (1);
 }
 
 void	update_pwd_env(t_cont *cont, char *ptr)
@@ -61,7 +79,7 @@ void	update_pwd_env(t_cont *cont, char *ptr)
 		ptr = ft_strdup("OLDPWD");
 		if (!ptr)
 		{
-			ft_putstr_fd("Malloc Error: Failed to Update env\n", STDERR_FILENO);
+			perror("cd");
 			return ;
 		}
 		free(hold->key);
