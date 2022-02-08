@@ -150,7 +150,10 @@ int		check_valid_export(const char *str, t_cont *cont, int *flag);
 int		export_error(const char *str);
 int		ft_isasymbol(const char str);
 void	create_new_env(char *argv, t_cont *cont);
-
+/*
+**BUILTIN_EXPORT2.C
+*/
+void	export_p(int i, t_cont *cont);
 /*
 **BUILTIN_UNSET.C
 */
