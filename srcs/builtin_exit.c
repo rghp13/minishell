@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int	builtin_exit(char **argv, t_cont *cont)
+uint8_t	builtin_exit(char **argv, t_cont *cont)
 {
-	int	ret;
+	uint8_t	ret;
 
-	ret = 0;
+	ret = cont->exit_status;
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (argv[1] && argv[2])
 	{

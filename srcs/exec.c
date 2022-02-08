@@ -17,7 +17,7 @@ void	exec_main(t_cont *cont)
 		if (hold->pipechain)
 		{
 			if (pipe_execution(hold, cont))
-				perror("Bash");//ft_putstr_fd("File error :(\n", 2);
+				error_status(cont);
 			fd_reset(cont);
 		}
 		else if (hold->input_type > -1 || hold->output_type > -1)
@@ -25,7 +25,7 @@ void	exec_main(t_cont *cont)
 			if (!prepare_redirection(hold, cont))
 				exec_bultin_bin_bridge(hold, cont);
 			else
-				perror("Bash");//ft_putstr_fd("File error :(\n", 2);
+				error_status(cont);
 			fd_close(cont);
 			fd_reset(cont);
 		}

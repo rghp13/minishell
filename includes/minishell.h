@@ -121,6 +121,7 @@ int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 char	*get_home_path(const char *str, t_cont *cont);
 int		relative_path_bridge(t_cmd *cmd, t_env *env);
 int		err_ret_value(int erno, t_cont *cont, t_cmd *cmd);
+void	error_status(t_cont *cont);
 /*
 **ENV.C
 */
@@ -191,7 +192,7 @@ void	update_pwd_env(t_cont *cont, char *ptr);
 /*
 **BUILTIN_EXIT.C
 */
-int		builtin_exit(char **argv, t_cont *cont);
+uint8_t	builtin_exit(char **argv, t_cont *cont);
 /*
 **BUILTIN_ECHO.c
 */

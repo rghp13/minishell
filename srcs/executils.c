@@ -66,3 +66,10 @@ int	err_ret_value(int erno, t_cont *cont, t_cmd *cmd)
 		return (126);
 	return (1);
 }
+
+void	error_status(t_cont *cont)
+{
+	perror("Bash");
+	cont->exit_status = 1;
+	return ;
+}
