@@ -52,6 +52,10 @@ char	*get_key_val(const char *key, t_env *env)
 	const char	*ret;
 	t_env		*key_struct;
 
+	if (key[0] == '~')
+	{
+		ret = expand_tilde(key, env->cont);
+	}
 	if (key[0] != '$')
 		return (ft_calloc(1, sizeof(char)));
 	ret = key + 1;

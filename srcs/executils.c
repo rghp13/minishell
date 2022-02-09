@@ -16,7 +16,7 @@ int	exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont)
 	tcsetattr(0, TCSANOW, &t);
 	return (0);
 }
-
+//possibly removing this function
 char	*get_home_path(const char *str, t_cont *cont)
 {
 	char	*ptr;
@@ -42,8 +42,8 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 	len = ft_strlen(cmd->arg[0]);
 	if (len >= 2 && cmd->arg[0][0] == '.' && cmd->arg[0][1] == '/')
 		cmd->abspath = ft_strdup(cmd->arg[0]);
-	else if (len >= 2 && cmd->arg[0][0] == '~' && cmd->arg[0][1] == '/')
-		cmd->abspath = get_home_path(cmd->arg[0], env->cont);
+	//else if (len >= 2 && cmd->arg[0][0] == '~' && cmd->arg[0][1] == '/')
+		//cmd->abspath = get_home_path(cmd->arg[0], env->cont);
 	else
 	{
 		cmd->abspath = get_abs_path(cmd->arg[0], env);
