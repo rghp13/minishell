@@ -81,7 +81,7 @@ char	*user_tilde(const char *key ,t_cont *cont)
 	key++;
 	if (ft_strlen(key) < 2)//should have triggered get_tilde prior
 		return (NULL);
-	hold = ft_strjoin("/home", key);
+	hold = ft_strjoin("/home/", key);
 	if (!hold)
 		return (NULL);
 	if (access(hold, F_OK) == 0)
