@@ -10,6 +10,9 @@ int	builtin_echo(char **argv, t_cont *cont)
 	n = 0;
 	flag = 0;
 	(void)cont;
+	//while(i)
+	//	i++;
+	//i = 1;
 	if (argv[i] && ft_stringcomp("-n", argv[i]) == 0)
 	{
 		n = 1;
