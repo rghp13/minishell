@@ -10,7 +10,7 @@ void	remove_brackets(char *arg)
 	bracket = 0;
 	while (arg[i])
 	{
-		if (bracket != update_bracket_status(bracket, arg[i]))
+		if (bracket != update_bracket_status(bracket, arg[i]) || arg[i] == '\b')
 		{
 			j = i;
 			while (arg[j + 1])
