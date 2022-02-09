@@ -44,7 +44,9 @@ char	*expand_tilde(const char *key, t_cont *cont)
 	len = ft_strlen(key);
 	if (!key || !cont)
 		return (NULL);
-	if (len == 1)
+	if (key[0] != '~')
+		;//in case this isn't a ~ just strdup and return
+	else if (len == 1)
 		str = get_tilde(cont, "$HOME");
 	else if (len == 2 && key[1] == '+')
 		str = get_tilde(cont, "$PWD");
