@@ -91,7 +91,6 @@ void	update_pwd_env(t_cont *cont, char *ptr)
 		hold = add_env("PWD", ptr, cont);
 		if (hold)
 			add_last(cont->env, hold);
-		else
 			free(ptr);
 	}
 	update_envstr(cont);
