@@ -142,6 +142,9 @@ t_env	*add_env(const char *key, const char *value, t_cont *cont);
 **ENV3.C
 */
 void	shell_lvl(t_cont *cont);
+char	*expand_tilde(const char *key, t_cont *cont);
+char	*get_tilde(t_cont *cont, const char *envar);
+char	*user_tilde(const char *key ,t_cont *cont);
 /*
 **BUILTIN_EXPORT.C
 */

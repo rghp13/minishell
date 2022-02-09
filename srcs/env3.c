@@ -32,3 +32,58 @@ void	shell_lvl(t_cont *cont)
 			hold = hold->cont->env;
 	}
 }
+//~+ uses env variables PWD
+//~- uses env variables OLDPWD
+//~ doesn't use $HOME
+//~romain if /home/romain exists return that
+char	*expand_tilde(const char *key, t_cont *cont)
+{
+	int		len;
+	char	*str;
+
+	len = ft_strlen(key);
+	if (!key || !cont)
+		return (NULL);
+	if (len == 1)
+		str = get_tilde(cont, "$HOME");
+	else if (len == 2 && key[1] == '+')
+		str = get_tilde(cont, "$PWD");
+	else if (len == 2 && key[1] == '-')
+		str = get_tilde(cont, "$OLDPWD");
+	else
+		str = user_tilde(key, cont);
+	if (!str)
+		return (ft_strdup(key));
+	return (str);
+}
+
+char	*get_tilde(t_cont *cont, const char *envar)
+{
+	char	*str;
+	char	*hold;
+
+	hold = get_key_val(envar, cont->env);
+	if (hold)
+	{
+		str = ft_strjoin(hold, "/");
+		free(hold);
+		return (str);
+	}
+	return (NULL);
+}
+
+char	*user_tilde(const char *key ,t_cont *cont)
+{
+	char	*hold;
+
+	key++;
+	if (ft_strlen(key) < 2)//should have triggered get_tilde prior
+		return (NULL);
+	hold = ft_strjoin("/home", key);
+	if (!hold)
+		return (NULL);
+	if (access(hold, F_OK) == 0)
+		return (hold);
+	free(hold);
+	return (NULL);
+}
