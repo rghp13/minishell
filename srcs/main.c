@@ -24,6 +24,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	signal_redirector(cont, 0, 1);
 	init_singals();
 	fd_inits(cont);
+	cont->envstr = NULL;
 	cont->exit_status = 0;
 	cont->exit_flag = 0;
 	cont->child_pid = 0;
@@ -32,6 +33,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	if (cont->env == NULL)
 	{
 		cont->exit_flag = 1;
+		ft_putstr_fd("Bash: ENV ERROR\n", STDERR_FILENO);
 		return (1);
 	}
 	shell_lvl(cont);
