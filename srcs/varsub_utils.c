@@ -60,7 +60,7 @@ int	replace_var(char **cmd, int *i, t_cont *cont)
 	var_name = get_var_name(&cmd[0][*i]);
 	if (!var_name)
 		return (-1);
-	if (i[0] == '$')
+	if (cmd[0][*i] == '$')
 		var_val = get_key_val(var_name, cont->env);
 	else
 		var_val = expand_tilde(var_name, cont);
