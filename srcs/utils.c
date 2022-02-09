@@ -38,8 +38,15 @@ void	add_last(t_env *head, t_env *current)
 {
 	t_env	*next;
 
-	if (head == NULL || current == NULL)
+	if (current == NULL)
 		return ;
+	else if (head == NULL)
+	{
+		if (current->cont->env == NULL)
+			current->cont->env = current;
+		else
+			return ;
+	}
 	else
 	{
 		next = head;

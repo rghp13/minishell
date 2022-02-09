@@ -53,8 +53,8 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 
 int	err_ret_value(int erno, t_cont *cont, t_cmd *cmd)
 {
-	ft_putnbr_fd(erno, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
+	ft_putnbr_fd(erno, STDERR_FILENO);//eventually
+	ft_putchar_fd('\n', STDERR_FILENO);//remove this 
 	if (cmd->abspath == NULL && access(cmd->arg[0], F_OK) == 0)//exists but not on path
 	{
 		if (access(cmd->arg[0], X_OK))//no exec permission
