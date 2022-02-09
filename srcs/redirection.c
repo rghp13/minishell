@@ -31,6 +31,7 @@ int	double_input(t_cmd *cmd, t_cont *cont)
 	pipe(pipes);
 	write(pipes[1], final, ft_strlen(final));
 	close(pipes[1]);
+	free(final);
 	return (pipes[0]);
 }
 
