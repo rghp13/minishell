@@ -52,7 +52,7 @@ char	*substituestr(char *text, char *word, char *replacement, int start)
 	return (retstr);
 }
 
-int	replace_var(char **cmd, int *i, t_env *envstart)
+int	replace_var(char **cmd, int *i, t_cont *cont)
 {
 	char	*var_name;
 	char	*var_val;
@@ -60,7 +60,10 @@ int	replace_var(char **cmd, int *i, t_env *envstart)
 	var_name = get_var_name(&cmd[0][*i]);
 	if (!var_name)
 		return (-1);
-	var_val = get_key_val(var_name, envstart);
+	if (i[0] == '$')
+		var_val = get_key_val(var_name, cont->env);
+	else
+		var_val = expand_tilde(var_name, cont);
 	if (!var_val)
 	{
 		free (var_name);

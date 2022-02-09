@@ -218,7 +218,7 @@ int		create_argv(t_cmd *cmd);
 int		is_word_to_replace(char *currentletter, char *word);
 char	*substituestr(char *text, char *word, char *replacement, int start);
 int		is_var_char(char c);
-int		replace_var(char **cmd, int *i, t_env *envstart);
+int		replace_var(char **cmd, int *i, t_cont *cont);
 char	*get_var_name(char *var_start);
 int		has_redirector(char *str);
 int		argv_loop(t_cont *cont);

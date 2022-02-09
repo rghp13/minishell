@@ -34,7 +34,11 @@ char	*get_var_name(char *var_start)
 		return (var_special_case(1));
 	if (var_start[0] == '$' && var_start[1] == '?')
 		return (var_special_case(2));
-	while (ft_isalnum(var_start[j]) || var_start[j] == '_')
+	while (var_start[0] == '$' && (ft_isalnum(var_start[j]) \
+	|| var_start[j] == '_'))
+		j++;
+	while (var_start[0] == '~' && var_start[j] != '/' \
+	&& var_start[j] != ' ' && var_start[j] != '\0')
 		j++;
 	if (small_malloc((void **)&retstr, sizeof(char) * ((j - i) + 1)))
 		return (NULL);
@@ -47,7 +51,7 @@ char	*get_var_name(char *var_start)
 	return (retstr);
 }
 
-int	parse_line_variable(t_cmd *cmd, t_env *envstart)
+int	parse_line_variable(t_cmd *cmd, t_cont *cont)
 {
 	int		i;
 	int		bracket;
@@ -56,11 +60,15 @@ int	parse_line_variable(t_cmd *cmd, t_env *envstart)
 	bracket = 0;
 	while (cmd->cmd[i])
 	{
-		if (cmd->cmd[i] == '\'')
-			bracket = !bracket;
-		if (cmd->cmd[i] == '$' && bracket == 0 && is_var_char(cmd->cmd[i + 1]))
+		bracket = update_bracket_status(bracket, cmd->cmd[i]);
+		if (cmd->cmd[i] == '$' && bracket != 1 && is_var_char(cmd->cmd[i + 1]))
 		{
-			if (replace_var(&cmd->cmd, &i, envstart))
+			if (replace_var(&cmd->cmd, &i, cont))
+				return (-1);
+		}
+		if (cmd->cmd[i] == '~' && !bracket)
+		{
+			if (replace_var(&cmd->cmd, &i, cont))
 				return (-1);
 		}
 		i++;
@@ -76,12 +84,12 @@ int	substitute_variables(t_cont *cont)
 	current = cont->cmd;
 	while (current)
 	{
-		if (parse_line_variable(current, cont->env))
+		if (parse_line_variable(current, cont))
 			return (-1);
 		pipe = current->pipechain;
 		while (pipe)
 		{
-			if (parse_line_variable(pipe, cont->env))
+			if (parse_line_variable(pipe, cont))
 				return (-1);
 			pipe = pipe->next;
 		}
