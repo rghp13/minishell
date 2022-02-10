@@ -18,7 +18,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 
 	tcgetattr(0, original);
 	t = *original;
-	t.c_lflag &= (ICANON | ~ECHOCTL);
+	t.c_lflag &= (ICANON | ECHO | ~ECHOCTL);
 	t.c_cc[VQUIT] = 0;
 	tcsetattr(0, TCSANOW, &t);
 	signal_redirector(cont, 0, 1);
@@ -56,13 +56,16 @@ int	main_loop(t_cont *cont)
 
 	while (cont->exit_flag == 0)
 	{
-		ft_putstr_fd("$> ", 2);
-		parsed_line = get_next_line(0);
+		// ft_putstr_fd("$> ", 2);
+		// parsed_line = get_next_line(0);
+		parsed_line = readline("$> ");
 		if (!parsed_line)
 		{
-			ft_putstr_fd("\nexit\n", STDERR_FILENO);
+			rl_clear_history();
+			ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
 		}
+		add_history(parsed_line);
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
 		argv_loop(cont);
