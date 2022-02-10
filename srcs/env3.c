@@ -45,7 +45,7 @@ char	*expand_tilde(const char *key, t_cont *cont)
 	if (!key || !cont)
 		return (NULL);
 	if (key[0] != '~')
-		;//in case this isn't a ~ just strdup and return
+		str = NULL;//in case this isn't a ~ just strdup and return
 	else if (len == 1)
 		str = get_tilde(cont, "$HOME");
 	else if (len == 2 && key[1] == '+')
@@ -65,16 +65,10 @@ char	*get_tilde(t_cont *cont, const char *envar)
 	char	*hold;
 
 	hold = get_key_val(envar, cont->env);
-	if (hold)
-	{
-		str = ft_strjoin(hold, "/");
-		free(hold);
-		return (str);
-	}
-	return (NULL);
+	return (hold);
 }
 
-char	*user_tilde(const char *key ,t_cont *cont)
+char	*user_tilde(const char *key, t_cont *cont)
 {
 	char	*hold;
 
