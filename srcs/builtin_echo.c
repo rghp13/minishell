@@ -9,11 +9,9 @@ int	builtin_echo(char **argv, t_cont *cont)
 	i = 1;
 	n = 0;
 	flag = 0;
-	(void)cont;
-	//while(i)
-	//	i++;
-	//i = 1;
-	if (argv[i] && ft_stringcomp("-n", argv[i]) == 0)
+	//while (++flag)
+	//	;
+	while (argv[i] && is_option(argv[i], cont))
 	{
 		n = 1;
 		if (argv[++i] == NULL)
@@ -30,6 +28,24 @@ int	builtin_echo(char **argv, t_cont *cont)
 	if (n == 0)
 		write(STDOUT_FILENO, "\n", 1);
 	return (0);
+}
+
+int	is_option(const char *str, t_cont *cont)
+{
+	int	len;
+	int	i;
+
+	i = 1;
+	len = ft_strlen(str);
+	if (len < 2 || str[0] != '-')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	builtin_exec_echo(t_cmd *cmd, t_cont *cont)

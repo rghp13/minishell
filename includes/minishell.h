@@ -204,6 +204,7 @@ uint8_t	builtin_exit(char **argv, t_cont *cont);
 */
 int		builtin_echo(char **argv, t_cont *cont);
 void	builtin_exec_echo(t_cmd *cmd, t_cont *cont);
+int		is_option(const char *str, t_cont *cont);
 /*
 **FREE.C
 */
