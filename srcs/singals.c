@@ -28,8 +28,10 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 		cont = ptr;
 	if (signal == SIGINT && !cont->child_pid)
 	{
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd("$> ", 2);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else if (signal == SIGQUIT && !cont->child_pid)
 		return (0);
