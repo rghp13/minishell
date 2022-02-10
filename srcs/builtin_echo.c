@@ -9,8 +9,7 @@ int	builtin_echo(char **argv, t_cont *cont)
 	i = 1;
 	n = 0;
 	flag = 0;
-	//while (++flag)
-	//	;
+	set_sig();
 	while (argv[i] && is_option(argv[i], cont))
 	{
 		n = 1;
@@ -28,6 +27,16 @@ int	builtin_echo(char **argv, t_cont *cont)
 	if (n == 0)
 		write(STDOUT_FILENO, "\n", 1);
 	return (0);
+}
+
+void	set_sig(void)
+{
+	struct sigaction	sa;
+	
+	sa.sa_handler = SIG_DFL;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }
 
 int	is_option(const char *str, t_cont *cont)
