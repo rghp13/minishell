@@ -93,12 +93,10 @@ char	*get_abs_path(const char *src, t_env *env)
 	char	**split;
 	int		i;
 
-	bin = get_key_val("$PATH", env);
 	i = -1;
-	if (bin == NULL)
-		return (NULL);
-	split = ft_split(bin, ':');
-	free(bin);
+	if (ft_strchr(src, '/'))
+		return (find_relative_path(src, env->cont));
+	split = ret_path_split(env);
 	if (split == NULL)
 		return (NULL);
 	while (split[++i])

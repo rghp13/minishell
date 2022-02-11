@@ -124,6 +124,11 @@ int		relative_path_bridge(t_cmd *cmd, t_env *env);
 int		err_ret_value(int erno, t_cont *cont, t_cmd *cmd);
 void	error_status(t_cont *cont);
 /*
+**EXECUTILS2.C
+*/
+char	**ret_path_split(t_env *env);
+char	*find_relative_path(const char *str, t_cont *cont);
+/*
 **ENV.C
 */
 t_env	*get_env(char **envp, t_cont *cont);
