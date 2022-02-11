@@ -66,6 +66,7 @@ typedef struct s_cont
 	uint8_t		exit_status;
 	int			exit_flag;
 	char		**envstr;
+	char		*pwd;
 	t_cmd		*cmd;
 	t_env		*env;
 	t_history	*history;

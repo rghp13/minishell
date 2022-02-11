@@ -2,14 +2,24 @@
 
 int	builtin_pwd(char **argv, t_cont *cont)
 {
-	char	val[PATH_MAX];
+	char	*val;
 
 	(void)argv;
 	(void)cont;
-	if (getcwd(val, PATH_MAX))
+	errno = 0;
+	val = getcwd(NULL, 0);
+	if (val)
 	{
 		ft_printf("%s\n", val);
+		free(val);
 		return (0);
 	}
+	if (cont->pwd)
+	{
+		ft_printf("%s\n", cont->pwd);
+		return (0);
+	}
+	else
+		perror("pwd");
 	return (1);
 }
