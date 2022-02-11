@@ -63,9 +63,10 @@ OBJ						=		$(addprefix $(PATH_SRC)/,$(OBJ_NAME))
 LIBFT_A					=		libft.a
 .c.o:
 								@${CC} ${CFLAG} -I${PATH_HEAD} -c $< -o ${<:.c=.o}
-								@echo "${GREEN}[ OK ] ${<:.s=.o}${NC}"
+								@echo -n "${GREEN}[ OK ] ${<:.s=.o}${NC}                \r"
 ${NAME}:						${OBJ}
-								@make -C ${PATH_LIB}
+								@echo
+								@make --no-print-directory -C ${PATH_LIB} 
 								@${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A} -lreadline
 								@echo "${GREEN}[ COMPLETE ]${NC}\n"
 								@echo "$$HEADER"
@@ -73,11 +74,11 @@ all:							${NAME}
 
 clean:
 								@${RM} ${OBJ}
-								@make -C ${PATH_LIB} clean
+								@make --no-print-directory -C ${PATH_LIB} clean
 								@echo "\n${GREEN}[ OK ]${RED}    *.o files deleted${NC}"
 fclean:							clean
 								@${RM} ${NAME}
-								@make -C ${PATH_LIB} fclean
+								@make --no-print-directory -C ${PATH_LIB} fclean
 								@echo "${GREEN}[ OK ]${RED}    ${NAME}    deleted${NC}"
 re:								fclean ${NAME}
 .PHONY:							all clean fclean re

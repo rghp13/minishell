@@ -6,11 +6,20 @@
 #    By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 10:46:39 by dscriabi          #+#    #+#              #
-#    Updated: 2022/01/31 20:52:16 by rponsonn         ###   ########.fr        #
+#    Updated: 2022/02/11 17:16:13 by rponsonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libft.a
+
+NC = \033[0m
+RED = \033[0;91m
+ORANGE = \033[93m
+GREEN = \033[32m
+PURPLE = \033[0;95m
+BLUE = \033[0;34m
+BOLD = \033[1m
+CYAN = \033[36m
 
 SRCS	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
 ft_isdigit.c ft_isprint.c ft_itoa.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c\
@@ -31,9 +40,11 @@ RM		= rm -f
 
 $(NAME):	${OBJS}
 			@ar -rcs ${NAME} ${OBJS}
+			@echo
 
 %.o: %.c
 			@${CC} -c ${CFLAGS} -o $@ $<
+			@echo -n "${GREEN}[ OK ] ${<:.s=.o}${NC}                \r"
 
 all:		${NAME}
 
