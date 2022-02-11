@@ -16,6 +16,7 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 {
 	struct termios	t;
 
+	ft_bzero(cont, sizeof(t_cont));
 	tcgetattr(0, original);
 	t = *original;
 	t.c_lflag &= (ICANON | ECHO | ~ECHOCTL);
@@ -24,18 +25,11 @@ int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 	signal_redirector(cont, 0, 1);
 	init_singals();
 	fd_inits(cont);
-	cont->envstr = NULL;
-	cont->exit_status = 0;
-	cont->exit_flag = 0;
-	cont->child_pid = 0;
-	cont->cmd = NULL;
+	errno = 0;
+	cont->pwd = getcwd(NULL, 0);
+	if (errno)
+		perror("init: pwd");
 	cont->env = get_env(envp, cont);
-	if (cont->env == NULL)
-	{
-		cont->exit_flag = 1;
-		ft_putstr_fd("Bash: ENV ERROR\n", STDERR_FILENO);
-		return (1);
-	}
 	shell_lvl(cont);
 	cont->envstr = output_env_array(cont->env);
 	return (0);
@@ -47,6 +41,8 @@ int	cleanup(t_cont cont, struct termios original)
 	ft_free_all_split(cont.envstr);
 	fd_close(&cont);
 	tcsetattr(0, TCSANOW, &original);
+	if (cont.pwd)
+		free(cont.pwd);
 	return (0);
 }
 
