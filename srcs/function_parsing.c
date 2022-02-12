@@ -27,81 +27,75 @@ int	break_pipes(t_cmd *list)
 	return (0);
 }
 
-int	extract_input(t_cmd *cmd, int redirectors, int size)
+int	is_redirect_separator(char c)
 {
-	int		i;
-	int		j;
-	int		k;
-	char	*result;
-
-	i = 1;
-	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '<' || cmd->cmd[i] == '<'))
-		i++;
-	k = i;
-	while (cmd->cmd[i] == ' ')
-		i++;
-	j = i;
-	while (cmd->cmd[j] && cmd->cmd[j] != '<' && cmd->cmd[j] != '>' && cmd->cmd[j] != ' ')
-		j++;
-	// if (!cmd->cmd[i])
-	// 	return (0);
-	if (small_malloc((void **)&cmd->input, sizeof(char) * ((j - i) + 1)))
-		return (0);
-	ft_strlcpy(cmd->input, &cmd->cmd[i], (j - i) + 1);
-	cmd->input_type = !((redirectors >> 0) & 1U);
-	if (k < size)
-		return (k - (1 + cmd->input_type));
-	return (size);
+	if (c == ' ' || c == '>' || c == '<' || c == '\0')
+		return (1);
+	return (0);
 }
 
-int	extract_outputs(t_cmd *cmd, int redirectors, int size)
+int	extract_redirector(t_cmd *cmd, int i)
 {
-	int		i;
-	int		j;
-	int		k;
-	char	*result;
+	int	j;
+	int	mode;
 
-	i = 1;
-	while (cmd->cmd[i] && (cmd->cmd[i - 1] != '>' || cmd->cmd[i] == '>'))
-		i++;
-	k = i;
-	while (cmd->cmd[i] == ' ')
+	if (cmd->cmd[i] == ' ')
+		return (0);
+	mode = i;
+	while (cmd->cmd[i] && is_redirect_separator(cmd->cmd[i]))
 		i++;
 	j = i;
-	while (cmd->cmd[j] && cmd->cmd[j] != '>' && cmd->cmd[j] != '<' && cmd->cmd[j] != ' ')
+	while (cmd->cmd[j] && !is_redirect_separator(cmd->cmd[j]))
 		j++;
-	// if (!cmd->cmd[i])
-	// 	return (0);
-	if (small_malloc((void **)&cmd->output, sizeof(char) * ((j - i) + 1)))
-		return (0);
-	ft_strlcpy(cmd->output, &cmd->cmd[i], (j - i) + 1);
-	cmd->output_type = !((redirectors >> 2) & 1U);
-	if (k < size)
-		return (k - (1 + cmd->output_type));
-	return (size);
+	if (cmd->cmd[mode] == '>')
+	{
+		cmd->output_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
+		if (small_malloc((void **)&cmd->output, sizeof(char) * (j - i)))
+			return (-1);
+		ft_memcpy(cmd->output, &cmd->cmd[i], j - i);
+	}
+	else if (cmd->cmd[mode] == '<')
+	{
+		cmd->input_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
+		if (small_malloc((void **)&cmd->input, sizeof(char) * (j - i)))
+			return (-1);
+		ft_memcpy(cmd->input, &cmd->cmd[i], j - i);
+	}
+	while (cmd->cmd[j] && is_redirect_separator(cmd->cmd[j]))
+		j++;
+	return (j - mode);
 }
 
 int	create_argv(t_cmd *cmd)
 {
-	int		redirectors;
-	char	*cmd_no_red;
-	int		size_arg;
+	int		i;
+	int		j;
+	int		size;
+	int		bracket;
 
-	size_arg = ft_strlen(cmd->cmd);
-	redirectors = has_redirector(cmd->cmd);
-	if (redirectors)
+	i = 0;
+	bracket = 0;
+	while (cmd->cmd[i])
 	{
-		if (((redirectors >> 0) & 1U) || ((redirectors >> 1) & 1U))
-			size_arg = extract_input(cmd, redirectors, size_arg);
-		if (((redirectors >> 2) & 1U) || ((redirectors >> 3) & 1U))
-			size_arg = extract_outputs(cmd, redirectors, size_arg);
+		bracket = update_bracket_status(bracket, cmd->cmd[i]);
+		if (!bracket && is_redirect_separator(cmd->cmd[i]))
+		{
+			size = extract_redirector(cmd, i);
+			if (size == -1)
+				printf("Argv error\n");
+			j = i;
+			while (cmd->cmd[j + size])
+			{
+				cmd->cmd[j] = cmd->cmd[j + size];
+				j++;
+			}
+			cmd->cmd[j] = '\0';
+			i += !size;
+		}
+		else
+			i++;
 	}
-	if (small_malloc((void **)&cmd_no_red, sizeof(char) * (size_arg + 1)))
-		return (0);
-	ft_strlcpy(cmd_no_red, cmd->cmd, size_arg + 1);
-	cmd->arg = ft_special_split(cmd_no_red, ' ');
-	free (cmd_no_red);
-	sanitize_argv(cmd->arg);
+	cmd->arg = ft_special_split(cmd->cmd, ' ');
 	return (0);
 }
 
