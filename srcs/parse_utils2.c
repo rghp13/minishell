@@ -56,10 +56,12 @@ int	argv_loop(t_cont *cont)
 		pipe = current->pipechain;
 		while (pipe)
 		{
-			create_argv(pipe);
+			if (create_argv(pipe))
+				return (-1);
 			pipe = pipe->next;
 		}
-		create_argv(current);
+		if (create_argv(current))
+			return (-1);
 		current = current->next;
 	}
 	return (0);

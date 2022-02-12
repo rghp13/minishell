@@ -64,8 +64,10 @@ int	main_loop(t_cont *cont)
 		add_history(parsed_line);
 		parse_command(parsed_line, &cont->cmd);
 		substitute_variables(cont);
-		argv_loop(cont);
-		exec_main(cont);
+		if(!argv_loop(cont))
+			exec_main(cont);
+		else
+			ft_putstr_fd("PArsing Error :(\n", 3);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;
 	}

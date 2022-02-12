@@ -75,6 +75,8 @@ int	create_argv(t_cmd *cmd)
 
 	i = 0;
 	bracket = 0;
+	if (!cmd->cmd)
+		return (-1);
 	while (cmd->cmd[i])
 	{
 		bracket = update_bracket_status(bracket, cmd->cmd[i]);
