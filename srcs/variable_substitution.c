@@ -58,6 +58,8 @@ int	parse_line_variable(t_cmd *cmd, t_cont *cont)
 
 	i = 0;
 	bracket = 0;
+	if (!cmd->cmd)
+		return (-1);
 	while (cmd->cmd[i])
 	{
 		bracket = update_bracket_status(bracket, cmd->cmd[i]);
