@@ -22,8 +22,9 @@ int	double_input(t_cmd *cmd, t_cont *cont)
 	final[0] = '\0';
 	while (1)
 	{
-		ft_putstr_fd("> ", 3);
-		ret_str = get_next_line(0);
+		ret_str = readline("> ");
+		// ft_putstr_fd("> ", 3);
+		// ret_str = get_next_line(0);
 		if (!di_strcomp(ret_str, cmd->input))
 			break;
 		final = ft_strjoin(final, ret_str);
