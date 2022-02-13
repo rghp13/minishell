@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+         #
+#    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 10:46:39 by dscriabi          #+#    #+#              #
-#    Updated: 2022/02/11 17:16:13 by rponsonn         ###   ########.fr        #
+#    Updated: 2022/02/13 01:28:56 by romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ RM		= rm -f
 
 $(NAME):	${OBJS}
 			@ar -rcs ${NAME} ${OBJS}
-			@echo
+			@echo "${GREEN}[DONE]${NC}"
 
 %.o: %.c
 			@${CC} -c ${CFLAGS} -o $@ $<
@@ -53,5 +53,6 @@ clean:
 
 fclean:		clean
 			@${RM} libft.a
+			@echo "${GREEN}[ OK ]${NC}${RED} LIBFT.A DELETED"
 
 re:			fclean all

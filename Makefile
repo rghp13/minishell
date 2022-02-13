@@ -66,20 +66,20 @@ LIBFT_A					=		libft.a
 								@${CC} ${CFLAG} -I${PATH_HEAD} -c $< -o ${<:.c=.o}
 								@echo -n "${GREEN}[ OK ] ${<:.s=.o}${NC}                \r"
 ${NAME}:						${OBJ}
-								@echo
+								@echo "${GREEN}[DONE]"
 								@make --no-print-directory -C ${PATH_LIB} 
 								@${CC} $^ -o $@ ${CFLAG} ${PATH_LIB}/${LIBFT_A} -lreadline
-								@echo "${GREEN}[ COMPLETE ]${NC}\n"
-								@echo "$$HEADER"
+								@echo "${CYAN}[COMPILATION COMPLETE]${NC}\n"
+								@echo "${PURPLE}$$HEADER${NC}"
 all:							${NAME}
 
 clean:
 								@${RM} ${OBJ}
 								@make --no-print-directory -C ${PATH_LIB} clean
-								@echo "\n${GREEN}[ OK ]${RED}    *.o files deleted${NC}"
+								@echo "\n${GREEN}[ OK ]${RED} *.o files DELETED${NC}"
 fclean:							clean
 								@${RM} ${NAME}
 								@make --no-print-directory -C ${PATH_LIB} fclean
-								@echo "${GREEN}[ OK ]${RED}    ${NAME}    deleted${NC}"
+								@echo "${GREEN}[ OK ]${RED} ${NAME} DELETED${NC}"
 re:								fclean ${NAME}
 .PHONY:							all clean fclean re
