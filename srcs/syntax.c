@@ -3,7 +3,7 @@
 /*
 **returns 1 if nothing is wrong
 */
-int	syntax_check(char *cmd)
+int	quote_check(char *cmd)
 {
 	int	i;
 	int	quote;
@@ -24,4 +24,66 @@ int	syntax_check(char *cmd)
 	if (quote)
 		return (0);
 	return (1);
+}
+
+int	pipe_check(char *cmd)
+{
+	int	i;
+	int	pipe;
+
+	i = 0;
+	pipe = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '|' || pipe)
+			return (0);
+		else if (cmd[i] == '|')
+			pipe = 1;
+		else if (cmd[i] != ' ' && cmd[i] != '|')
+			pipe = 0;
+		i++;
+	}
+	return (1);
+}
+
+int	redirector_check(char *cmd)
+{
+	int	i;
+	int	left_red;
+	int	right_red;
+
+	i = 0;
+	left_red = 0;
+	right_red =	0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+		{
+			left_red = 0;
+			right_red = 0;
+		}
+		else if (cmd[i] == '>')
+		{
+			right_red += 1;
+			if (cmd[i + 1] == '>')
+				i++;
+		}
+		else if (cmd[i] == '<')
+		{
+			left_red += 1;
+			if (cmd[i + 1] == '<')
+				i++;
+		}
+		if (left_red > 1 || right_red > 1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	syntax_check(char *cmd)
+{
+	if (quote_check(cmd) && pipe_check(cmd) && redirector_check(cmd))
+		return (1);
+	return (0);
 }
