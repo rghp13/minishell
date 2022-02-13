@@ -17,7 +17,7 @@ int	quote_check(char *cmd)
 	while (cmd[i])
 	{
 		quote = update_bracket_status(quote, cmd[i]);
-		if (cmd[i] == ';' || cmd[i] == '\\')
+		if ((cmd[i] == ';' || cmd[i] == '\\') && quote == 0)
 			return (0);
 		i++;
 	}
