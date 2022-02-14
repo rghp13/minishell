@@ -31,12 +31,14 @@ int	builtin_echo(char **argv, t_cont *cont)
 
 void	set_sig(void)
 {
-	struct sigaction	sa;
+	// struct sigaction	sa;
 	
-	sa.sa_handler = SIG_DFL;
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+	// sa.sa_handler = SIG_DFL;
+	// sa.sa_flags = SA_RESTART;
+	// sigaction(SIGINT, &sa, NULL);
+	// sigaction(SIGQUIT, &sa, NULL);
+	signal(SIGQUIT, NULL);
+	signal(SIGINT, NULL);
 }
 
 int	is_option(const char *str, t_cont *cont)

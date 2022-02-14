@@ -36,7 +36,7 @@ int	pipe_check(char *cmd)
 	pipe = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '|' || pipe)
+		if (cmd[i] == '|' && pipe)
 			return (0);
 		else if (cmd[i] == '|')
 			pipe = 1;

@@ -16,6 +16,7 @@ int	double_input(t_cmd *cmd, t_cont *cont)
 {
 	char	*ret_str;
 	char	*final;
+	char	*temp;
 	int		pipes[2];
 
 	final = calloc(1, sizeof(char));
@@ -23,11 +24,11 @@ int	double_input(t_cmd *cmd, t_cont *cont)
 	while (1)
 	{
 		ret_str = readline("> ");
-		// ft_putstr_fd("> ", 3);
-		// ret_str = get_next_line(0);
 		if (!di_strcomp(ret_str, cmd->input))
 			break;
-		final = ft_strjoin(final, ret_str);
+		temp = ft_strjoin(final, ret_str);
+		free(final);
+		final = temp;
 	}
 	pipe(pipes);
 	write(pipes[1], final, ft_strlen(final));
