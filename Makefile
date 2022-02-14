@@ -76,10 +76,10 @@ all:							${NAME}
 clean:
 								@${RM} ${OBJ}
 								@make --no-print-directory -C ${PATH_LIB} clean
-								@echo "\n${GREEN}[ OK ]${RED} *.o files DELETED${NC}"
+								@echo "\n${GREEN}[ OK ]${NC}${RED} *.o files DELETED${NC}"
 fclean:							clean
 								@${RM} ${NAME}
 								@make --no-print-directory -C ${PATH_LIB} fclean
-								@echo "${GREEN}[ OK ]${RED} ${NAME} DELETED${NC}"
+								@echo "${GREEN}[ OK ]${NC}${RED} ${NAME} DELETED${NC}"
 re:								fclean ${NAME}
 .PHONY:							all clean fclean re
