@@ -33,7 +33,7 @@ int	pipe_check(char *cmd)
 	int	pipe;
 
 	i = 0;
-	pipe = 0;
+	pipe = 1;
 	while (cmd[i])
 	{
 		if (cmd[i] == '|' && pipe)

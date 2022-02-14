@@ -57,11 +57,17 @@ int	argv_loop(t_cont *cont)
 		while (pipe)
 		{
 			if (create_argv(pipe))
+			{
+				cont->exit_status = 2;
 				return (-1);
+			}
 			pipe = pipe->next;
 		}
 		if (create_argv(current))
+		{
+			cont->exit_status = 2;
 			return (-1);
+		}
 		current = current->next;
 	}
 	return (0);
