@@ -53,6 +53,7 @@ int	extract_redirector(t_cmd *cmd, int i)
 		if (small_malloc((void **)&cmd->output, sizeof(char) * (j - i)))
 			return (-1);
 		ft_memcpy(cmd->output, &cmd->cmd[i], j - i);
+		cmd->output[j - i] = '\0';
 	}
 	else if (cmd->cmd[mode] == '<')
 	{
@@ -60,6 +61,7 @@ int	extract_redirector(t_cmd *cmd, int i)
 		if (small_malloc((void **)&cmd->input, sizeof(char) * (j - i)))
 			return (-1);
 		ft_memcpy(cmd->input, &cmd->cmd[i], j - i);
+		cmd->input[j - i] = '\0';
 	}
 	while (cmd->cmd[j] && is_redirect_separator(cmd->cmd[j]))
 		j++;
@@ -98,6 +100,9 @@ int	create_argv(t_cmd *cmd)
 			i++;
 	}
 	cmd->arg = ft_special_split(cmd->cmd, ' ');
+	if (!cmd->arg[0])
+		return (-1);
+	sanitize_argv(cmd->arg);
 	return (0);
 }
 

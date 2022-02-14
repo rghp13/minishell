@@ -87,12 +87,18 @@ int	substitute_variables(t_cont *cont)
 	while (current)
 	{
 		if (parse_line_variable(current, cont))
+		{
+			cont->exit_status = 2;
 			return (-1);
+		}
 		pipe = current->pipechain;
 		while (pipe)
 		{
 			if (parse_line_variable(pipe, cont))
+			{
+				cont->exit_status = 2;
 				return (-1);
+			}
 			pipe = pipe->next;
 		}
 		current = current->next;

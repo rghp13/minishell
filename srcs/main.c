@@ -66,8 +66,8 @@ int	main_loop(t_cont *cont)
 		{
 			parse_command(parsed_line, &cont->cmd);
 			substitute_variables(cont);
-			argv_loop(cont);
-			exec_main(cont);
+			if (!argv_loop(cont))
+				exec_main(cont);
 		}
 		else
 			ft_putstr_fd("Parsing Error\n", 3);
