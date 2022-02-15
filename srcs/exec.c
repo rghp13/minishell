@@ -22,6 +22,23 @@ int	exec_main(t_cont *cont)
 	return (0);
 }
 
+int	exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont)
+{
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 034;
+	tcsetattr(0, TCSANOW, &t);
+	if (check_builtin(cmd->arg[0]) == 1)
+		run_builtin(cmd, cont);
+	else
+		exec_cmd(cmd, cont);
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 0;
+	tcsetattr(0, TCSANOW, &t);
+	return (0);
+}
+
 void	exec_cmd(t_cmd *cmd, t_cont *cont)
 {
 	pid_t	pid;
@@ -51,60 +68,4 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		}
 		exit(EXIT_SUCCESS);
 	}
-}
-
-int	list_get_path(t_cmd *cmd, t_env *env)
-{
-	while (cmd)
-	{
-		relative_path_bridge(cmd, env);
-		cmd = cmd->next;
-	}
-	return (0);
-}
-
-char	*get_abs_path(const char *src, t_env *env)
-{
-	char	*bin;
-	char	**split;
-	int		i;
-
-	i = -1;
-	if (ft_strchr(src, '/'))
-		return (find_relative_path(src, env->cont));
-	split = ret_path_split(env);
-	if (split == NULL)
-		return (NULL);
-	while (split[++i])
-	{
-		if (merge_path_name(&split[i], src) != 0)
-			return ((void *)(uintptr_t)ft_free_all_split(split));
-		if (access(split[i], F_OK) != -1)
-		{
-			bin = ft_strdup(split[i]);
-			ft_free_all_split(split);
-			return (bin);
-		}
-	}
-	ft_free_all_split(split);
-	return (NULL);
-}
-
-int	merge_path_name(char **path, const char *name)
-{
-	char	*hold;
-	char	*hold2;
-
-	if (*path == NULL)
-		return (1);
-	hold = ft_strjoin(*path, "/");
-	if (hold == NULL)
-		return (1);
-	hold2 = ft_strjoin(hold, name);
-	free(hold);
-	if (hold2 == NULL)
-		return (1);
-	free(*path);
-	*path = hold2;
-	return (0);
 }
