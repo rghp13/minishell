@@ -66,13 +66,13 @@ int	check_valid_export(const char *str, t_cont *cont, int *flag)
 
 	ptr = ft_strchr(str, '=');
 	i = 0;
-	if (ptr == NULL)
-		return (0);
-	if (ptr == str)
+	if (ptr == str || str[0] == '\0')
 	{
 		*flag = 1;
 		return (export_error(str));
 	}
+	if (ptr == NULL)
+		return (0);
 	c = ptr - str;
 	while (i < c)
 	{
