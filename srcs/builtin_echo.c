@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:53:06 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 18:56:13 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/15 22:56:49 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,17 @@ void	builtin_exec_echo(t_cmd *cmd, t_cont *cont)
 		perror("fork");
 	else if (pid > 0)
 	{
-		cont->child_pid = pid;
-		wait(&status);
-		kill(pid, SIGTERM);
-		if (WIFEXITED(status))
-			cont->exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			cont->exit_status = (128 + WTERMSIG(status));
-		cont->child_pid = 0;
+		if (cmd->next == NULL)
+		{
+			cont->child_pid = pid;
+			wait(&status);
+			kill(pid, SIGTERM);
+			if (WIFEXITED(status))
+				cont->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				cont->exit_status = (128 + WTERMSIG(status));
+			cont->child_pid = 0;
+		}
 	}
 	else
 		exit(builtin_echo(cmd->arg));

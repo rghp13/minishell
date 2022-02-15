@@ -34,6 +34,8 @@ int	execution_manager(t_cont *cont)
 	int	value;
 
 	value = exec_main(cont);
+	while (wait(NULL) > 0)
+		;
 	if (value == -1)
 	{
 		ft_putstr_fd("Execution Error\n", STDERR_FILENO);
