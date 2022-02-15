@@ -1,0 +1,41 @@
+#include "../includes/minishell.h"
+
+int	parsing_manager(char *parsed_line, t_cont *cont)
+{
+	if (syntax_check(parsed_line))
+	{
+		ft_putstr_fd("Syntax Error\n", STDERR_FILENO);
+		cont->exit_status = 2;
+		return (-1);
+	}
+	if (parse_command(parsed_line, &cont->cmd))
+	{
+		ft_putstr_fd("Parsing Error\n", STDERR_FILENO);
+		cont->exit_status = 1;
+		return (-1);
+	}
+	if (substitute_variables(cont))
+	{
+		ft_putstr_fd("Variable Error\n", STDERR_FILENO);
+		cont->exit_status = 1;
+		return (-1);
+	}
+	if (argv_loop(cont))
+	{
+		ft_putstr_fd("Argument Error\n", STDERR_FILENO);
+		cont->exit_status = 1;
+		return (-1);
+	}
+	return (0);
+}
+
+int	execution_manager(t_cont *cont)
+{
+	if (exec_main(cont))
+	{
+		ft_putstr_fd("Execution Error\n", STDERR_FILENO);
+		cont->exit_status = 1;
+		return (-1);
+	}
+	return (0);
+}

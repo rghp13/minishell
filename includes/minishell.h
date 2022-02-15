@@ -110,7 +110,7 @@ int		sanitize_argv(char **argv);
 /*
 **EXEC.C
 */
-void	exec_main(t_cont *cont);
+int		exec_main(t_cont *cont);
 void	exec_cmd(t_cmd *cmd, t_cont *cont);
 int		list_get_path(t_cmd *cmd, t_env *env);
 char	*get_abs_path(const char *src, t_env *env);
@@ -247,4 +247,8 @@ void	fd_reset(t_cont *cont);
 
 int		prepare_redirection(t_cmd *cmd, t_cont *cont);
 int		pipe_execution(t_cmd *cmd, t_cont *cont);
+
+int		parsing_manager(char *parsed_line, t_cont *cont);
+int		execution_manager(t_cont *cont);
+
 #endif

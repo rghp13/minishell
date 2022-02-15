@@ -52,7 +52,8 @@ SRC_NAME				=		env.c \
 								builtin_cd.c \
 								builtin_exit.c \
 								builtin_echo.c \
-								history.c
+								history.c \
+								managers.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
