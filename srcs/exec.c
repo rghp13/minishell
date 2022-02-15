@@ -50,14 +50,17 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		perror("fork");
 	else if (pid > 0)
 	{
-		cont->child_pid = pid;
-		wait(&status);
-		kill(pid, SIGTERM);
-		if (WIFEXITED(status))
-			cont->exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			cont->exit_status = (128 + WTERMSIG(status));
-		cont->child_pid = 0;
+		if (cmd->next == NULL)
+		{
+			cont->child_pid = pid;
+			wait(&status);
+			kill(pid, SIGTERM);
+			if (WIFEXITED(status))
+				cont->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				cont->exit_status = (128 + WTERMSIG(status));
+			cont->child_pid = 0;
+		}
 	}
 	else
 	{
