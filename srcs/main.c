@@ -52,8 +52,6 @@ int	main_loop(t_cont *cont)
 
 	while (cont->exit_flag == 0)
 	{
-		// ft_putstr_fd("$> ", 2);
-		// parsed_line = get_next_line(0);
 		parsed_line = readline("$> ");
 		if (!parsed_line)
 		{
@@ -62,15 +60,8 @@ int	main_loop(t_cont *cont)
 			break ;
 		}
 		add_history(parsed_line);
-		if (syntax_check(parsed_line))
-		{
-			parse_command(parsed_line, &cont->cmd);
-			substitute_variables(cont);
-			if (!argv_loop(cont))
-				exec_main(cont);
-		}
-		else
-			ft_putstr_fd("Parsing Error\n", 3);
+		if (!parsing_manager(parsed_line, cont))
+			exec_main(cont);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;
 	}

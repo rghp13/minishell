@@ -6,7 +6,7 @@
 **figure out if it needs to redirect and how to redirect
 */
 
-void	exec_main(t_cont *cont)
+int	exec_main(t_cont *cont)
 {
 	t_cmd	*hold;
 
@@ -33,6 +33,7 @@ void	exec_main(t_cont *cont)
 			exec_bultin_bin_bridge(hold, cont);
 		hold = hold->next;
 	}
+	return (0);
 }
 
 void	exec_cmd(t_cmd *cmd, t_cont *cont)
