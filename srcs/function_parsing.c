@@ -104,6 +104,7 @@ int	parse_command(char *line, t_cmd **list)
 {
 	int		i;
 
+	i = ft_strlen(line);
 	if (i >= 1 && line[i - 1] == '\n')
 		line[i - 1] = '\0';
 	*list = add_cmd(*list, line);

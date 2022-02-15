@@ -2,12 +2,6 @@
 
 void	init_singals(void)
 {
-	struct sigaction	sa;
-
-	// sa.sa_handler = &signal_handler;
-	// sa.sa_flags = SA_RESTART;
-	// sigaction(SIGQUIT, &sa, NULL);
-	// sigaction(SIGINT, &sa, NULL);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	return ;

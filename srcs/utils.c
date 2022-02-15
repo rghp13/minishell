@@ -60,7 +60,6 @@ void	add_last(t_env *head, t_env *current)
 
 int	update_envstr(t_cont *cont)
 {
-	t_env	*env;
 	char	**arr;
 
 	arr = output_env_array(cont->env);

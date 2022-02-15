@@ -47,7 +47,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
 		{
 			perror("shell");
-			exit(err_ret_value(errno, cont, cmd));
+			exit(err_ret_value(errno, cmd));
 		}
 		exit(EXIT_SUCCESS);
 	}
@@ -55,8 +55,6 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
-	int		len;
-
 	while (cmd)
 	{
 		relative_path_bridge(cmd, env);

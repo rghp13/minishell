@@ -32,7 +32,7 @@ int	builtin_cd(char **argv, t_cont *cont)
 int	dir_swap(t_cont *cont)
 {
 	t_env	*old;
-	int		ret;
+
 	old = find_env("OLDPWD", cont->env);
 	if (!old || !old->value)
 	{

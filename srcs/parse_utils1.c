@@ -79,7 +79,6 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 int	free_parse(t_cmd *list)
 {
 	t_cmd	*next;
-	t_cmd	*temp;	
 
 	while (list)
 	{

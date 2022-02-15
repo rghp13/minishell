@@ -112,7 +112,7 @@ int		merge_path_name(char **path, const char *name);
 int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
 char	*get_home_path(const char *str, t_cont *cont);
 int		relative_path_bridge(t_cmd *cmd, t_env *env);
-int		err_ret_value(int erno, t_cont *cont, t_cmd *cmd);
+int		err_ret_value(int erno, t_cmd *cmd);
 void	error_status(t_cont *cont);
 /*
 **EXECUTILS2.C
@@ -141,12 +141,12 @@ t_env	*add_env(const char *key, const char *value, t_cont *cont);
 void	shell_lvl(t_cont *cont);
 char	*expand_tilde(const char *key, t_cont *cont);
 char	*get_tilde(t_cont *cont, const char *envar);
-char	*user_tilde(const char *key ,t_cont *cont);
+char	*user_tilde(const char *key);
 /*
 **BUILTIN_EXPORT.C
 */
 int		builtin_export(char **argv, t_cont *cont);
-int		check_valid_export(const char *str, t_cont *cont, int *flag);
+int		check_valid_export(const char *str, int *flag);
 int		export_error(const char *str);
 int		ft_isasymbol(const char str);
 void	create_new_env(char *argv, t_cont *cont);
@@ -199,9 +199,9 @@ uint8_t	builtin_exit(char **argv, t_cont *cont);
 /*
 **BUILTIN_ECHO.c
 */
-int		builtin_echo(char **argv, t_cont *cont);
+int		builtin_echo(char **argv);
 void	builtin_exec_echo(t_cmd *cmd, t_cont *cont);
-int		is_option(const char *str, t_cont *cont);
+int		is_option(const char *str);
 void	set_sig(void);
 /*
 **FREE.C
