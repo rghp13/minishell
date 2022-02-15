@@ -55,21 +55,15 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
-	t_cmd	*hold;
 	t_cmd	*pipe;
 	int		len;
 
-	hold = cmd;
-	while (hold)
+	relative_path_bridge(cmd, env);
+	pipe = cmd->pipechain;
+	while (pipe)
 	{
-		relative_path_bridge(hold, env);
-		pipe = hold->pipechain;
-		while (pipe)
-		{
-			relative_path_bridge(pipe, env);
-			pipe = pipe->next;
-		}
-		hold = hold->next;
+		relative_path_bridge(pipe, env);
+		pipe = pipe->next;
 	}
 	return (0);
 }

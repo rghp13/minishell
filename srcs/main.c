@@ -61,7 +61,7 @@ int	main_loop(t_cont *cont)
 		}
 		add_history(parsed_line);
 		if (!parsing_manager(parsed_line, cont))
-			exec_main(cont);
+			execution_manager(cont);
 		free_parse(cont->cmd);
 		cont->cmd = NULL;
 	}

@@ -9,25 +9,20 @@ int	pipe_start(t_cmd *cmd, t_cont *cont)
 	if (prepare_redirection(cmd, cont))
 		return (-2);
 	exec_bultin_bin_bridge(cmd, cont);
-	cmd = cmd->pipechain;
 	return (0);
 }
 
 int	pipe_middle(t_cmd *cmd, t_cont *cont)
 {
-	while (cmd->next)
-	{
-		dup2(cont->pipefd[0], 0);
-		close(cont->pipefd[0]);
-		if (pipe(cont->pipefd))
-			return (-1);
-		dup2(cont->pipefd[1], 1);
-		close(cont->pipefd[1]);
-		if (prepare_redirection(cmd, cont))
-			return (-2);
-		exec_bultin_bin_bridge(cmd, cont);
-		cmd = cmd->next;
-	}
+	dup2(cont->pipefd[0], 0);
+	close(cont->pipefd[0]);
+	if (pipe(cont->pipefd))
+		return (-1);
+	dup2(cont->pipefd[1], 1);
+	close(cont->pipefd[1]);
+	if (prepare_redirection(cmd, cont))
+		return (-2);
+	exec_bultin_bin_bridge(cmd, cont);
 	return (0);
 }
 
@@ -44,7 +39,18 @@ int	pipe_end(t_cmd *cmd, t_cont *cont)
 
 int	pipe_execution(t_cmd *cmd, t_cont *cont)
 {
-	pipe_start(cmd, cont);
-	pipe_middle(cmd, cont);
-	pipe_end(cmd, cont);
+	int	val;
+
+	val = pipe_start(cmd, cont);
+	cmd = cmd->pipechain;
+	if (val)
+		return (val);
+	while (cmd->next)
+	{
+		val = pipe_middle(cmd, cont);
+		cmd = cmd->next;
+	}
+	if (val)
+		return (val);
+	return (pipe_end(cmd, cont));
 }
