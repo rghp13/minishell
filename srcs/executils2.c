@@ -39,3 +39,59 @@ char	*find_relative_path(const char *str, t_cont *cont)
 	No such file or directory\n", STDERR_FILENO);
 	return (NULL);
 }
+
+char	*get_abs_path(const char *src, t_env *env)
+{
+	char	*bin;
+	char	**split;
+	int		i;
+
+	i = -1;
+	if (ft_strchr(src, '/'))
+		return (find_relative_path(src, env->cont));
+	split = ret_path_split(env);
+	if (split == NULL)
+		return (NULL);
+	while (split[++i])
+	{
+		if (merge_path_name(&split[i], src) != 0)
+			return ((void *)(uintptr_t)ft_free_all_split(split));
+		if (access(split[i], F_OK) != -1)
+		{
+			bin = ft_strdup(split[i]);
+			ft_free_all_split(split);
+			return (bin);
+		}
+	}
+	ft_free_all_split(split);
+	return (NULL);
+}
+
+int	merge_path_name(char **path, const char *name)
+{
+	char	*hold;
+	char	*hold2;
+
+	if (*path == NULL)
+		return (1);
+	hold = ft_strjoin(*path, "/");
+	if (hold == NULL)
+		return (1);
+	hold2 = ft_strjoin(hold, name);
+	free(hold);
+	if (hold2 == NULL)
+		return (1);
+	free(*path);
+	*path = hold2;
+	return (0);
+}
+
+int	list_get_path(t_cmd *cmd, t_env *env)
+{
+	while (cmd)
+	{
+		relative_path_bridge(cmd, env);
+		cmd = cmd->next;
+	}
+	return (0);
+}
