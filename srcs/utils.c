@@ -32,6 +32,7 @@ int	ft_free_all_split(char **split)
 }
 /*
 **doesn't add last if head empty (no thoughts)
+**now does but a pointer to cont must be in current
 */
 
 void	add_last(t_env *head, t_env *current)
