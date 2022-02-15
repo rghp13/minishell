@@ -47,22 +47,10 @@ int	has_redirector(char *str)
 int	argv_loop(t_cont *cont)
 {
 	t_cmd	*current;
-	t_cmd	*pipe;
 
 	current = cont->cmd;
-	pipe = NULL;
 	while (current)
 	{
-		pipe = current->pipechain;
-		while (pipe)
-		{
-			if (create_argv(pipe))
-			{
-				cont->exit_status = 2;
-				return (-1);
-			}
-			pipe = pipe->next;
-		}
 		if (create_argv(current))
 		{
 			cont->exit_status = 2;

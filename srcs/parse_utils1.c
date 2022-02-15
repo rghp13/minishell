@@ -36,9 +36,7 @@ void	print_command_list(t_cmd *list)
 		printf("output type : %d\n", list->output_type);
 		printf("prev : %p\n", list->prev);
 		printf("next : %p\n", list->next);
-		printf("pipe : %p\n", list->pipechain);
 		printf("--------------------------------------\n");
-		print_command_list(list->pipechain);
 		list = list->next;
 	}
 	return ;
@@ -52,7 +50,6 @@ t_cmd	*init_cmd(char *cmd)
 		return (NULL);
 	newcmd->next = NULL;
 	newcmd->prev = NULL;
-	newcmd->pipechain = NULL;
 	newcmd->input = NULL;
 	newcmd->output = NULL;
 	newcmd->abspath = NULL;
@@ -82,22 +79,11 @@ t_cmd	*add_cmd(t_cmd *list, char *cmd)
 int	free_parse(t_cmd *list)
 {
 	t_cmd	*next;
-	t_cmd	*pipe;
 	t_cmd	*temp;	
 
 	while (list)
 	{
 		next = list->next;
-		if (list->pipechain)
-		{
-			pipe = list->pipechain;
-			while (pipe)
-			{
-				temp = pipe->next;
-				free_cmd(pipe);
-				pipe = temp;
-			}
-		}
 		free_cmd(list);
 		list = next;
 	}
