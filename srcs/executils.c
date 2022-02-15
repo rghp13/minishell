@@ -49,7 +49,7 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 	return (0);
 }
 
-int	err_ret_value(int erno, t_cont *cont, t_cmd *cmd)
+int	err_ret_value(int erno, t_cmd *cmd)
 {
 	ft_putnbr_fd(erno, STDERR_FILENO);//eventually
 	ft_putchar_fd('\n', STDERR_FILENO);//remove this 

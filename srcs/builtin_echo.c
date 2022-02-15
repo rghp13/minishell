@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	builtin_echo(char **argv, t_cont *cont)
+int	builtin_echo(char **argv)
 {
 	int	n;
 	int	flag;
@@ -10,7 +10,7 @@ int	builtin_echo(char **argv, t_cont *cont)
 	n = 0;
 	flag = 0;
 	set_sig();
-	while (argv[i] && is_option(argv[i], cont))
+	while (argv[i] && is_option(argv[i]))
 	{
 		n = 1;
 		if (argv[++i] == NULL)
@@ -35,7 +35,7 @@ void	set_sig(void)
 	signal(SIGINT, NULL);
 }
 
-int	is_option(const char *str, t_cont *cont)
+int	is_option(const char *str)
 {
 	int	len;
 	int	i;
@@ -74,5 +74,5 @@ void	builtin_exec_echo(t_cmd *cmd, t_cont *cont)
 		cont->child_pid = 0;
 	}
 	else
-		exit(builtin_echo(cmd->arg, cont));
+		exit(builtin_echo(cmd->arg));
 }

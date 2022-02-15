@@ -53,7 +53,7 @@ char	*expand_tilde(const char *key, t_cont *cont)
 	else if (len == 2 && key[1] == '-')
 		str = get_tilde(cont, "$OLDPWD");
 	else
-		str = user_tilde(key, cont);
+		str = user_tilde(key);
 	if (!str)
 		return (ft_strdup(key));
 	return (str);
@@ -61,14 +61,13 @@ char	*expand_tilde(const char *key, t_cont *cont)
 
 char	*get_tilde(t_cont *cont, const char *envar)
 {
-	char	*str;
 	char	*hold;
 
 	hold = get_key_val(envar, cont->env);
 	return (hold);
 }
 
-char	*user_tilde(const char *key, t_cont *cont)
+char	*user_tilde(const char *key)
 {
 	char	*hold;
 

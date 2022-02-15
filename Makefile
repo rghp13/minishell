@@ -52,14 +52,13 @@ SRC_NAME				=		env.c \
 								builtin_cd.c \
 								builtin_exit.c \
 								builtin_echo.c \
-								history.c \
 								managers.c
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
 CC						=		clang
 RM						=		rm -f
-CFLAG					=		-g #-Wall -Wextra -Werror
+CFLAG					=		-Wall -Wextra -Werror #-g 
 SRC						=		$(addprefix $(PATH_SRC)/,$(SRC_NAME))
 OBJ						=		$(addprefix $(PATH_SRC)/,$(OBJ_NAME))
 LIBFT_A					=		libft.a

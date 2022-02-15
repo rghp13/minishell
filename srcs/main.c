@@ -73,6 +73,8 @@ int	main(int argc, char const *argv[], char **envp)
 	struct termios	original;
 	t_cont			cont;
 
+	(void)argc;
+	(void)argv;
 	initialize_main_struct(&cont, envp, &original);
 	main_loop(&cont);
 	cleanup(cont, original);

@@ -18,7 +18,7 @@ int	builtin_export(char **argv, t_cont *cont)
 	exp.flag = 0;
 	while (argv[++exp.i])
 	{
-		if (check_valid_export(argv[exp.i], cont, &exp.flag) == 0)
+		if (check_valid_export(argv[exp.i], &exp.flag) == 0)
 			continue ;
 		exp.new_env = find_env(argv[exp.i], cont->env);
 		if (exp.new_env == NULL)
@@ -58,7 +58,7 @@ void	create_new_env(char *argv, t_cont *cont)
 /*
 **0 means skip
 */
-int	check_valid_export(const char *str, t_cont *cont, int *flag)
+int	check_valid_export(const char *str, int *flag)
 {
 	int		i;
 	int		c;

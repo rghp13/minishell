@@ -12,7 +12,7 @@ int	di_strcomp(char *ret_line, char *endstr)
 	return (1);
 }
 
-int	double_input(t_cmd *cmd, t_cont *cont)
+int	double_input(t_cmd *cmd)
 {
 	char	*ret_str;
 	char	*final;
@@ -44,7 +44,7 @@ int	prepare_redirection(t_cmd *cmd, t_cont *cont)
 		if (cmd->input_type == 0)
 			cont->fd_in = open(cmd->input, O_RDONLY, 0664);
 		else if (cmd->input_type == 1)
-			cont->fd_in = double_input(cmd, cont);
+			cont->fd_in = double_input(cmd);
 		if (cont->fd_in == -1)
 			return (-1);
 		dup2(cont->fd_in, 0);

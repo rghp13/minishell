@@ -81,7 +81,6 @@ int	parse_line_variable(t_cmd *cmd, t_cont *cont)
 int	substitute_variables(t_cont *cont)
 {
 	t_cmd	*current;
-	t_cmd	*pipe;
 
 	current = cont->cmd;
 	while (current)
