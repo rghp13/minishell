@@ -31,11 +31,20 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 
 int	execution_manager(t_cont *cont)
 {
-	if (exec_main(cont))
+	int	value;
+
+	value = exec_main(cont);
+	if (value == -1)
 	{
 		ft_putstr_fd("Execution Error\n", STDERR_FILENO);
 		cont->exit_status = 1;
-		return (-1);
 	}
-	return (0);
+	else if (value == -2)
+	{
+		ft_putstr_fd("File Error\n", STDERR_FILENO);
+		cont->exit_status = 1;
+	}
+	fd_close(cont);
+	fd_reset(cont);
+	return (value);
 }
