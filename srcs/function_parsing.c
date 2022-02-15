@@ -57,8 +57,6 @@ int	extract_redirector(t_cmd *cmd, int i)
 		ft_memcpy(cmd->input, &cmd->cmd[i], j - i);
 		cmd->input[j - i] = '\0';
 	}
-	while (cmd->cmd[j] && is_redirect_separator(cmd->cmd[j]))
-		j++;
 	return (j - mode);
 }
 
