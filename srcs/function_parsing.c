@@ -3,26 +3,20 @@
 int	break_pipes(t_cmd *list)
 {
 	int		i;
-	t_cmd	*current;
 	char	**str;
 
-	current = list;
-	while (current)
+	if (has_pipe(list->cmd))
 	{
-		if (has_pipe(current->cmd))
+		str = ft_special_split(list->cmd, '|');
+		free(list->cmd);
+		list->cmd = str[0];
+		i = 1;
+		while (str[i])
 		{
-			str = ft_special_split(current->cmd, '|');
-			free(current->cmd);
-			current->cmd = str[0];
-			i = 1;
-			while (str[i])
-			{
-				current->pipechain = add_cmd(current->pipechain, str[i]);
-				i++;
-			}
-			free(str);
+			list->next = add_cmd(list->next, str[i]);
+			i++;
 		}
-		current = current->next;
+		free(str);
 	}
 	return (0);
 }
@@ -109,20 +103,10 @@ int	create_argv(t_cmd *cmd)
 int	parse_command(char *line, t_cmd **list)
 {
 	int		i;
-	char	**str;
 
-	i = ft_strlen(line);
 	if (i >= 1 && line[i - 1] == '\n')
 		line[i - 1] = '\0';
-	i = 0;
-	str = ft_special_split(line, ';');
-	while (str[i])
-	{
-		*list = add_cmd(*list, str[i]);
-		i++;
-	}
-	free(str);
-	free(line);
+	*list = add_cmd(*list, line);
 	break_pipes(*list);
 	return (0);
 }

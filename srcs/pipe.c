@@ -42,7 +42,7 @@ int	pipe_execution(t_cmd *cmd, t_cont *cont)
 	int	val;
 
 	val = pipe_start(cmd, cont);
-	cmd = cmd->pipechain;
+	cmd = cmd->next;
 	if (val)
 		return (val);
 	while (cmd->next)

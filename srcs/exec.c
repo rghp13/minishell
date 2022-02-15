@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 **main function that will run one command at a time in the list
@@ -9,7 +9,7 @@
 int	exec_main(t_cont *cont)
 {
 	list_get_path(cont->cmd, cont->env);
-	if (cont->cmd->pipechain)
+	if (cont->cmd->next)
 		return (pipe_execution(cont->cmd, cont));
 	else if (cont->cmd->input_type > -1 || cont->cmd->output_type > -1)
 	{
@@ -55,15 +55,12 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 
 int	list_get_path(t_cmd *cmd, t_env *env)
 {
-	t_cmd	*pipe;
 	int		len;
 
-	relative_path_bridge(cmd, env);
-	pipe = cmd->pipechain;
-	while (pipe)
+	while (cmd)
 	{
-		relative_path_bridge(pipe, env);
-		pipe = pipe->next;
+		relative_path_bridge(cmd, env);
+		cmd = cmd->next;
 	}
 	return (0);
 }
