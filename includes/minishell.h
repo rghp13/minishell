@@ -38,12 +38,6 @@ typedef struct s_cmd
 	struct s_cmd	*prev; /*previous function in the list that was separated with a |*/
 }					t_cmd;
 
-typedef struct s_history
-{
-	char				*value;
-	struct s_history	*older;
-	struct s_history	*newer;
-}						t_history;
 typedef struct s_env
 {
 	char			*key;
@@ -68,8 +62,6 @@ typedef struct s_cont
 	char		*pwd;
 	t_cmd		*cmd;
 	t_env		*env;
-	t_history	*history;
-	t_history	*current;
 }				t_cont;
 
 typedef struct s_export
