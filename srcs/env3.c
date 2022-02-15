@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env3.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 19:03:26 by rponsonn          #+#    #+#             */
+/*   Updated: 2022/02/15 19:05:09 by rponsonn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -32,10 +44,12 @@ void	shell_lvl(t_cont *cont)
 			hold = hold->cont->env;
 	}
 }
-//~+ uses env variables PWD
-//~- uses env variables OLDPWD
-//~ doesn't use $HOME
-//~romain if /home/romain exists return that
+
+/*~+ uses env variables PWD
+**~- uses env variables OLDPWD
+**~ doesn't use $HOME
+**~romain if /home/romain exists return that
+*/
 char	*expand_tilde(const char *key, t_cont *cont)
 {
 	int		len;
@@ -45,7 +59,7 @@ char	*expand_tilde(const char *key, t_cont *cont)
 	if (!key || !cont)
 		return (NULL);
 	if (key[0] != '~')
-		str = NULL;//in case this isn't a ~ just strdup and return
+		str = NULL;
 	else if (len == 1)
 		str = get_tilde(cont, "$HOME");
 	else if (len == 2 && key[1] == '+')
@@ -72,7 +86,7 @@ char	*user_tilde(const char *key)
 	char	*hold;
 
 	key++;
-	if (ft_strlen(key) < 2)//should have triggered get_tilde prior
+	if (ft_strlen(key) < 2)
 		return (NULL);
 	hold = ft_strjoin("/home/", key);
 	if (!hold)
