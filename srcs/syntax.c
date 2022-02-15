@@ -13,8 +13,6 @@ int	quote_check(char *cmd)
 	quote = 0;
 	if (cmd == NULL)
 		return (0);
-	//if (ft_isasymbol(cmd[0]) == 1)
-	//	return (0);
 	while (cmd[i])
 	{
 		quote = update_bracket_status(quote, cmd[i]);
