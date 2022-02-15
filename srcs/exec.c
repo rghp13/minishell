@@ -8,31 +8,17 @@
 
 int	exec_main(t_cont *cont)
 {
-	t_cmd	*hold;
-
-	hold = cont->cmd;
 	list_get_path(cont->cmd, cont->env);
-	while (hold)
+	if (cont->cmd->pipechain)
+		return (pipe_execution(cont->cmd, cont));
+	else if (cont->cmd->input_type > -1 || cont->cmd->output_type > -1)
 	{
-		if (hold->pipechain)
-		{
-			if (pipe_execution(hold, cont))
-				error_status(cont);
-			fd_reset(cont);
-		}
-		else if (hold->input_type > -1 || hold->output_type > -1)
-		{
-			if (!prepare_redirection(hold, cont))
-				exec_bultin_bin_bridge(hold, cont);
-			else
-				error_status(cont);
-			fd_close(cont);
-			fd_reset(cont);
-		}
-		else
-			exec_bultin_bin_bridge(hold, cont);
-		hold = hold->next;
+		if (prepare_redirection(cont->cmd, cont))
+			return (-2);
+		exec_bultin_bin_bridge(cont->cmd, cont);
 	}
+	else
+		return (exec_bultin_bin_bridge(cont->cmd, cont));
 	return (0);
 }
 
