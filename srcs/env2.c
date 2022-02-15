@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env2.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 19:01:58 by rponsonn          #+#    #+#             */
+/*   Updated: 2022/02/15 19:03:14 by rponsonn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //make function that outputs an array of string
@@ -9,7 +21,7 @@ char	**output_env_array(t_env *head)
 
 	i = calculate_env_split(head);
 	k = 0;
-	split = ft_calloc(i + 1, sizeof(char*));
+	split = ft_calloc(i + 1, sizeof(char *));
 	if (split == NULL)
 		return (NULL);
 	while (head)
