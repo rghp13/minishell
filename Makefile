@@ -58,7 +58,7 @@ NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)
 CC						=		clang
 RM						=		rm -f
-CFLAG					=		-Wall -Wextra -Werror #-g 
+CFLAG					=		-Wall -Wextra -Werror -g 
 SRC						=		$(addprefix $(PATH_SRC)/,$(SRC_NAME))
 OBJ						=		$(addprefix $(PATH_SRC)/,$(OBJ_NAME))
 LIBFT_A					=		libft.a

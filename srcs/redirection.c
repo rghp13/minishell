@@ -1,15 +1,12 @@
 #include "../includes/minishell.h"
 
-int	di_strcomp(char *ret_line, char *endstr)
+char	*add_slash_n(char *str)
 {
-	int	i;
+	char	*temp;
 
-	i = 0;
-	while (ret_line[i] && endstr[i] && ret_line[i] == endstr[i])
-		i++;
-	if (ret_line[i] == endstr[i] || ret_line[i] == '\n')
-		return (0);
-	return (1);
+	temp = ft_strjoin(str, "\n");
+	free(str);
+	return (temp);
 }
 
 int	double_input(t_cmd *cmd)
@@ -24,8 +21,9 @@ int	double_input(t_cmd *cmd)
 	while (1)
 	{
 		ret_str = readline("> ");
-		if (!di_strcomp(ret_str, cmd->input))
+		if (!ft_stringcomp(ret_str, cmd->input))
 			break;
+		ret_str = add_slash_n(ret_str);
 		temp = ft_strjoin(final, ret_str);
 		free(final);
 		final = temp;
