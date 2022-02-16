@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:57:52 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 18:57:53 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/16 20:06:34 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	check_valid_export(const char *str, int *flag)
 	c = ptr - str;
 	while (i < c)
 	{
-		if (ft_isasymbol(str[i]) == 1 || ft_isdigit(str[0]))
+		if (ft_isasymbol(str[i]) == 1 || ft_isdigit(str[0]) || str[i] == ' ')
 		{
 			*flag = 1;
 			return (export_error(str));
