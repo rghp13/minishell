@@ -64,6 +64,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 	}
 	else
 	{
+		close(cont->pipefd[0]);
 		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
 		{
 			perror("shell");

@@ -34,6 +34,9 @@ int	pipe_end(t_cmd *cmd, t_cont *cont)
 	if (prepare_redirection(cmd, cont))
 		return (-2);
 	exec_bultin_bin_bridge(cmd, cont);
+	fd_reset(cont);
+	while (wait(NULL) > 0)
+		;
 	return (0);
 }
 
