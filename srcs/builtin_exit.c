@@ -6,7 +6,7 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:56:55 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 18:57:37 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:55:23 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ uint8_t	builtin_exit(char **argv, t_cont *cont)
 		else
 			ret = ft_atoi(argv[1]);
 	}
-	cont->exit_flag = 1;
+	if (cont->cmd->next == NULL)
+		cont->exit_flag = 1;
 	return (ret);
 }
