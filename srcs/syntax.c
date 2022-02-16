@@ -48,33 +48,22 @@ int	pipe_check(char *cmd)
 int	redirector_check(char *cmd)
 {
 	int	i;
-	int	left_red;
-	int	right_red;
+	int	redirect;
 
 	i = 0;
-	left_red = 0;
-	right_red =	0;
+	redirect = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '|')
-		{
-			left_red = 0;
-			right_red = 0;
-		}
-		else if (cmd[i] == '>')
-		{
-			right_red += 1;
-			if (cmd[i + 1] == '>')
-				i++;
-		}
-		else if (cmd[i] == '<')
-		{
-			left_red += 1;
-			if (cmd[i + 1] == '<')
-				i++;
-		}
-		if (left_red > 1 || right_red > 1)
+		if ((cmd[i] == '>' || cmd[i] == '<') && redirect)
 			return (0);
+		if (cmd[i] == '>' || cmd[i] == '<')
+		{
+			redirect = 1;
+			if (cmd[i + 1] == cmd[i])
+				i++;
+		}
+		else if (cmd[i] != ' ')
+			redirect = 0;
 		i++;
 	}
 	return (1);
@@ -82,7 +71,7 @@ int	redirector_check(char *cmd)
 
 int	syntax_check(char *cmd)
 {
-	if (quote_check(cmd) && pipe_check(cmd)) // && redirector_check(cmd)
+	if (quote_check(cmd) && pipe_check(cmd) && redirector_check(cmd))
 		return (0);
 	return (1);
 }
