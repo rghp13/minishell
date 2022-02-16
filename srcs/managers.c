@@ -4,12 +4,8 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 {
 	int	val;
 
-	if (syntax_check(parsed_line))
-	{
-		ft_putstr_fd("Syntax Error\n", STDERR_FILENO);
-		cont->exit_status = 2;
+	if (syntax_check(parsed_line, cont))
 		return (-1);
-	}
 	if (parse_command(parsed_line, &cont->cmd))
 	{
 		ft_putstr_fd("Parsing Error\n", STDERR_FILENO);
