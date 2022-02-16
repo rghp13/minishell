@@ -82,7 +82,7 @@ int	redirector_check(char *cmd)
 
 int	syntax_check(char *cmd)
 {
-	if (quote_check(cmd) && pipe_check(cmd) && redirector_check(cmd))
+	if (quote_check(cmd) && pipe_check(cmd)) // && redirector_check(cmd)
 		return (0);
 	return (1);
 }

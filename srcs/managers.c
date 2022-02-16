@@ -2,6 +2,8 @@
 
 int	parsing_manager(char *parsed_line, t_cont *cont)
 {
+	int	val;
+
 	if (syntax_check(parsed_line))
 	{
 		ft_putstr_fd("Syntax Error\n", STDERR_FILENO);
@@ -20,9 +22,13 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 		cont->exit_status = 1;
 		return (-1);
 	}
-	if (argv_loop(cont))
+	val = argv_loop(cont);
+	if (val)
 	{
-		ft_putstr_fd("Argument Error\n", STDERR_FILENO);
+		if (val == -1)
+			ft_putstr_fd("Command not specified\n", STDERR_FILENO);
+		if (val == -2)
+			ft_putstr_fd("File Error\n", STDERR_FILENO);
 		cont->exit_status = 1;
 		return (-1);
 	}
