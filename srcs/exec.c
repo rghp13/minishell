@@ -53,7 +53,7 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		if (cmd->next == NULL)
 		{
 			cont->child_pid = pid;
-			wait(&status);
+			waitpid(pid, &status, 0);
 			kill(pid, SIGTERM);
 			if (WIFEXITED(status))
 				cont->exit_status = WEXITSTATUS(status);

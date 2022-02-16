@@ -12,17 +12,17 @@ int	quote_check(char *cmd)
 	i = 0;
 	quote = 0;
 	if (cmd == NULL)
-		return (0);
+		return (1);
 	while (cmd[i])
 	{
 		quote = update_bracket_status(quote, cmd[i]);
 		if ((cmd[i] == ';' || cmd[i] == '\\') && quote == 0)
-			return (0);
+			return (1);
 		i++;
 	}
 	if (quote)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	pipe_check(char *cmd)
@@ -35,54 +35,97 @@ int	pipe_check(char *cmd)
 	while (cmd[i])
 	{
 		if (cmd[i] == '|' && pipe)
-			return (0);
+			return (1);
 		else if (cmd[i] == '|')
 			pipe = 1;
 		else if (cmd[i] != ' ' && cmd[i] != '|')
 			pipe = 0;
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	redirector_check(char *cmd)
 {
 	int	i;
-	int	left_red;
-	int	right_red;
+	int	redirect;
 
 	i = 0;
-	left_red = 0;
-	right_red =	0;
+	redirect = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '|')
+		if ((cmd[i] == '>' || cmd[i] == '<') && redirect)
+			return (1);
+		if (cmd[i] == '>' || cmd[i] == '<')
 		{
-			left_red = 0;
-			right_red = 0;
-		}
-		else if (cmd[i] == '>')
-		{
-			right_red += 1;
-			if (cmd[i + 1] == '>')
+			redirect = 1;
+			if (cmd[i + 1] == cmd[i])
 				i++;
 		}
-		else if (cmd[i] == '<')
-		{
-			left_red += 1;
-			if (cmd[i + 1] == '<')
-				i++;
-		}
-		if (left_red > 1 || right_red > 1)
-			return (0);
+		else if (cmd[i] != ' ')
+			redirect = 0;
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-int	syntax_check(char *cmd)
+int	ambiguous_redirection(char *cmd, t_env *env)
 {
-	if (quote_check(cmd) && pipe_check(cmd)) // && redirector_check(cmd)
-		return (0);
-	return (1);
+	int		i;
+	int		j;
+	int		ret;
+	char	*key;
+	char	*val;
+
+	i = 0;
+	ret = 0;
+	while (cmd[i] && !ret)
+	{
+		if (cmd[i] == '>' || cmd[i] == '<')
+		{
+			j = i + 1;
+			while (cmd[j] == ' ')
+				j++;
+			if (cmd[j] == '$')
+			{
+				key = get_var_name(&cmd[j]);
+				val = get_key_val(key, env);
+				if (!ft_strlen(val))
+					ret = 1;
+				free(key);
+				free(val);
+			}
+		}
+		i++;
+	}
+	return (ret);
+}
+
+int	syntax_check(char *cmd, t_cont *cont)
+{
+	if (quote_check(cmd))
+	{
+		ft_putstr_fd("Syntax Error: Unclosed Quote or Invalid Character\n", STDERR_FILENO);
+		cont->exit_status = 2;
+		return (-1);
+	}
+	if (pipe_check(cmd))
+	{
+		ft_putstr_fd("Syntax Error: Empty Pipe\n", STDERR_FILENO);
+		cont->exit_status = 2;
+		return (-1);
+	}
+	if (redirector_check(cmd))
+	{
+		ft_putstr_fd("Syntax Error: Empty Redirector\n", STDERR_FILENO);
+		cont->exit_status = 2;
+		return (-1);
+	}
+	if (ambiguous_redirection(cmd, cont->env))
+	{
+		ft_putstr_fd("Syntax Error: Ambiguous Redirector\n", STDERR_FILENO);
+		cont->exit_status = 2;
+		return (-1);
+	}
+	return (0);
 }

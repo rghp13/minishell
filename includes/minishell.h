@@ -79,7 +79,7 @@ void	run_builtin(t_cmd *cmd, t_cont *cont);
 /*
 **SYNTAX.C
 */
-int		syntax_check(char *cmd);
+int		syntax_check(char *cmd, t_cont *cont);
 /*
 **UTILS.C
 */
