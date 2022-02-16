@@ -196,6 +196,7 @@ void	update_pwd_env(t_cont *cont, char *ptr);
 **BUILTIN_EXIT.C
 */
 uint8_t	builtin_exit(char **argv, t_cont *cont);
+uint8_t	exit_error(const char *str);
 /*
 **BUILTIN_ECHO.c
 */
