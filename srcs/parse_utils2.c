@@ -46,32 +46,45 @@ int	has_redirector(char *str)
 
 int	argv_loop(t_cont *cont)
 {
+	int		val;
 	t_cmd	*current;
 
 	current = cont->cmd;
 	while (current)
 	{
-		if (create_argv(current))
+		val = create_argv(current);
+		if (val)
 		{
 			cont->exit_status = 2;
-			return (-1);
+			return (val);
 		}
 		current = current->next;
 	}
 	return (0);
 }
 
-int	free_cmd(t_cmd *cmd)
+int	clear_redirect(t_cmd *cmd, int mode)
 {
-	free(cmd->cmd);
-	if (cmd->arg)
-		ft_free_all_split(cmd->arg);
-	if (cmd->abspath)
-		free(cmd->abspath);
-	if (cmd->input)
-		free(cmd->input);
-	if (cmd->output)
-		free(cmd->output);
-	free(cmd);
+	if (mode == 1 || mode == 0)
+	{
+		if (cmd->input)
+			free(cmd->input);
+		cmd->input = NULL;
+		cmd->input_type = -1;
+	}
+	if (mode == 2 || mode == 0)
+	{
+		if (cmd->output)
+			free(cmd->output);
+		cmd->output = NULL;
+		cmd->output_type = -1;
+	}
+	return (0);
+}
+
+int	is_redirect_separator(char c)
+{
+	if (c == ' ' || c == '>' || c == '<' || c == '\0')
+		return (1);
 	return (0);
 }

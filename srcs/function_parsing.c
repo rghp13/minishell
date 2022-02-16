@@ -21,18 +21,13 @@ int	break_pipes(t_cmd *list)
 	return (0);
 }
 
-int	is_redirect_separator(char c)
-{
-	if (c == ' ' || c == '>' || c == '<' || c == '\0')
-		return (1);
-	return (0);
-}
-
 int	extract_redirector(t_cmd *cmd, int i)
 {
 	int	j;
+	int	fd;
 	int	mode;
 
+	fd = -1;
 	if (cmd->cmd[i] == ' ')
 		return (0);
 	mode = i;
@@ -43,20 +38,29 @@ int	extract_redirector(t_cmd *cmd, int i)
 		j++;
 	if (cmd->cmd[mode] == '>')
 	{
+		clear_redirect(cmd, 2);
 		cmd->output_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
 		if (small_malloc((void **)&cmd->output, sizeof(char) * (j - i)))
 			return (-1);
 		ft_memcpy(cmd->output, &cmd->cmd[i], j - i);
 		cmd->output[j - i] = '\0';
+		fd = open(cmd->output, O_WRONLY | O_CREAT, 0664);
+		if (fd == -1)
+			return (-1);
 	}
 	else if (cmd->cmd[mode] == '<')
 	{
+		clear_redirect(cmd, 1);
 		cmd->input_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
 		if (small_malloc((void **)&cmd->input, sizeof(char) * (j - i)))
 			return (-1);
 		ft_memcpy(cmd->input, &cmd->cmd[i], j - i);
 		cmd->input[j - i] = '\0';
+		fd = open(cmd->input, O_RDONLY, 0664);
+		if (fd == -1)
+			return (-1);
 	}
+	close(fd);
 	return (j - mode);
 }
 
@@ -78,7 +82,7 @@ int	create_argv(t_cmd *cmd)
 		{
 			size = extract_redirector(cmd, i);
 			if (size == -1)
-				printf("Argv error\n");
+				return (-2);
 			j = i;
 			while (cmd->cmd[j + size])
 			{

@@ -236,6 +236,8 @@ void	fd_zero(t_cont *cont);
 void	fd_close(t_cont *cont);
 void	fd_reset(t_cont *cont);
 
+int		is_redirect_separator(char c);
+int		clear_redirect(t_cmd *cmd, int mode);
 int		prepare_redirection(t_cmd *cmd, t_cont *cont);
 int		pipe_execution(t_cmd *cmd, t_cont *cont);
 

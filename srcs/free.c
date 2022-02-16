@@ -50,3 +50,18 @@ void	free_envp(t_env *current, t_env *head)
 	}
 	head = NULL;
 }
+
+int	free_cmd(t_cmd *cmd)
+{
+	free(cmd->cmd);
+	if (cmd->arg)
+		ft_free_all_split(cmd->arg);
+	if (cmd->abspath)
+		free(cmd->abspath);
+	if (cmd->input)
+		free(cmd->input);
+	if (cmd->output)
+		free(cmd->output);
+	free(cmd);
+	return (0);
+}
