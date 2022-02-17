@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   function_parsing.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:25:23 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:36:51 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	break_pipes(t_cmd *list)
@@ -25,9 +37,11 @@ int	extract_redirector(t_cmd *cmd, int i)
 {
 	int	j;
 	int	fd;
+	int	ret;
 	int	mode;
 
 	fd = -1;
+	ret = 0;
 	if (cmd->cmd[i] == ' ')
 		return (0);
 	mode = i;
@@ -37,38 +51,18 @@ int	extract_redirector(t_cmd *cmd, int i)
 	while (cmd->cmd[j] && !is_redirect_separator(cmd->cmd[j]))
 		j++;
 	if (cmd->cmd[mode] == '>')
-	{
-		clear_redirect(cmd, 2);
-		cmd->output_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
-		if (small_malloc((void **)&cmd->output, sizeof(char) * (j - i)))
-			return (-1);
-		ft_memcpy(cmd->output, &cmd->cmd[i], j - i);
-		cmd->output[j - i] = '\0';
-		fd = open(cmd->output, O_WRONLY | O_CREAT, 0664);
-		if (fd == -1)
-			return (-1);
-	}
+		ret = output_extract(cmd, i, j, mode);
 	else if (cmd->cmd[mode] == '<')
-	{
-		clear_redirect(cmd, 1);
-		cmd->input_type = (cmd->cmd[mode] == cmd->cmd[mode + 1]);
-		if (small_malloc((void **)&cmd->input, sizeof(char) * (j - i)))
-			return (-1);
-		ft_memcpy(cmd->input, &cmd->cmd[i], j - i);
-		cmd->input[j - i] = '\0';
-		fd = open(cmd->input, O_RDONLY, 0664);
-		if (fd == -1)
-			return (-1);
-	}
+		ret = input_extract(cmd, i, j, mode);
 	close(fd);
+	if (ret)
+		return (ret);
 	return (j - mode);
 }
 
 int	create_argv(t_cmd *cmd)
 {
 	int		i;
-	int		j;
-	int		size;
 	int		bracket;
 
 	i = 0;
@@ -80,17 +74,9 @@ int	create_argv(t_cmd *cmd)
 		bracket = update_bracket_status(bracket, cmd->cmd[i]);
 		if (!bracket && is_redirect_separator(cmd->cmd[i]))
 		{
-			size = extract_redirector(cmd, i);
-			if (size == -1)
-				return (-2);
-			j = i;
-			while (cmd->cmd[j + size])
-			{
-				cmd->cmd[j] = cmd->cmd[j + size];
-				j++;
-			}
-			cmd->cmd[j] = '\0';
-			i += !size;
+			i = save_and_remove_redirect(cmd, i);
+			if (i < 0)
+				return (i);
 		}
 		else
 			i++;

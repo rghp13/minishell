@@ -34,6 +34,7 @@ SRC_NAME				=		env.c \
 								utils.c \
 								parse_utils1.c \
 								parse_utils2.c \
+								parse_utils3.c \
 								variable_substitution.c \
 								varsub_utils.c \
 								sanitize_argv.c \
@@ -52,7 +53,7 @@ SRC_NAME				=		env.c \
 								builtin_cd.c \
 								builtin_exit.c \
 								builtin_echo.c \
-								managers.c
+								managers.c 
 
 NAME					=		minishell
 OBJ_NAME				=		$(SRC_NAME:.c=.o)

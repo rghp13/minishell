@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:24:10 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:24:12 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 /*
@@ -39,6 +51,17 @@ int	exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont)
 	return (0);
 }
 
+void	child(t_cmd *cmd, t_cont *cont)
+{
+	close(cont->pipefd[0]);
+	if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
+	{
+		perror("shell");
+		exit(err_ret_value(errno, cmd));
+	}
+	exit(EXIT_SUCCESS);
+}
+
 void	exec_cmd(t_cmd *cmd, t_cont *cont)
 {
 	pid_t	pid;
@@ -63,13 +86,5 @@ void	exec_cmd(t_cmd *cmd, t_cont *cont)
 		}
 	}
 	else
-	{
-		close(cont->pipefd[0]);
-		if (execve(cmd->abspath, cmd->arg, cont->envstr) == -1)
-		{
-			perror("shell");
-			exit(err_ret_value(errno, cmd));
-		}
-		exit(EXIT_SUCCESS);
-	}
+		child(cmd, cont);
 }
