@@ -34,7 +34,7 @@ int	pipe_check(char *cmd)
 	pipe = 1;
 	while (cmd[i])
 	{
-		if (cmd[i] == '|' && pipe)
+		if ((cmd[i] == '|') && pipe)
 			return (1);
 		else if (cmd[i] == '|')
 			pipe = 1;
@@ -42,7 +42,7 @@ int	pipe_check(char *cmd)
 			pipe = 0;
 		i++;
 	}
-	return (0);
+	return (pipe && (i != 0));
 }
 
 int	redirector_check(char *cmd)
