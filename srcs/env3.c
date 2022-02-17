@@ -6,16 +6,12 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:03:26 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 19:05:09 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/17 14:20:25 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**don't need update_envstr because it's being made on the next function
-**TEST THIS ONCE YOU CAN DO RELATIVE EXECUTION
-*/
 void	shell_lvl(t_cont *cont)
 {
 	t_env	*hold;
