@@ -22,7 +22,11 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 	if (val)
 	{
 		if (val == -1)
-			ft_putstr_fd("Command not specified\n", STDERR_FILENO);
+		{
+		//	ft_putstr_fd("Command not specified\n", STDERR_FILENO);
+			cont->exit_status = 0;
+			return (-1);
+		}
 		if (val == -2)
 			ft_putstr_fd("File Error\n", STDERR_FILENO);
 		cont->exit_status = 1;
