@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 15:28:11 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 16:36:04 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,17 @@ int	pipe_check(char *cmd)
 {
 	int	i;
 	int	pipe;
+	int	quote;
 
 	i = 0;
 	pipe = 1;
+	quote = 0;
 	while (cmd[i])
 	{
+		quote = update_bracket_status(quote, cmd[i]);
 		if ((cmd[i] == '|') && pipe)
 			return (1);
-		else if (cmd[i] == '|')
+		else if (cmd[i] == '|' && !quote)
 			pipe = 1;
 		else if (cmd[i] != ' ' && cmd[i] != '|')
 			pipe = 0;
@@ -60,15 +63,18 @@ int	pipe_check(char *cmd)
 int	redirector_check(char *cmd)
 {
 	int	i;
+	int	quote;
 	int	redirect;
 
 	i = 0;
+	quote = 0;
 	redirect = 0;
 	while (cmd[i])
 	{
+		quote = update_bracket_status(quote, cmd[i]);
 		if ((cmd[i] == '>' || cmd[i] == '<') && redirect)
 			return (1);
-		if (cmd[i] == '>' || cmd[i] == '<')
+		if ((cmd[i] == '>' || cmd[i] == '<') && !quote)
 		{
 			redirect = 1;
 			if (cmd[i + 1] == cmd[i])
@@ -86,12 +92,14 @@ int	ambiguous_redirection(char *cmd, t_env *env)
 	int		i;
 	int		j;
 	int		ret;
+	int		quote;
 
 	i = 0;
 	ret = 0;
+	quote = 0;
 	while (cmd[i] && !ret)
 	{
-		if (cmd[i] == '>' || cmd[i] == '<')
+		if ((cmd[i] == '>' || cmd[i] == '<') && !quote)
 		{
 			j = i + 1;
 			while (cmd[j] == ' ')
