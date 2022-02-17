@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:25:23 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:36:51 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 19:36:28 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	extract_redirector(t_cmd *cmd, int i)
 {
 	int	j;
 	int	fd;
-	int	ret;
 	int	mode;
 
 	fd = -1;
@@ -51,12 +50,10 @@ int	extract_redirector(t_cmd *cmd, int i)
 	while (cmd->cmd[j] && !is_redirect_separator(cmd->cmd[j]))
 		j++;
 	if (cmd->cmd[mode] == '>')
-		ret = output_extract(cmd, i, j, mode);
+		output_extract(cmd, i, j, mode);
 	else if (cmd->cmd[mode] == '<')
-		ret = input_extract(cmd, i, j, mode);
+		input_extract(cmd, i, j, mode);
 	close(fd);
-	if (ret)
-		return (ret);
 	return (j - mode);
 }
 
@@ -73,11 +70,7 @@ int	create_argv(t_cmd *cmd)
 	{
 		bracket = update_bracket_status(bracket, cmd->cmd[i]);
 		if (!bracket && is_redirect_separator(cmd->cmd[i]))
-		{
 			i = save_and_remove_redirect(cmd, i);
-			if (i < 0)
-				return (i);
-		}
 		else
 			i++;
 	}
