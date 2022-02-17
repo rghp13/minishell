@@ -45,6 +45,7 @@ SRC_NAME				=		env.c \
 								redirection.c \
 								builtin.c \
 								syntax.c \
+								syntax_utils1.c \
 								builtin_export.c \
 								builtin_export2.c \
 								builtin_unset.c \

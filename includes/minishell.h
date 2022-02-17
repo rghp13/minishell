@@ -250,4 +250,6 @@ int		input_extract(t_cmd *cmd, int i, int j, int mode);
 int		save_and_remove_redirect(t_cmd *cmd, int i);
 int		extract_redirector(t_cmd *cmd, int i);
 
+int		check_var_exist(char *cmd, t_env *env, int j);
+
 #endif
