@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   managers.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:45:47 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:45:49 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	parsing_manager(char *parsed_line, t_cont *cont)
@@ -21,15 +33,9 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 	val = argv_loop(cont);
 	if (val)
 	{
-		if (val == -1)
-		{
-		//	ft_putstr_fd("Command not specified\n", STDERR_FILENO);
-			cont->exit_status = 0;
-			return (-1);
-		}
 		if (val == -2)
 			ft_putstr_fd("File Error\n", STDERR_FILENO);
-		cont->exit_status = 1;
+		cont->exit_status = val + 1;
 		return (-1);
 	}
 	return (0);

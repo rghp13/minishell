@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:47:15 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:47:34 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*add_slash_n(char *str)
@@ -22,7 +34,7 @@ int	double_input(t_cmd *cmd)
 	{
 		ret_str = readline("> ");
 		if (!ft_stringcomp(ret_str, cmd->input))
-			break;
+			break ;
 		ret_str = add_slash_n(ret_str);
 		temp = ft_strjoin(final, ret_str);
 		free(final);
@@ -51,9 +63,11 @@ int	prepare_redirection(t_cmd *cmd, t_cont *cont)
 	if (cmd->output_type > -1)
 	{
 		if (cmd->output_type == 0)
-			cont->fd_out = open(cmd->output, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+			cont->fd_out = open(cmd->output, O_WRONLY | \
+			O_TRUNC | O_CREAT, 0664);
 		else if (cmd->output_type == 1)
-			cont->fd_out = open(cmd->output, O_WRONLY | O_APPEND | O_CREAT, 0664);
+			cont->fd_out = open(cmd->output, O_WRONLY | \
+			O_APPEND | O_CREAT, 0664);
 		if (cont->fd_out == -1)
 			return (-2);
 		dup2(cont->fd_out, 1);

@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executils2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:58:43 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:58:56 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	**ret_path_split(t_env *env)
 {
 	char	*bin;
 	char	**split;
+
 	bin = get_key_val("$PATH", env);
 	if (!bin)
 		return (NULL);
@@ -13,6 +26,7 @@ char	**ret_path_split(t_env *env)
 }
 //you are able to /bin/echo when you have no idea where you are
 //
+
 char	*find_relative_path(const char *str, t_cont *cont)
 {
 	char	*hold;

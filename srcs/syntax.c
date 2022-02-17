@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:55:36 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -74,8 +86,6 @@ int	ambiguous_redirection(char *cmd, t_env *env)
 	int		i;
 	int		j;
 	int		ret;
-	char	*key;
-	char	*val;
 
 	i = 0;
 	ret = 0;
@@ -87,14 +97,7 @@ int	ambiguous_redirection(char *cmd, t_env *env)
 			while (cmd[j] == ' ')
 				j++;
 			if (cmd[j] == '$')
-			{
-				key = get_var_name(&cmd[j]);
-				val = get_key_val(key, env);
-				if (!ft_strlen(val))
-					ret = 1;
-				free(key);
-				free(val);
-			}
+				ret = check_var_exist(cmd, env, j);
 		}
 		i++;
 	}
@@ -105,7 +108,8 @@ int	syntax_check(char *cmd, t_cont *cont)
 {
 	if (quote_check(cmd))
 	{
-		ft_putstr_fd("Syntax Error: Unclosed Quote or Invalid Character\n", STDERR_FILENO);
+		ft_putstr_fd("Syntax Error: Unclosed \
+		Quote or Invalid Character\n", STDERR_FILENO);
 		cont->exit_status = 2;
 		return (-1);
 	}
