@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:59:10 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 03:00:51 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 //possibly removing this function
@@ -35,14 +47,14 @@ int	relative_path_bridge(t_cmd *cmd, t_env *env)
 
 int	err_ret_value(int erno, t_cmd *cmd)
 {
-	ft_putnbr_fd(erno, STDERR_FILENO);//eventually
-	ft_putchar_fd('\n', STDERR_FILENO);//remove this 
-	if (cmd->abspath == NULL && access(cmd->arg[0], F_OK) == 0)//exists but not on path
+	ft_putnbr_fd(erno, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	if (cmd->abspath == NULL && access(cmd->arg[0], F_OK) == 0)
 	{
-		if (access(cmd->arg[0], X_OK))//no exec permission
+		if (access(cmd->arg[0], X_OK))
 			return (126);
 	}
-	if (cmd->abspath == NULL)//cmd not found
+	if (cmd->abspath == NULL)
 		return (127);
 	if (erno == 13)
 		return (126);
