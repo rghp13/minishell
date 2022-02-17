@@ -110,7 +110,6 @@ int		merge_path_name(char **path, const char *name);
 **EXECUTILS.C
 */
 int		exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont);
-char	*get_home_path(const char *str, t_cont *cont);
 int		relative_path_bridge(t_cmd *cmd, t_env *env);
 int		err_ret_value(int erno, t_cmd *cmd);
 void	error_status(t_cont *cont);

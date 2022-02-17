@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:58:07 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 19:00:29 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/17 03:51:22 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 **only triggers if no argument
 */
