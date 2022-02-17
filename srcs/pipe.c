@@ -34,9 +34,11 @@ int	pipe_end(t_cmd *cmd, t_cont *cont)
 	if (prepare_redirection(cmd, cont))
 		return (-2);
 	exec_bultin_bin_bridge(cmd, cont);
+	cont->child_pid = 1;
 	fd_reset(cont);
 	while (wait(NULL) > 0)
 		;
+	cont->child_pid = 0;
 	return (0);
 }
 
