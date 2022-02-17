@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   variable_substitution.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 02:56:04 by dimitriscr        #+#    #+#             */
+/*   Updated: 2022/02/17 02:56:56 by dimitriscr       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*var_special_case(int num)
@@ -20,7 +32,7 @@ char	*var_special_case(int num)
 	return (retstr);
 }
 
-char	*get_var_name(char *var_start)
+char	*get_var_name(char *v_s)
 {
 	int		i;
 	int		j;
@@ -28,23 +40,21 @@ char	*get_var_name(char *var_start)
 
 	i = 0;
 	j = 1;
-	if (!var_start)
+	if (!v_s)
 		return (NULL);
-	if (var_start[0] == '$' && var_start[1] == '$')
+	if (v_s[0] == '$' && v_s[1] == '$')
 		return (var_special_case(1));
-	if (var_start[0] == '$' && var_start[1] == '?')
+	if (v_s[0] == '$' && v_s[1] == '?')
 		return (var_special_case(2));
-	while (var_start[0] == '$' && (ft_isalnum(var_start[j]) \
-	|| var_start[j] == '_'))
+	while (v_s[0] == '$' && (ft_isalnum(v_s[j]) || v_s[j] == '_'))
 		j++;
-	while (var_start[0] == '~' && var_start[j] != '/' \
-	&& var_start[j] != ' ' && var_start[j] != '\0')
+	while (v_s[0] == '~' && v_s[j] != '/' && v_s[j] != ' ' && v_s[j] != '\0')
 		j++;
 	if (small_malloc((void **)&retstr, sizeof(char) * ((j - i) + 1)))
 		return (NULL);
 	while (i < j)
 	{
-		retstr[i] = var_start[i];
+		retstr[i] = v_s[i];
 		i++;
 	}
 	retstr[i] = '\0';
