@@ -6,17 +6,11 @@
 /*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:10:29 by rponsonn          #+#    #+#             */
-/*   Updated: 2022/02/15 19:10:30 by rponsonn         ###   ########.fr       */
+/*   Updated: 2022/02/17 14:19:38 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//void	main_free(void)
-//{
-//	call function to free your struct in a safe way here
-//	free_env_strct() etc...
-//}
 
 /*
 **if you only want to clear an unattached link in the env chain put it in current

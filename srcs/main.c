@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rponsonn <rponsonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:44:29 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:44:31 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 14:19:21 by rponsonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-**ERRORS NEED TO GO TO STDERR, TRACK SHELL LVL, IMPLEMENT HISTORY, 
-**'' not disappearing in echo, -n flag being printed
-**bash should say "home not set"
-**$SHELL might need to say minishell
-**shell should error out if no environment
-**typing a command then pressing CTRL+D twice executes it (shouldn't happen)
-**implement ~/ execution
-**test what happens with ~/ if it's after a pipe
-**"hi.txt" ctrl+d
-*/
 
 int	initialize_main_struct(t_cont *cont, char **envp, struct termios *original)
 {
