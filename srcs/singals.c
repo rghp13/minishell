@@ -28,7 +28,7 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 	}
 	else if (signal == SIGQUIT && !cont->child_pid)
 		return (0);
-	else if (signal == SIGINT || signal == SIGQUIT)
-		kill(cont->child_pid, signal);
+	// else if (signal == SIGINT || signal == SIGQUIT)
+	// 	kill(cont->child_pid, signal);
 	return (0);
 }
