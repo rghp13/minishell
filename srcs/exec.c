@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:24:10 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:24:12 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 17:07:59 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,10 @@ int	exec_main(t_cont *cont)
 
 int	exec_bultin_bin_bridge(t_cmd *cmd, t_cont *cont)
 {
-	struct termios	t;
-
-	tcgetattr(0, &t);
-	t.c_cc[VQUIT] = 034;
-	tcsetattr(0, TCSANOW, &t);
 	if (check_builtin(cmd->arg[0]) == 1)
 		run_builtin(cmd, cont);
 	else
 		exec_cmd(cmd, cont);
-	tcgetattr(0, &t);
-	t.c_cc[VQUIT] = 0;
-	tcsetattr(0, TCSANOW, &t);
 	return (0);
 }
 

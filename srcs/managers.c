@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:45:47 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 15:22:39 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 17:08:16 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 
 int	execution_manager(t_cont *cont)
 {
-	int	value;
+	int				value;
+	struct termios	t;
 
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 034;
+	tcsetattr(0, TCSANOW, &t);
 	value = exec_main(cont);
-	while (wait(NULL) > 0)
-		;
+	tcgetattr(0, &t);
+	t.c_cc[VQUIT] = 0;
+	tcsetattr(0, TCSANOW, &t);
 	if (value == -1)
 	{
 		ft_putstr_fd(EXECERR, STDERR_FILENO);
