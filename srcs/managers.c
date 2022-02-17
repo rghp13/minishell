@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:45:47 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 14:38:15 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 15:22:39 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 	{
 		if (val == -2)
 			ft_putstr_fd(FILEERR, STDERR_FILENO);
-		cont->exit_status = val + 1;
+		cont->exit_status = 1;
 		return (-1);
 	}
 	return (0);
