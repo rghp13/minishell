@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_int.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:23:44 by marvin            #+#    #+#             */
-/*   Updated: 2021/09/20 11:35:37 by dscriabi         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:31:33 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static int	ft_print_int_help(int i, int i_i, int reverse, t_flags flags)
 		int_str = ft_strdup("2147483648");
 	}
 	else if (reverse)
-		int_str = ft_itoa(i_i *= -1);
+	{
+		i_i *= -1;
+		int_str = ft_itoa(i_i);
+	}
 	else
 		int_str = ft_itoa(i_i);
 	index += ft_int_width_prec(int_str, i, flags);
