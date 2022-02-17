@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 14:36:31 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 15:28:11 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	syntax_check(char *cmd, t_cont *cont)
 	if (ambiguous_redirection(cmd, cont->env))
 	{
 		ft_putstr_fd(EMBRED, STDERR_FILENO);
-		cont->exit_status = 2;
+		cont->exit_status = 1;
 		return (-1);
 	}
 	return (0);
