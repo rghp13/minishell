@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dscriabi <dscriabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:15:49 by dscriabi          #+#    #+#             */
-/*   Updated: 2022/01/24 16:58:34 by dscriabi         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:30:35 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*get_next_line(int fd)
 	while (!has_slash_n(prev_chars) && chars_read)
 	{
 		chars_read = read(fd, buffer, GNL_BUFFER_SIZE);
-		if (chars_read == -1 || (!has_slash_n(buffer) && chars_read < GNL_BUFFER_SIZE))
+		if (chars_read == -1)
 		{
 			free(buffer);
 			return (NULL);
