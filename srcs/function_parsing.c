@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:25:23 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 19:36:28 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 19:37:19 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	extract_redirector(t_cmd *cmd, int i)
 	int	mode;
 
 	fd = -1;
-	ret = 0;
 	if (cmd->cmd[i] == ' ')
 		return (0);
 	mode = i;
