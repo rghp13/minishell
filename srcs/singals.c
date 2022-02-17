@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:47:56 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 16:45:03 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 17:03:29 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	signal_redirector(t_cont *ptr, int signal, int mode)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		cont->exit_status = 130;
 	}
 	else if (signal == SIGQUIT && !cont->child_pid)
 		return (0);
