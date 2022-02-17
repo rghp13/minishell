@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 16:36:04 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 17:21:49 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	redirector_check(char *cmd)
 			redirect = 0;
 		i++;
 	}
-	return (0);
+	return (redirect);
 }
 
 int	ambiguous_redirection(char *cmd, t_env *env)
