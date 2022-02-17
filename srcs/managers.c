@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:45:47 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:45:49 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 14:38:15 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 		return (-1);
 	if (parse_command(parsed_line, &cont->cmd))
 	{
-		ft_putstr_fd("Parsing Error\n", STDERR_FILENO);
+		ft_putstr_fd(PARSEERR, STDERR_FILENO);
 		cont->exit_status = 1;
 		return (-1);
 	}
 	if (substitute_variables(cont))
 	{
-		ft_putstr_fd("Variable Error\n", STDERR_FILENO);
+		ft_putstr_fd(VARERR, STDERR_FILENO);
 		cont->exit_status = 1;
 		return (-1);
 	}
@@ -34,7 +34,7 @@ int	parsing_manager(char *parsed_line, t_cont *cont)
 	if (val)
 	{
 		if (val == -2)
-			ft_putstr_fd("File Error\n", STDERR_FILENO);
+			ft_putstr_fd(FILEERR, STDERR_FILENO);
 		cont->exit_status = val + 1;
 		return (-1);
 	}
@@ -50,12 +50,12 @@ int	execution_manager(t_cont *cont)
 		;
 	if (value == -1)
 	{
-		ft_putstr_fd("Execution Error\n", STDERR_FILENO);
+		ft_putstr_fd(EXECERR, STDERR_FILENO);
 		cont->exit_status = 1;
 	}
 	else if (value == -2)
 	{
-		ft_putstr_fd("File Error\n", STDERR_FILENO);
+		ft_putstr_fd(FILEERR, STDERR_FILENO);
 		cont->exit_status = 1;
 	}
 	fd_close(cont);

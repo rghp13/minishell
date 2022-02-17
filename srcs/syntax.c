@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 14:32:38 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 14:36:31 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,19 +114,19 @@ int	syntax_check(char *cmd, t_cont *cont)
 	}
 	if (pipe_check(cmd))
 	{
-		ft_putstr_fd("Syntax Error: Empty Pipe\n", STDERR_FILENO);
+		ft_putstr_fd(EMPTYPIPE, STDERR_FILENO);
 		cont->exit_status = 2;
 		return (-1);
 	}
 	if (redirector_check(cmd))
 	{
-		ft_putstr_fd("Syntax Error: Empty Redirector\n", STDERR_FILENO);
+		ft_putstr_fd(EMPTYRED, STDERR_FILENO);
 		cont->exit_status = 2;
 		return (-1);
 	}
 	if (ambiguous_redirection(cmd, cont->env))
 	{
-		ft_putstr_fd("Syntax Error: Ambiguous Redirector\n", STDERR_FILENO);
+		ft_putstr_fd(EMBRED, STDERR_FILENO);
 		cont->exit_status = 2;
 		return (-1);
 	}

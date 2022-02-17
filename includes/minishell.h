@@ -25,6 +25,13 @@
 # define ER1 "ERROR: SHELL MISSING ENV VARIABLES"
 # define ERMEM "ERROR: MALLOC FAILED"
 # define INVACHAR "Syntax Error: Unclosed Quote or Invalid Character\n"
+# define EMPTYPIPE "Syntax Error: Empty Pipe\n"
+# define EMPTYRED "Syntax Error: Empty Redirector\n"
+# define EMBRED "Syntax Error: Ambiguous Redirector\n"
+# define PARSEERR "Parsing Error\n"
+# define VARERR "Variable Error\n"
+# define FILEERR "File Error\n"
+# define EXECERR "Execution Error\n"
 
 typedef struct s_cmd
 {
