@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:25:49 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:43:08 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 19:25:46 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	output_extract(t_cmd *cmd, int i, int j, int mode)
 	fd = open(cmd->output, O_WRONLY | O_CREAT, 0664);
 	if (fd == -1)
 		return (-1);
+	remove_brackets(cmd->output);
 	return (0);
 }
 
@@ -45,6 +46,7 @@ int	input_extract(t_cmd *cmd, int i, int j, int mode)
 		fd = open(cmd->input, O_RDONLY, 0664);
 		if (fd == -1)
 			return (-1);
+		remove_brackets(cmd->input);
 	}
 	return (0);
 }
