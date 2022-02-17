@@ -24,6 +24,7 @@
 # include <stdint.h>//added for int to void* conversion in exec.c
 # define ER1 "ERROR: SHELL MISSING ENV VARIABLES"
 # define ERMEM "ERROR: MALLOC FAILED"
+# define INVACHAR "Syntax Error: Unclosed Quote or Invalid Character\n"
 
 typedef struct s_cmd
 {

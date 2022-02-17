@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:55:35 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:55:36 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 14:32:38 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	syntax_check(char *cmd, t_cont *cont)
 {
 	if (quote_check(cmd))
 	{
-		ft_putstr_fd("Syntax Error: Unclosed \
-		Quote or Invalid Character\n", STDERR_FILENO);
+		ft_putstr_fd(INVACHAR, STDERR_FILENO);
 		cont->exit_status = 2;
 		return (-1);
 	}
