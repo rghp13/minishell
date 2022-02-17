@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:47:44 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:47:45 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 16:58:11 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	remove_brackets(char *arg)
 	{
 		if (bracket != update_bracket_status(bracket, arg[i]) || arg[i] == '\b')
 		{
+			bracket = update_bracket_status(bracket, arg[i]);
 			j = i;
 			while (arg[j + 1])
 			{
@@ -31,7 +32,6 @@ void	remove_brackets(char *arg)
 				j++;
 			}
 			arg[j] = '\0';
-			bracket = update_bracket_status(bracket, arg[i]);
 		}
 		else
 		{

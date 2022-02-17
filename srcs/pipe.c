@@ -6,7 +6,7 @@
 /*   By: dimitriscr <dimitriscr@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 02:46:38 by dimitriscr        #+#    #+#             */
-/*   Updated: 2022/02/17 02:46:44 by dimitriscr       ###   ########.fr       */
+/*   Updated: 2022/02/17 16:40:50 by dimitriscr       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	pipe_end(t_cmd *cmd, t_cont *cont)
 	if (prepare_redirection(cmd, cont))
 		return (-2);
 	exec_bultin_bin_bridge(cmd, cont);
-	cont->child_pid = 1;
+	cont->child_pid = -1;
 	fd_reset(cont);
 	while (wait(NULL) > 0)
 		;
